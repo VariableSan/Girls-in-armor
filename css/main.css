@@ -785,10 +785,16 @@ template {
   position: absolute;
   top: 0;
   right: 0;
+  color: #122;
+  font-size: 45px;
   cursor: pointer;
   z-index: 1;
-  -webkit-transform: scale(2.5) translateX(-5px) translateY(3px);
-  transform: scale(2.5) translateX(-5px) translateY(3px);
+  -webkit-transform: translateX(-5px) translateY(-5px);
+  transform: translateX(-5px) translateY(-5px);
+}
+
+.description__close-button:hover {
+  color: #244;
 }
 
 .description_flex {

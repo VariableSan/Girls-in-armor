@@ -15,9 +15,13 @@
 		position: absolute
 		top: 0
 		right: 0
+		color: $text-color
+		font-size: 45px
 		cursor: pointer
 		z-index: 1
-		transform: scale(2.5) translateX(-5px) translateY(3px)
+		transform: translateX(-5px) translateY(-5px)
+		&:hover
+			color: lighten($text-color, 10)
 	&_flex
 		+row-flex()
 	&__item
