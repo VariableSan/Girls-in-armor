@@ -1,0 +1,60 @@
+.choice
+	&-block
+		display: flex
+		height: 75vh
+		+sm(flex-direction, column)
+	&__flexslider
+		position: relative
+		display: flex
+		align-items: center
+		justify-content: center
+		flex-basis: calc(100% / 6)
+		border: 1px solid #fff
+		border-radius: 6px
+		overflow: hidden
+		cursor: pointer
+		transition: all 1.5s
+		&::before
+			content: ''
+			width: 100%
+			height: 100%
+			background-color: rgba(#000, 0.8)
+			opacity: 0
+			transition: all 1.0s
+		&:hover
+			flex-basis: 100%
+			&::before
+				opacity: 1
+			.choice__discover
+				opacity: 1
+				&::after
+					animation: expandLeftToRight 2s ease-in-out infinite, diffBgColor 4s ease-in infinite
+		@for $i from 1 through 6
+			&-#{$i}
+				background: url('../img/choice/#{$i}.jpg') 50% 10% no-repeat
+				background-size: auto
+				+sm(background-size, cover)
+		&-1
+			background-position: 50% 30%
+		&-2
+			background-position: 55% 10%
+		&-3
+			background-position: 45% 20%
+		&-5
+			background-position: 65% 30%
+		&-6
+			background-position: 40% 10%
+			
+	&__discover
+		position: absolute
+		opacity: 0
+		font-size: 18px
+		font-weight: 900
+		color: #fff
+		transition: 0.3s
+		&::after
+			position: absolute
+			bottom: 0
+			content: ''
+			height: 2px
+			transform: translateY(5px)

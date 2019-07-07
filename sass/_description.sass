@@ -1,0 +1,95 @@
+.description
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	height: 100vh
+	background-color: rgba(#000, 0.8)
+	opacity: 0
+	z-index: -1
+	&-block
+		position: relative
+		height: 100vh
+		background-color: #fff
+	&__close-button
+		position: absolute
+		top: 0
+		right: 0
+		cursor: pointer
+		z-index: 1
+		transform: scale(2.5) translateX(-5px) translateY(3px)
+	&_flex
+		+row-flex()
+	&__item
+		padding: 30px 0
+	&__image
+		max-width: 190px
+		height: 80vh
+		border-radius: 200px
+		overflow: hidden
+		box-shadow: 4px 4px 13px 2px $shadow-color
+		+md(max-width, 130px)
+		+sm-block()
+			max-width: 340px
+			margin-bottom: 30px
+			box-shadow: 1px 1px 5px 1px $shadow-color
+			height: 10vh
+		+xs-block()
+			max-width: 240px
+		&-1
+			transform: scale(2.5) translateY(55px) translateX(-15px)
+			+md(transform, scale(4) translateY(55px) translateX(-5px))
+			+sm(transform, scale(3.0) translateY(45px) translateX(-15px))
+			+xs(transform, scale(2.5) translateY(15px) translateX(-15px))
+		&-2
+			transform: scale(2.5) translateY(60px) translateX(-5px)
+			+md(transform, scale(3) translateY(50px) translateX(-5px))
+			+sm(transform, scale(2.5) translateY(54px) translateX(-5px))
+			+xs(transform, scale(2.5) translateY(40px) translateX(-5px))
+		&-3
+			transform: scale(6.5) translateY(35px) translateX(5px) rotate(15deg)
+			+md(transform, scale(8.5) translateY(25px) translateX(5px) rotate(15deg))
+			+sm(transform, scale(9) translatey(37px) translateX(35px) rotate(-10deg))
+			+xs(transform, scale(6.5) translateY(32px) translateX(5px) rotate(15deg))
+		&-4
+			transform: scale(2) translateY(60px) translateX(0px)
+			+md(transform, scale(3) translateY(60px) translateX(0px))
+			+sm(transform, scale(2) translateY(40px) translateX(0px))
+		&-5
+			transform: scale(3) translateY(50px) translateX(-20px)
+			+md(transform, scale(5) translateY(40px) translateX(-20px))
+			+sm(transform, scale(3) translateY(25px) translateX(-50px))
+		&-6
+			transform: scale(1.7) translateY(60px) translateX(15px)
+			+md(transform, scale(2.5) translateY(60px) translateX(15px))
+			+sm(transform, scale(1.7) translateY(25px) translateX(15px))
+		
+	&__text
+		+size(8)
+		+size-md(9)
+	&__lists
+		padding: 0 16px
+		+md(padding, 0)
+		&__info
+			padding: 0 16px
+			&:not(:last-child)
+				border-right: 1px solid rgba($text-color, 0.2)
+				+md(border, none)
+	&__list
+		list-style: none
+	.arrows__left, .arrows__right
+		position: absolute
+		top: 50%
+	.arrows__left
+		left: 0
+		margin-left: 10px
+	.arrows__right
+		right: 0
+		margin-right: 10px
+
+	.slick-slide
+		display: flex
+		flex-wrap: wrap
+		justify-content: space-around
+		align-items: center
+		outline: none

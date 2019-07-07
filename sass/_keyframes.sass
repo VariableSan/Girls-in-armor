@@ -1,0 +1,69 @@
+@keyframes toBlack
+	from
+		background-color: rgba(0,0,0,0.1)
+	to
+		background-color: rgba(0,0,0,0.6)
+
+@keyframes fade
+	from
+		background-color: none
+	to
+		background-color: rgba(#fff, 0.5)
+
+@keyframes fadeText
+	from
+		opacity: 0
+	to
+		opacity: 1
+
+@keyframes expand
+	from
+		width: 0%
+	to
+		width: 100%
+
+
+// @keyframes expandLeftToRight
+// 	from
+// 		width: 0
+// 		left: 0
+// 	to
+// 		width: 100%
+
+// @keyframes expandRightToLeft
+// 	from
+// 		width: 0
+// 		right: 0
+// 	to
+// 		width: 100%
+// 		right: 0
+
+
+@keyframes expandLeftToRight
+	0%
+		left: 0
+		width: 0
+	50%
+		width: 100%
+	100%
+		right: 0
+		width: 0
+
+
+@keyframes expandRightToLeft
+	0%
+		right: 0
+		width: 0
+	50%
+		width: 100%
+	100%
+		left: 0
+		width: 0
+
+@keyframes diffBgColor
+	0%
+		background-color: $underline-color-before
+	// 50%
+		// background-color: $underline-color-after
+	80%
+		background-color: $underline-color-after
