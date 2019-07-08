@@ -95,6 +95,7 @@ $(document).ready(function() {
   var description = $('#description');
   var descSlider =$('#descSlider');
   var descCloseBtn = $('#descCloseBtn');
+	var descriptionBlock = $('#descBlock');
 
   tapItem.on('click', function() {
   	var initialslide = $(this).attr('id');
@@ -113,13 +114,21 @@ $(document).ready(function() {
   });
 
  	$(document).mouseup(function(event) {
-  	var descriptionBlock = $('#descBlock');
   	if(!descriptionBlock.is(event.target) && descriptionBlock.has(event.target).length === 0 || descCloseBtn.is(event.target)){
 	  	description.removeClass('modal_shown');
 	  	descSlider.slick('unslick');
 	  	$('html').removeClass('stop-scrolling');
   	}
   });
+
+ 	$(document).keyup(function(event) {
+ 		if(event.which == 27){
+ 			description.removeClass('modal_shown');
+ 			descSlider.slick('unslick');
+ 			$('html').removeClass('stop-scrolling');
+ 		}
+ 	});
+
 
 
   /**
