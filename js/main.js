@@ -93,6 +93,7 @@ $(document).ready(function() {
   tapItem.on('click', function() {
   	var initialslide = $(this).attr('id');
   	description.addClass('modal_shown');
+  	$('html').addClass('stop-scrolling');
 
 		descSlider.slick({
 			dots: true,
@@ -110,6 +111,7 @@ $(document).ready(function() {
   	if(!descriptionBlock.is(event.target) && descriptionBlock.has(event.target).length === 0 || descCloseBtn.is(event.target)){
 	  	description.removeClass('modal_shown');
 	  	descSlider.slick('unslick');
+	  	$('html').removeClass('stop-scrolling');
   	}
   });
 

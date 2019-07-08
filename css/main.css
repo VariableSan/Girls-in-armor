@@ -1317,3 +1317,8 @@ body {
   opacity: 1;
   z-index: 9999;
 }
+
+.stop-scrolling {
+  max-width: 100%;
+  overflow: hidden;
+}
