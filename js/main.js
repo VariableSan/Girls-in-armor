@@ -115,7 +115,7 @@ $(document).ready(function() {
 
 
   /**
-   * 
+   * при нажатии на изображение в introImage она увеличивается
    */
   var introImage = $('div[id^=introImage]');
   introImage.magnificPopup({
@@ -142,8 +142,7 @@ $(document).ready(function() {
 
 
 	/**
-	 * Shows header when scrolling up
-	 * @type {Boolean}
+	 * Shows and hides header when scrolling up
 	 */
 	var mainHeader = $('.cd-auto-hide-header'),
 		belowNavHeroContent = $('.sub-nav-hero'),
