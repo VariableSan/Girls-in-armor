@@ -1,5 +1,6 @@
 $(window).on('load', function() {
-	$('.preloader').delay(2000).fadeOut('slow');
+	$('.preloader').fadeOut('slow');
+	$('html').removeClass('stop-scrolling');
 });
 
 $(document).ready(function() {
