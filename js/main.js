@@ -137,7 +137,15 @@ $(document).ready(function() {
 		      return openerElement.is('img') ? openerElement : openerElement.find('img');
 		    }
 		  }
-});
+	});
+
+
+  /**
+   * при нажатии на изображение в intro__image скрывается хедер
+   */
+	introImage.on('click', function() {
+		mainHeader.addClass('is-hidden');
+	});
   
 
 
@@ -184,7 +192,7 @@ $(document).ready(function() {
 	    if (previousTop - currentTop > scrollDelta) {
 	    	//if scrolling up...
 	    	mainHeader.removeClass('is-hidden');
-	    } else if( currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
+	    } else if( currentTop - previousTop > scrollDelta && currentTop > scrollOffset ) {
 	    	//if scrolling down...
 	    	mainHeader.addClass('is-hidden');
 	    }
