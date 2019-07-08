@@ -95,6 +95,7 @@ $(document).ready(function() {
   var description = $('#description');
   var descSlider =$('#descSlider');
   var descCloseBtn = $('#descCloseBtn');
+
   tapItem.on('click', function() {
   	var initialslide = $(this).attr('id');
   	description.addClass('modal_shown');
@@ -122,7 +123,7 @@ $(document).ready(function() {
 
 
   /**
-   * при нажатии на изображение в introImage она увеличивается
+   * при нажатии на изображение в introImage оно увеличивается
    */
   var introImage = $('div[id^=introImage]');
   introImage.magnificPopup({

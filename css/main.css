@@ -718,6 +718,7 @@ template {
   box-shadow: 1px 0px 5px #000;
   overflow: hidden;
   cursor: pointer;
+  outline: none;
 }
 
 @media screen and (max-width: 720px) {
