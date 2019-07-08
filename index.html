@@ -10,6 +10,9 @@
 		<title>Girls in armor</title>
 
 
+		<!-- Preloader css -->
+		<link rel="stylesheet" href="css/preloader.css">
+
 		<!-- Animate css -->
 		<link rel="stylesheet" href="css/animate.min.css">
 
@@ -34,6 +37,10 @@
 	</head>
 
 	<body>
+		<div class="preloader">
+			<div><img src="img/preloader.svg" alt="preloader"></div>
+		</div>
+
 		<header class="cd-auto-hide-header header">
 		   <div class="container">
 		   	<div class="row header-block">
@@ -734,12 +741,12 @@
 
 
 
-		<section class="section choice wow fadeIn" id="choice" data-wow-delay="1s">
+		<section class="section choice" id="choice">
 			<div class="container">
 				<div class="choice-block__text">
 					<h2 class="title choice__title">Выбор</h2>
 					<!-- /.choice__title -->
-					<div class="choice-block">
+					<div class="choice-block wow fadeIn" data-wow-delay="0.5s">
 						<div class="choice__flexslider choice__flexslider-1" id="0"><span class="choice__discover">Подробнее</span></div>
 						<!-- /.choice__flexslider choice__flexslider-1 -->
 						<div class="choice__flexslider choice__flexslider-2" id="1"><span class="choice__discover">Подробнее</span></div>

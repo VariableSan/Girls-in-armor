@@ -1,3 +1,7 @@
+$(window).on('load', function() {
+	$('.preloader').delay(2000).fadeOut('slow');
+});
+
 $(document).ready(function() {
 	/**
 	 * Slick Slider in hero section
