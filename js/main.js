@@ -140,6 +140,7 @@ $(document).ready(function() {
 		type: 'image',
 		  mainClass: 'mfp-with-zoom',
 		  zoom: {
+		  	cursor: 'mfp-zoom-out-cur',
 		    enabled: true, 
 		    duration: 0,
 		    easing: 'ease-in-out',
