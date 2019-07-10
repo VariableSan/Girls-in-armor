@@ -11,6 +11,7 @@
 		position: relative
 		height: 100vh
 		background-color: #fff
+		overflow-y: auto
 	&__close-button
 		position: absolute
 		top: 0
@@ -27,6 +28,7 @@
 	&__item
 		padding: 30px 0
 	&__image
+		+col()
 		max-width: 190px
 		height: 80vh
 		border-radius: 200px
@@ -69,18 +71,19 @@
 			+sm(transform, scale(1.7) translateY(25px) translateX(15px))
 		
 	&__text
-		+size(8)
-		+size-md(9)
+		+col()
+		+size(9)
+		+size-sm(12)
 	&__lists
 		padding: 0 16px
 		+md(padding, 0)
 		&__info
 			padding: 0 16px
-			&:not(:last-child)
-				border-right: 1px solid rgba($text-color, 0.2)
-				+md(border, none)
 	&__list
+		font-weight: 900
 		list-style: none
+		span
+			font-weight: 500
 	.arrows__left, .arrows__right
 		position: absolute
 		top: 50%
@@ -94,6 +97,6 @@
 	.slick-slide
 		display: flex
 		flex-wrap: wrap
-		justify-content: space-around
+		justify-content: center
 		align-items: center
 		outline: none
