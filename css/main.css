@@ -1223,6 +1223,146 @@ template {
   transform: translateY(5px);
 }
 
+.footer {
+  background-color: #101010;
+  color: #fff;
+}
+
+.footer-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 50px 0;
+}
+
+.footer__title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.footer__lists {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.footer__about {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-right: 1px dashed #fff;
+  width: calc(50% - 30px);
+}
+
+@media screen and (max-width: 720px) {
+  .footer__about {
+    width: calc(100% - 30px);
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .footer__about {
+    margin-bottom: 25px;
+    padding: 25px 0;
+    border-right: 0;
+    border-bottom: 1px dashed #fff;
+    border-top: 1px dashed #fff;
+  }
+}
+
+.footer__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 720px) {
+  .footer__info {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+.footer__info__img {
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+  border-radius: 50px;
+}
+
+.footer__info__txt {
+  max-width: 360px;
+}
+
+@media screen and (max-width: 992px) {
+  .footer__item {
+    margin-bottom: 30px;
+  }
+}
+
+.footer__references {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: calc(50% - 30px);
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 720px) {
+  .footer__references {
+    width: calc(100% - 30px);
+  }
+}
+
+.footer__link {
+  text-decoration: none;
+  color: #b5b5b5;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 992px) {
+  .footer__list {
+    margin-bottom: 5px;
+  }
+}
+
+.footer__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.project-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+}
+
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
