@@ -104,6 +104,7 @@ $(document).ready(function() {
 
 		descSlider.slick({
 			dots: true,
+			adaptiveHeight: true,
 			waitForAnimate: false,
 			initialSlide: parseInt(initialslide),
 			speed: 700,
