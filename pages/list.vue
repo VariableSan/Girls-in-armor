@@ -1,12 +1,9 @@
 <template lang="pug">
 	v-container
-		v-btn(@click='getWaifus') Получить всех вайфу
+		v-btn(@click='getWaifus') Get all waifus
 
-		v-list(  )
-			v-list-item(v-for='(waifu, index) in waifus' :key='index')
-				v-item {{ waifu.name }}
-				
-			
+		v-list-item-content
+			v-list-item-title(v-for='(waifu, index) in waifus' :key='index') {{ waifu.name }}
 </template>
 
 <script>

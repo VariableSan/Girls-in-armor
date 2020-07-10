@@ -37,27 +37,31 @@ app.use(bodyParser.urlencoded({ extended: true }))
 /*==================== EXPRESS CONFIGS END====================*/
 
 /*==================== ROUTES START====================*/
-app.get('/list', async (req, res) => {
-	const waifus = await WaifusModel.find()
+	/*==================== list route START====================*/
+	app.get('/list', async (req, res) => {
+		const waifus = await WaifusModel.find()
 
-	res.json(waifus)
-})
-
-app.post('/add', async (req, res) => {
-	const waifus = new WaifusModel({
-		name: req.body.name,
-		imgUrl: req.body.imgUrl,
-		description: req.body.description
+		res.json(waifus)
 	})
+	/*==================== list route END====================*/
 
-	try {
-		await waifus.save()
-		res.send('saved')
-	} catch (error) {
-		console.log(error)
-		res.send('some errors')
-	}
-})
+	/*==================== add route START====================*/
+	app.post('/add', async (req, res) => {
+		const waifus = new WaifusModel({
+			name: req.body.name,
+			imgUrl: req.body.imgUrl,
+			description: req.body.description
+		})
+
+		try {
+			await waifus.save()
+			res.sendStatus(200)
+		} catch (error) {
+			console.log(error)
+			res.sendStatus(500)
+		}
+	})
+	/*==================== add route END====================*/
 /*==================== ROUTES END====================*/
 
 module.exports = {

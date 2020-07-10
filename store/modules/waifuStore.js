@@ -10,7 +10,7 @@ export default {
 	},
 
 	mutations: {
-		setWaifuList({ state }, payload) {
+		setWaifuList(state, payload) {
 			state.waifuList = payload
 		}
 	},
@@ -20,8 +20,7 @@ export default {
 			try {
 				this.$axios.$get('/api/list')
 				.then(response => {
-					console.log(response)
-					// commit('setWaifuList', response)
+					commit('setWaifuList', response)
 				})
 				.catch(error => console.log(error))
 			} catch (error) {

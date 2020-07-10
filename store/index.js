@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import waifuStore from './modules/waifuStore'
 import linkStore from './modules/linkStore'
 import drawer from './modules/drawer'
+import loading from './modules/loading'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,8 @@ const store = () => new Vuex.Store({
 	modules: {
 		waifuStore,
 		linkStore,
-		drawer
+		drawer,
+		loading
 	}
 })
 
