@@ -1,11 +1,24 @@
 <template lang="pug">
    div
-      nuxt   
+      main-header
+      main-drawer
+      v-main
+         nuxt
+      main-footer
 </template>
 
 <script>
-export default {
+import header from '@/components/header'
+import footer from '@/components/footer'
+import drawer from '@/components/drawer'
 
+
+export default {
+   components: {
+      mainHeader: header,
+      mainFooter: footer,
+      mainDrawer: drawer
+   }
 }
 </script>
 

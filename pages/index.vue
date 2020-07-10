@@ -9,6 +9,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="sass" scoped>
+@import '~/assets/_smart-grid'
 
+.test
+	+sm-block()
+		display: none
 </style>

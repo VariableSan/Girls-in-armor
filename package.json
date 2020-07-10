@@ -13,18 +13,20 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
-    "nuxt": "^2.13.0"
+    "mongoose": "^5.9.22",
+    "nuxt": "^2.13.3"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.2.0",
+    "eslint": "^7.4.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.1",
     "pug": "^3.0.0",
-    "pug-plain-loader": "^1.0.0"
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "7.3.1",
+    "smart-grid": "^2.1.2"
   }
 }

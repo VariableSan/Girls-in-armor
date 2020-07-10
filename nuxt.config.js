@@ -24,13 +24,23 @@ export default {
 			{ hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap' }
 		]
 	},
 	/*
 	** Global CSS
 	*/
-	css: [],
+	css: [
+		{
+			src: '~/assets/main.sass',
+			lang: 'sass'
+		},
+		{
+			src: '~/assets/_smart-grid.sass',
+			lang: 'sass'
+		}
+	],
 	/*
 	** Plugins to load before mounting the App
 	** https://nuxtjs.org/guide/plugins
@@ -67,7 +77,10 @@ export default {
 	** https://github.com/nuxt-community/vuetify-module
 	*/
 	vuetify: {
-		customVariables: ['~/assets/variables.scss'],
+		customVariables: [''],
+		icons: {
+			iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+		},
 		theme: {
 			dark: true,
 			themes: {
