@@ -18,8 +18,7 @@ const waifusSchema = new mongoose.Schema({
 /*==================== SCHEMAS END====================*/
 
 /*==================== MODELS START====================*/
-let WaifusModel = {}
-createModel(WaifusModel, 'Waifus', waifusSchema)
+let WaifusModel = createModel('Waifus', waifusSchema)
 /* if (!modelAlreadyDeclared('Waifus')) {
 	WaifusModel = mongoose.model('Waifus', waifusSchema)
 }
@@ -91,10 +90,15 @@ function modelAlreadyDeclared(modelName) {
 	}
 }
 
-function createModel(instance, modelName, modelSchema) {
+function createModel(modelName, modelSchema) {
+	let instance = {}
+
 	if (!modelAlreadyDeclared(modelName)) {
 		instance = mongoose.model(modelName, modelSchema)
-	} else {
+	}
+	else {
 		instance = mongoose.model(modelName)
 	}
+
+	return instance
 }
