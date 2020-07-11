@@ -19,12 +19,13 @@ const waifusSchema = new mongoose.Schema({
 
 /*==================== MODELS START====================*/
 let WaifusModel = {}
-if (!modelAlreadyDeclared('Waifus')) {
+createModel(WaifusModel, 'Waifus', waifusSchema)
+/* if (!modelAlreadyDeclared('Waifus')) {
 	WaifusModel = mongoose.model('Waifus', waifusSchema)
 }
 else {
 	WaifusModel = mongoose.model('Waifus')
-}
+} */
 /*==================== MODELS END====================*/
 
 /*==================== MONGO SERVER START====================*/
@@ -87,5 +88,13 @@ function modelAlreadyDeclared(modelName) {
 		return true
 	} catch (e) {
 		return false
+	}
+}
+
+function createModel(instance, modelName, modelSchema) {
+	if (!modelAlreadyDeclared(modelName)) {
+		instance = mongoose.model(modelName, modelSchema)
+	} else {
+		instance = mongoose.model(modelName)
 	}
 }
