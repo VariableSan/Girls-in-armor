@@ -1,5 +1,5 @@
 <template lang="pug">
-   div
+   div(:class='theme ? "default-template--dark" : "default-template--light"')
       main-header
       main-drawer
       v-main
@@ -18,6 +18,12 @@ export default {
       mainHeader: header,
       mainFooter: footer,
       mainDrawer: drawer
+   },
+
+   computed: {
+      theme() {
+         return this.$vuetify.theme.dark
+      }
    }
 }
 </script>

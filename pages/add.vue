@@ -12,22 +12,25 @@
 						:rules='nameRules'
 						label='Name'
 						required
+						dark
 					)
 					v-text-field(
 						v-model='imgUrl'
 						:rules='imageRules'
 						label='Image URL'
 						required
+						dark
 					)
 					v-text-field(
 						v-model='description'
 						:rules='descriptionRules'
 						counter='950'
 						label='Description'
+						dark
 					)
 
 					v-btn(
-						:dark='isValid ? true : false'
+						dark
 						:disabled='!isValid || loading'
 						@click='saveWaifu'
 					) Add waifu
