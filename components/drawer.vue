@@ -16,16 +16,16 @@ import { mapGetters } from 'vuex'
 export default {
 	computed: {
 		drawer: {
-			get() { return this.$store.getters.getDrawer },
+			get() { return this.$store.state.drawerStore.drawer },
 			set(state) {
-				if (state !== this.$store.getters.getDrawer) {
-					this.$store.commit('setDrawer')
+				if (state !== this.$store.state.drawerStore.drawer) {
+					this.$store.commit('drawerStore/setDrawer')
 				}
 			}
 		},
 		
 		getLinks() {
-			return this.$store.getters.getLinks
+			return this.$store.state.linkStore.links
 		}
 	}
 }

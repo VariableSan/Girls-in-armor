@@ -22,13 +22,13 @@
 export default {
 	computed: {
 		getLinks() {
-			return this.$store.getters.getLinks
+			return this.$store.state.linkStore.links
 		}
 	},
 
 	methods: {
 		setDrawer() {
-			this.$store.commit('setDrawer')
+			this.$store.commit('drawerStore/setDrawer')
 		}
 	}
 }

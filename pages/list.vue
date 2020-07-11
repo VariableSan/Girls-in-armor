@@ -10,13 +10,13 @@
 export default {
 	computed: {
 		waifus() {
-			return this.$store.getters.getWaifuList
+			return this.$store.state.waifuStore.waifuList
 		}
 	},
 	
 	methods: {
 		getWaifus() {
-			this.$store.dispatch('getWaifuListFromServer')
+			this.$store.dispatch('waifuStore/getWaifuListFromServer')
 		}
 	}
 }

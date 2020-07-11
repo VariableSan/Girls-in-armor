@@ -74,14 +74,14 @@ export default {
 
 	computed: {
 		loading() {
-			return this.$store.getters.getLoading
+			return this.$store.state.loadingStore.loading
 		}
 	},
 	
 	methods: {
 		saveWaifu() {
 			if (this.$refs.addForm.validate()) {
-				this.$store.commit('setLoading', true)
+				this.$store.commit('loadingStore/setLoading', true)
 				
 				this.$axios.$post('/api/add', {
 					name: this.name,
@@ -97,7 +97,7 @@ export default {
 					console.log(error)
 				})
 				.finally(() => {
-					this.$store.commit('setLoading', false)
+					this.$store.commit('loadingStore/setLoading', false)
 				})
 			}
 		}
