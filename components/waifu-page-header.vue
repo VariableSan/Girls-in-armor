@@ -3,16 +3,7 @@
 		v-toolbar(flat dark class='header' id='header')
 			v-container
 				div.header__content
-					v-toolbar-title(
-						v-if='currentRoute == "waifu-id"'
-						@click='backToList'
-						class='clickable'
-					)
-						v-icon(
-							size='40px'
-							class='back-icon'
-						) mdi-arrow-left-circle-outline
-					v-toolbar-title(v-else) Logo
+					v-toolbar-title Logo
 					v-spacer
 					v-btn(
 						class='header__link'
@@ -40,20 +31,12 @@ export default {
 	computed: {
 		getLinks() {
 			return this.$store.state.linkStore.links
-		},
-
-		currentRoute() {
-			return this.$route.name
 		}
 	},
 
 	methods: {
 		setDrawer() {
 			this.$store.commit('drawerStore/setDrawer')
-		},
-
-		backToList() {
-			this.$router.go(-1)
 		},
 
 		copyHeaderHeight() {
@@ -102,21 +85,19 @@ export default {
 
 <style lang="sass" scoped>
 @import "~/assets/_smart-grid"
-@import "~/assets/colors"
 
 .header
 	position: fixed
 	top: 0
 	left: 0
 	width: 100%
-	z-index: 7
+	z-index: 1000
 	transition: top 0.5s cubic-bezier(.22,1,.77,1)
 	&__link
 		+md(display, none)
 	&__content
 		display: flex
 		flex-wrap: wrap
-		align-items: center
 	
 .burger-icon
 	display: none
@@ -127,9 +108,4 @@ export default {
 
 .scroll-down
 	top: -100px
-
-.back-icon
-	transition: color .3s
-	&:hover
-		color: $color--primary
 </style>

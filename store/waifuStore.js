@@ -1,10 +1,15 @@
 export const state = () => ({
-	waifuList: []
+	waifuList: [],
+	pagination: 1
 })
 
 export const mutations = {
 	setWaifuList(state, payload) {
 		state.waifuList = payload
+	},
+
+	setPagination(state, payload) {
+		state.pagination = payload
 	}
 }
 

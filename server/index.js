@@ -62,6 +62,30 @@ app.use(bodyParser.urlencoded({ extended: true }))
 		}
 	})
 	/*==================== add route END====================*/
+
+	/*==================== get all waifuslength START====================*/
+	app.get('/list/waifuslength', async (req, res) => {
+		try {
+			const waifusLength = await WaifusModel.countDocuments()
+	
+			res.json(waifusLength)
+		} catch (error) {
+			console.log(error)	
+		}
+	})
+	/*==================== get all waifuslength END====================*/
+
+	/*==================== get waifu by id START====================*/
+	app.get('/waifu/:id', async (req, res) => {
+		try {
+			const waifu = await WaifusModel.findById(req.params.id)
+	
+			res.json(waifu)
+		} catch (error) {
+			console.log(error)
+		}
+	})
+	/*==================== get waifu by id END====================*/
 /*==================== ROUTES END====================*/
 
 module.exports = {

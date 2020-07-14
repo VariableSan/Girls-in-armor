@@ -1,15 +1,30 @@
+@import "colors"
+
 *
 	box-sizing: border-box
 
 html, body
 	font-family: 'Source Sans Pro', sans-serif
 	
+body
+	position: relative
+	
 img
 	max-width: 100%
 
 .error--text
-	color: crimson !important
+	color: $color--deeporange !important
 
 .default-template--dark
 	min-height: 100vh
-	background-color: #121212
+	background-color: $color--black
+
+.pagination--dark
+	.v-pagination__more
+		color: #fff
+		
+	.v-pagination__item--active
+		background: $color--primary !important
+
+.clickable
+	cursor: pointer

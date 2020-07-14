@@ -90,7 +90,7 @@ export default {
 				})
 				.then(response => {
 					if (response) {
-						this.$router.push('/')
+						this.$router.push('/list')
 					}
 				})
 				.catch(error => {
