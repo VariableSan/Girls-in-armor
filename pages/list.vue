@@ -1,7 +1,7 @@
 <template lang="pug">
 	v-container
 		v-row
-			v-col(cols='12' md='6' lg='4' v-for='(waifu, index) in waifus' :key='index')
+			v-col(cols='12' sm='6' md='4' lg='3' v-for='(waifu, index) in waifus' :key='index')
 				v-card.mx-auto(dark :to='"/waifu/" + waifu._id')
 					v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
 					v-card-title {{waifu.name}}
