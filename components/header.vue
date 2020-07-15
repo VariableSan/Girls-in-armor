@@ -26,7 +26,10 @@
 						class='burger-icon'
 						@click='setDrawer'
 					)
-		div(id='headerClone')
+		div(
+			id='headerClone'
+			v-show='currentRoute != "index"'
+		)
 			
 </template>
 
@@ -34,7 +37,9 @@
 <script>
 export default {
 	data: () => ({
-		lastScroll: 0
+		lastScroll: 0,
+		scrollUp: 'scroll-up',
+		scrollDown: 'scroll-down'
 	}),
 
 	computed: {
@@ -60,13 +65,15 @@ export default {
 			const $header = document.querySelector('#header')
 			const $headerClone = document.querySelector('#headerClone')
 
-			$headerClone.style.height = `${$header.offsetHeight}px`
+			const heightToClone = $header.offsetHeight + $header.style.paddingTop + $header.style.paddingBottom
+
+			$headerClone.style.height = `${heightToClone}px`
 		},
 
 		collapsibleHeader() {
 			const nav = document.querySelector('#header')
-			const scrollUp = 'scroll-up'
-			const scrollDown = 'scroll-down'
+			const scrollUp = this.scrollUp
+			const scrollDown = this.scrollDown
 
 			window.addEventListener('scroll', () => {
 				const currentScroll = window.pageYOffset
@@ -95,6 +102,16 @@ export default {
 	mounted() {
 		this.copyHeaderHeight()
 		this.collapsibleHeader()
+	},
+
+	beforeUpdate() {
+		document.querySelector('#header').classList.remove('scroll-down')
+	},
+
+	watch: {
+		$route(to, from) {
+			
+		}
 	}
 }
 </script>

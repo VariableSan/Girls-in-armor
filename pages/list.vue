@@ -3,7 +3,7 @@
 		v-row
 			v-col(cols='12' md='6' lg='4' v-for='(waifu, index) in waifus' :key='index')
 				v-card.mx-auto(dark :to='"/waifu/" + waifu._id')
-					v-img.white--text.align-end(height='200px' :src='waifu.imgUrl')
+					v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
 					v-card-title {{waifu.name}}
 					v-card-text.text--primary.primary
 						p {{waifu.description}}
