@@ -1,6 +1,6 @@
 <template lang="pug">
 	div
-		v-toolbar(flat dark class='header' id='header')
+		v-toolbar(flat dark class='header' ref='header')
 			v-container
 				div.header__content
 					v-toolbar-title(
@@ -27,7 +27,7 @@
 						@click='setDrawer'
 					)
 		div(
-			id='headerClone'
+			ref='headerClone'
 			v-show='currentRoute != "index"'
 		)
 			
@@ -49,6 +49,10 @@ export default {
 
 		currentRoute() {
 			return this.$route.name
+		},
+
+		header() {
+			return this.$refs.header.$el
 		}
 	},
 
@@ -62,8 +66,8 @@ export default {
 		},
 
 		copyHeaderHeight() {
-			const $header = document.querySelector('#header')
-			const $headerClone = document.querySelector('#headerClone')
+			const $header = this.header
+			const $headerClone = this.$refs.headerClone
 
 			const heightToClone = $header.offsetHeight + $header.style.paddingTop + $header.style.paddingBottom
 
@@ -71,7 +75,7 @@ export default {
 		},
 
 		collapsibleHeader() {
-			const nav = document.querySelector('#header')
+			const nav = this.header
 			const scrollUp = this.scrollUp
 			const scrollDown = this.scrollDown
 
@@ -105,7 +109,7 @@ export default {
 	},
 
 	beforeUpdate() {
-		document.querySelector('#header').classList.remove('scroll-down')
+		this.header.classList.remove('scroll-down')
 	},
 
 	watch: {
