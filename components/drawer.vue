@@ -1,11 +1,14 @@
 <template lang="pug">
 	v-navigation-drawer(v-model='drawer' absolute temporary dark)
-		v-list(dense)
+		v-list(dense nav)
 			v-list-item(
 				v-for="(link, index) in getLinks"
 				:key="index"
 				:to='link.url'
+				link
 			)
+				v-list-item-icon.drawer__icon
+					v-icon {{ link.icon }}
 				v-list-item-content
 					v-list-item-title {{ link.title }}
 </template>
@@ -28,3 +31,9 @@ export default {
 	}
 }
 </script>
+
+
+<style lang="sass" scoped>
+.drawer__icon
+	margin-right: 30px
+</style>

@@ -1,7 +1,7 @@
 <template lang="pug">
-	div
+	div(v-resize='onResize')
 		v-toolbar(flat dark class='header' ref='header')
-			v-container
+			div(:class=' windowWidth ? "container" : "" ' class='header__wrapper')
 				div.header__content
 					v-toolbar-title(
 						v-if='currentRoute == "waifu-id"'
@@ -12,6 +12,7 @@
 							size='40px'
 							class='back-icon'
 						) mdi-arrow-left-circle-outline
+
 					v-toolbar-title(v-else) Logo
 					v-spacer
 					v-btn(
@@ -20,16 +21,16 @@
 						v-for="(link, index) in getLinks"
 						:key="index"
 						:to='link.url'
-					) {{ link.title }}
+					)
+						v-icon(left) {{ link.icon }}
+						| {{ link.title }}
 
 					v-app-bar-nav-icon(
 						class='burger-icon'
 						@click='setDrawer'
 					)
-		div(
-			ref='headerClone'
-			v-show='currentRoute != "index"'
-		)
+
+		div(ref='headerClone' v-show='currentRoute != "index"')
 			
 </template>
 
@@ -39,7 +40,9 @@ export default {
 	data: () => ({
 		lastScroll: 0,
 		scrollUp: 'scroll-up',
-		scrollDown: 'scroll-down'
+		scrollDown: 'scroll-down',
+		windowWidth: 0,
+		scrollBreakPoint: 300
 	}),
 
 	computed: {
@@ -57,6 +60,10 @@ export default {
 	},
 
 	methods: {
+		onResize() {
+			this.windowWidth = window.innerWidth > 768
+		},
+		
 		setDrawer() {
 			this.$store.commit('drawerStore/setDrawer')
 		},
@@ -78,32 +85,40 @@ export default {
 			const nav = this.header
 			const scrollUp = this.scrollUp
 			const scrollDown = this.scrollDown
+			const breakPoint = this.scrollBreakPoint
 
 			window.addEventListener('scroll', () => {
 				const currentScroll = window.pageYOffset
 
-				if (currentScroll == 0) {
+				if (currentScroll > breakPoint) {
+					if (
+						currentScroll > this.lastScroll &&
+						!nav.classList.contains(scrollDown)
+					) {
+						// down
+						nav.classList.remove(scrollUp)
+						nav.classList.add(scrollDown)
+					}
+					else if (
+						currentScroll < this.lastScroll && 
+						nav.classList.contains(scrollDown)
+					) {
+						// up
+						nav.classList.remove(scrollDown)
+						nav.classList.add(scrollUp)
+					}
+					
+					this.lastScroll = currentScroll
+				}
+				else {
 					nav.classList.remove(scrollUp)
-					return
 				}
-
-				if (currentScroll > this.lastScroll && !nav.classList.contains(scrollDown)) {
-					// down
-					nav.classList.remove(scrollUp)
-					nav.classList.add(scrollDown)
-				}
-				else if (currentScroll < this.lastScroll && nav.classList.contains(scrollDown)) {
-					// up
-					nav.classList.remove(scrollDown)
-					nav.classList.add(scrollUp)
-				}
-				
-				this.lastScroll = currentScroll
 			})
 		}
 	},
 
 	mounted() {
+		this.onResize()
 		this.copyHeaderHeight()
 		this.collapsibleHeader()
 	},
@@ -113,9 +128,7 @@ export default {
 	},
 
 	watch: {
-		$route(to, from) {
-			
-		}
+		$route(to, from) {}
 	}
 }
 </script>
@@ -133,8 +146,13 @@ export default {
 	z-index: 7
 	transition: top 0.5s cubic-bezier(.22,1,.77,1)
 	&__link
+		&:not(:nth-last-child(2))
+			margin-right: 15px
 		+md(display, none)
+	&__wrapper
+		width: 100%	
 	&__content
+		width: 100%
 		display: flex
 		flex-wrap: wrap
 		align-items: center

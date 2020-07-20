@@ -74,7 +74,7 @@ export default {
 
 	computed: {
 		loading() {
-			return this.$store.state.loadingStore.loading
+			return this.$store.getters['loadingStore/getLoading']
 		}
 	},
 	
