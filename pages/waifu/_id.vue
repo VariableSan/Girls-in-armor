@@ -1,7 +1,7 @@
 <template lang='pug'>
 	section(class='section')
 		v-container
-			v-card(dark class='waifu-id__card' outlined elevation='6')
+			v-card(dark loader-height="4" class='waifu-id__card' outlined)
 				v-row
 					v-col(cols='12' md='6' lg='6')
 						a(data-fancybox :href='waifu.imgUrl' class='waifu-id__fancy')
@@ -19,8 +19,13 @@
 <script>
 export default {
 	async asyncData({ $axios, params }) {
-		const waifu = await $axios.$get(`/api/waifu/${params.id}`)
-		return { waifu }
+		try {
+			const waifu = await $axios.$get(`/api/waifu/${params.id}`)
+			return { waifu }
+		} 
+		catch (e) {
+			console.log(e)	
+		}
 	}
 }
 </script>
@@ -32,6 +37,7 @@ export default {
 	&__card
 		padding: 18px 30px
 		overflow: hidden
+		box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12)
 		+sm-block()
 			padding: 0px 10px
 

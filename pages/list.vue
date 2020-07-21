@@ -19,7 +19,7 @@
 		v-row
 			v-col(cols='12' sm='6' md='4' lg='3' v-for='(waifu, index) in waifus' :key='index')
 				v-hover(v-slot:default='{ hover }')
-					v-card.list__card(dark :to='"/waifu/" + waifu._id')
+					v-card.list__card(dark link :to='"/waifu/" + waifu._id')
 						v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
 						v-card-title 
 							h4.list__text--ellipsis {{waifu.name}}

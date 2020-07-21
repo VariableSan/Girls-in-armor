@@ -101,6 +101,9 @@ export default {
 			}
 		}
 	},
+	loading: {
+		color: '#fff !important'
+	},
 	/*
 	** Build configuration
 	** See https://nuxtjs.org/api/configuration-build/
