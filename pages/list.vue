@@ -69,9 +69,15 @@ export default {
 	},
 
 	mounted() {
-		if (this.$store.getters['waifuStore/getWaifuList'].length < 1) {
-			this.getWaifus()
-		}
+		const { added } = this.$route.query
+		
+		this.$store.getters['waifuStore/getWaifuList'].length < 1 ?
+			this.getWaifus() :
+			null
+
+		added ? 
+			this.getWaifus() :
+			null
 	}
 }
 </script>

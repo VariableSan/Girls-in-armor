@@ -13,6 +13,7 @@
 						label='Name'
 						required
 						dark
+						autofocus
 					)
 					v-text-field(
 						v-model='imgUrl'
@@ -21,17 +22,22 @@
 						required
 						dark
 					)
-					v-text-field(
+					v-textarea.add__textarea(
 						v-model='description'
 						:rules='descriptionRules'
 						counter='950'
 						label='Description'
+						auto-grow
 						dark
+						dense
+						rows='2'
+						row-height='20'
 					)
 
 					v-btn(
 						dark
 						:disabled='!isValid || loading'
+						:loading='loading'
 						@click='saveWaifu'
 					) Add waifu
 					
@@ -90,7 +96,7 @@ export default {
 				})
 				.then(response => {
 					if (response) {
-						this.$router.push('/list')
+						this.$router.push('/list?added=true')
 					}
 				})
 				.catch(error => {
@@ -108,6 +114,9 @@ export default {
 
 <style lang="sass" scoped>
 .add
+	&__textarea
+		margin-top: 20px
+	
 	&__sheet
 		position: relative
 	
