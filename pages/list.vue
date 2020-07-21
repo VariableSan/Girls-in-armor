@@ -18,12 +18,13 @@
 	
 		v-row
 			v-col(cols='12' sm='6' md='4' lg='3' v-for='(waifu, index) in waifus' :key='index')
-				v-card.mx-auto(dark :to='"/waifu/" + waifu._id')
-					v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
-					v-card-title 
-						h4.list__text--ellipsis {{waifu.name}}
-					v-card-text
-						p.list__text--ellipsis {{waifu.description}}
+				v-hover(v-slot:default='{ hover }')
+					v-card.list__card(dark :to='"/waifu/" + waifu._id')
+						v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
+						v-card-title 
+							h4.list__text--ellipsis {{waifu.name}}
+						v-card-text
+							p.list__text--ellipsis {{waifu.description}}
 
 		template(v-if='paginationLength > 1')
 			v-pagination(
@@ -94,5 +95,10 @@ export default {
 		display: -webkit-box
 		-webkit-line-clamp: 1
 		-webkit-box-orient: vertical
+
+	&__card
+		transition: box-shadow .2s ease-in-out
+		&:hover
+			box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12)
 
 </style>
