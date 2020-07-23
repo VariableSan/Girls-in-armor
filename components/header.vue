@@ -1,6 +1,8 @@
 <template lang="pug">
 	div(v-resize='onResize')
-		v-toolbar(flat dark class='header' ref='header')
+		v-toolbar(flat dark class='header' ref='header' 
+			:class='currentRoute == "index" ? "header--transparent": ""'
+		)
 			div(:class=' windowWidth ? "container" : "" ' class='header__wrapper')
 				div.header__content
 					v-toolbar-title(
@@ -30,7 +32,10 @@
 						@click='setDrawer'
 					)
 
-		div(ref='headerClone' v-show='currentRoute != "index"')
+		div(
+			ref='headerClone'
+			v-show='currentRoute != "index"'
+		)
 			
 </template>
 
@@ -114,6 +119,20 @@ export default {
 					nav.classList.remove(scrollUp)
 				}
 			})
+		},
+
+		transparentizeHeader() {
+			if (this.$route.name == 'index') {
+				window.addEventListener('scroll', () => {
+					const currentScroll = window.pageYOffset
+					const breakPoint = this.scrollBreakPoint
+					const nav = this.$refs.header.$el
+
+					currentScroll > breakPoint - 50 ?
+						nav.classList.remove('header--transparent') :
+						nav.classList.add('header--transparent')
+				})
+			}
 		}
 	},
 
@@ -121,6 +140,7 @@ export default {
 		this.onResize()
 		this.copyHeaderHeight()
 		this.collapsibleHeader()
+		this.transparentizeHeader()
 	},
 
 	beforeUpdate() {
@@ -144,7 +164,9 @@ export default {
 	left: 0
 	width: 100%
 	z-index: 7
-	transition: top 0.5s cubic-bezier(.22,1,.77,1)
+	transition: top 0.8s cubic-bezier(.22,1,.77,1), background 0.5s ease-in-out
+	&--transparent
+		background-color: transparent !important
 	&__link
 		&:not(:nth-last-child(2))
 			margin-right: 15px
