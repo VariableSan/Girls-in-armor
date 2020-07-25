@@ -46,8 +46,7 @@ export default {
 		lastScroll: 0,
 		scrollUp: 'scroll-up',
 		scrollDown: 'scroll-down',
-		windowWidth: 0,
-		scrollBreakPoint: 300
+		windowWidth: 0
 	}),
 
 	computed: {
@@ -61,7 +60,9 @@ export default {
 
 		header() {
 			return this.$refs.header.$el
-		}
+		},
+
+		scrollBreakPoint: () => window.innerHeight / 2
 	},
 
 	methods: {
@@ -95,7 +96,7 @@ export default {
 			window.addEventListener('scroll', () => {
 				const currentScroll = window.pageYOffset
 
-				if (currentScroll > breakPoint) {
+				if (currentScroll > breakPoint + 100) {
 					if (
 						currentScroll > this.lastScroll &&
 						!nav.classList.contains(scrollDown)
@@ -128,7 +129,7 @@ export default {
 					const breakPoint = this.scrollBreakPoint
 					const nav = this.$refs.header.$el
 
-					currentScroll > breakPoint - 50 ?
+					currentScroll > breakPoint ?
 						nav.classList.remove('header--transparent') :
 						nav.classList.add('header--transparent')
 				})
@@ -163,7 +164,7 @@ export default {
 	top: 0
 	left: 0
 	width: 100%
-	z-index: 7
+	z-index: 1000
 	transition: top 0.8s cubic-bezier(.22,1,.77,1), background 0.5s ease-in-out
 	&--transparent
 		background-color: transparent !important
