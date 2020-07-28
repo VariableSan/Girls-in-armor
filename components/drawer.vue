@@ -1,6 +1,9 @@
 <template lang="pug">
 	v-navigation-drawer(
-		v-model='drawer' absolute temporary dark
+		v-model='drawer'
+		app
+		temporary
+		dark
 		class='drawer__main'
 	)
 		v-list(dense nav)
