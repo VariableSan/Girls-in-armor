@@ -44,8 +44,6 @@ export default {
 			const sky = this.$refs.sky[0]
 			const road = this.$refs.road[0]
 
-			// debugger
-
 			const initialMoonPosition = moon.y
 			const initialCloudsPosition = clouds.x
 			const initialSkyPosition = sky.y
@@ -111,7 +109,7 @@ export default {
 		top: -200px
 		left: -10%
 		z-index: 20
-		scale: 1.2
+		transform: scale(1.2)
 		+xl-block()
 			top: 0
 

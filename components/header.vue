@@ -96,7 +96,7 @@ export default {
 			window.addEventListener('scroll', () => {
 				const currentScroll = window.pageYOffset
 
-				if (currentScroll > breakPoint + 100) {
+				if (currentScroll > breakPoint - 100) {
 					if (
 						currentScroll > this.lastScroll &&
 						!nav.classList.contains(scrollDown)
