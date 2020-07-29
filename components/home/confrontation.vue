@@ -79,11 +79,18 @@ export default {
 		},
 
 		onResize() {
+			// initialize
+			this.calculateWindowSize()
+			
 			window.addEventListener('resize', () => {
-				this.windowSize = {
-					width: window.innerWidth
-				}
+				this.calculateWindowSize()
 			})
+		},
+
+		calculateWindowSize() {
+			this.windowSize = {
+				width: window.innerWidth
+			}
 		}
 	},
 
