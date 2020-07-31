@@ -1,6 +1,6 @@
 <template lang="pug">
 	div(v-resize='onResize')
-		v-toolbar(flat dark class='header' ref='header' 
+		v-toolbar(flat dark class='header' ref='mainHeader' 
 			:class='currentRoute == "index" ? "header--transparent": ""'
 		)
 			div(:class=' windowWidth ? "container" : "" ' class='header__wrapper')
@@ -58,8 +58,8 @@ export default {
 			return this.$route.name
 		},
 
-		header() {
-			return this.$refs.header.$el
+		mainHeader() {
+			return this.$refs.mainHeader.$el
 		},
 
 		scrollBreakPoint: () => window.innerHeight / 2
@@ -79,7 +79,7 @@ export default {
 		},
 
 		copyHeaderHeight() {
-			const $header = this.header
+			const $header = this.mainHeader
 			const $headerClone = this.$refs.headerClone
 
 			const heightToClone = $header.offsetHeight + $header.style.paddingTop + $header.style.paddingBottom
@@ -88,51 +88,47 @@ export default {
 		},
 
 		collapsibleHeader() {
-			const nav = this.header
+			const nav = this.mainHeader
 			const scrollUp = this.scrollUp
 			const scrollDown = this.scrollDown
 			const breakPoint = this.scrollBreakPoint
 
-			window.addEventListener('scroll', () => {
-				const currentScroll = window.pageYOffset
-
-				if (currentScroll > breakPoint - 100) {
-					if (
-						currentScroll > this.lastScroll &&
-						!nav.classList.contains(scrollDown)
-					) {
-						// down
-						nav.classList.remove(scrollUp)
-						nav.classList.add(scrollDown)
-					}
-					else if (
-						currentScroll < this.lastScroll && 
-						nav.classList.contains(scrollDown)
-					) {
-						// up
-						nav.classList.remove(scrollDown)
-						nav.classList.add(scrollUp)
-					}
-					
-					this.lastScroll = currentScroll
+			const currentScroll = window.scrollY
+			
+			if (currentScroll > breakPoint - 100) {
+				if (
+					currentScroll > this.lastScroll && !nav.classList.contains(scrollDown)
+				) {
+					// down
+					nav.classList.add(scrollDown)
 				}
-				else {
-					nav.classList.remove(scrollUp)
+				else if (
+					currentScroll < this.lastScroll && nav.classList.contains(scrollDown)
+				) {
+					// up
+					nav.classList.remove(scrollDown)
 				}
-			})
+				
+				this.lastScroll = currentScroll
+			}
+			else {
+				nav.classList.remove(scrollDown)
+			}
 		},
 
 		transparentizeHeader() {
+			const breakPoint = this.scrollBreakPoint
+			const nav = this.mainHeader
+			
 			if (this.$route.name == 'index') {
-				window.addEventListener('scroll', () => {
-					const currentScroll = window.pageYOffset
-					const breakPoint = this.scrollBreakPoint
-					const nav = this.$refs.header.$el
+				const currentScroll = window.scrollY
 
-					currentScroll > breakPoint ?
-						nav.classList.remove('header--transparent') :
-						nav.classList.add('header--transparent')
-				})
+				currentScroll > breakPoint ?
+					nav.classList.remove('header--transparent') :
+					nav.classList.add('header--transparent')
+			}
+			else {
+				nav.classList.remove('header--transparent')
 			}
 		}
 	},
@@ -140,12 +136,11 @@ export default {
 	mounted() {
 		this.onResize()
 		this.copyHeaderHeight()
-		this.collapsibleHeader()
-		this.transparentizeHeader()
-	},
 
-	beforeUpdate() {
-		this.header.classList.remove('scroll-down')
+		window.addEventListener('scroll', () => {
+			this.transparentizeHeader()
+			this.collapsibleHeader()
+		})
 	},
 
 	watch: {
@@ -183,9 +178,6 @@ export default {
 .burger-icon
 	display: none
 	+md(display, block)
-
-.scroll-up
-	top: 0
 
 .scroll-down
 	top: -100px
