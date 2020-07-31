@@ -16,15 +16,14 @@ export default {
 	** See https://nuxtjs.org/api/configuration-head
 	*/
 	head: {
-		titleTemplate: '%s - ' + process.env.npm_package_name,
-		title: process.env.npm_package_name || '',
+		titleTemplate: '%s - Girls in Armor',
 		meta: [
 			{ charset: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 			{ hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+			{ rel: 'icon', type: 'image/x-icon', href: '/shield-and-sword.svg' },
 			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap' },
 			{ rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css' }
 		],
