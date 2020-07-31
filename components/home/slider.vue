@@ -1,5 +1,5 @@
 <template lang="pug">
-	section.section.home__slider
+	section.section.home__slider(v-resize='onResize')
 		v-container(  )
 			.section__describe
 				h2.section__describe__headline Destiny
@@ -11,18 +11,59 @@
 				v-for='character in characters'
 				:key='character.name'
 			)
-					//- :style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-slider.jpg") + ")" '
-					.home__slider__doll(:style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-doll.png") + ")" ')
+				.home__slider__inner(ref='scene' data-hover-only='true')
+					.home__slider__backdrop(
+						data-depth="0.21"
+						:style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-slider.jpg") + ")" '
+					)
+					.home__slider__doll(
+						data-calibrate-x
+						data-depth="0.9"
+						:style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-doll.png") + ")" '
+					)
 			
 </template>
 
 <script>
-// import Parallax from '~/node_modules/parallax-js/dist/parallax.min.js'
+import Parallax from 'parallax-js'
 
 export default {
+	data: () => ({
+		parallax: []
+	}),
+	
 	computed: {
 		characters() {
 			return this.$store.getters['characters/getCharacters']
+		}
+	},
+	
+	mounted() {
+		const scene = this.$refs.scene
+
+		scene.forEach((element, index) => {
+			const parallaxInstance = new Parallax(element)
+
+			if (window.innerWidth < 1200) {
+				parallaxInstance.disable()
+			}
+
+			this.parallax.push(parallaxInstance)
+		})
+	},
+
+	methods: {
+		onResize() {
+			if (window.innerWidth > 1200) {
+				this.parallax.forEach(element => {
+					element.enable()
+				})
+			}
+			else {
+				this.parallax.forEach(element => {
+					element.disable()
+				})
+			}
 		}
 	}
 }
@@ -35,21 +76,46 @@ export default {
 .home__slider
 	&__block
 		display: flex
+		+sm-block()
+			flex-direction: column
+			height: 150vh
 	&__item
 		flex-basis: calc(100% / 6)
 		display: flex
 		justify-content: center
 		align-items: center
-		height: 500px
+		height: 600px
 		transition: flex-basis 0.6s ease-in-out
+		overflow: hidden
+		cursor: pointer
 		&:not(:last-child)
-			border-right: 3px solid #fff
+			border-right: 2px solid #fff
 		&:hover
 			flex-basis: 100%
-	&__doll
+			.home__slider__backdrop
+				filter: blur(8px)
+	&__inner
+		position: relative
 		width: 100%
 		height: 100%
+	&__backdrop, &__doll
+		position: absolute
+		top: 0
+		left: 0
+		rigth: 0
+		bottom: 0
+		width: 100%
+		height: 100%
+		margin: auto
+		background-repeat: no-repeat
 		background-position: center
+	&__backdrop
+		scale: 1.5
+		background-size: cover
+		background-color: $color--black
+		transition: filter .5s linear
+	&__doll
+		scale: .9
 		background-size: contain
 		
 </style>
