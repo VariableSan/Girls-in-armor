@@ -14,7 +14,7 @@
 				)
 					v-card.home__character-cards__item(dark)
 						.home__character-cards__image(
-							:style='"background-image: url(" + require("~/assets/images/cards/" + character.image) + ")"'
+							:style='"background-image: url(" + require("~/assets/images/cards/" + character.image + ".jpg") + ")"'
 						)
 						v-card-title.home__character-cards__quote 
 							h4.home__character-cards__title {{ character.name }} 
@@ -23,40 +23,11 @@
 
 <script>
 export default {
-	data: () => ({
-		characters: [
-			{
-				name: 'Mordred',
-				quote: 'I’ll do whatever I want, when I want and that’s that. But I’ll own up to my actions',
-				image: 'mordred.jpg'
-			},
-			{
-				name: 'Okita Souji',
-				quote: 'Engulfed in a warm light that narrowly lies ahead, I did not want to do something like looking up at the skies',
-				image: 'okita.jpg'
-			},
-			{
-				name: "Jeanne d'Arc",
-				quote: 'Your life to come is bound to make you smile',
-				image: 'jeanne.jpg'
-			},
-			{
-				name: 'Scathach',
-				quote: 'In the end, this body was wet with the blood of many victims, and became immortal. The territory under my rule, the "Land of Shadows", was ultimately forced out to the Outside of the World, and I ended up being promoted into an existence no different than that of a Divine Spirit',
-				image: 'scathach.jpg'
-			},
-			{
-				name: 'Nagao Kagetora',
-				quote: 'Fortune to the heavens, Armour upon my chest, Feats from my steps!',
-				image: 'nagao.jpg'
-			},
-			{
-				name: 'Tomoe Gozen',
-				quote: 'For you to take me at every opportunity. If I am being useful, I am happy. I will strive to do my best',
-				image: 'tomoe.jpg'
-			}
-		]
-	})
+	computed: {
+		characters() {
+			return this.$store.getters['characters/getCharacters']
+		}
+	}
 }
 </script>
 
