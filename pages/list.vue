@@ -38,6 +38,12 @@
 
 <script>
 export default {
+	head() {
+		return {
+			title: 'List'
+		}
+	},
+	
 	computed: {
 		waifus() {
 			return this.$store.getters['waifuStore/getWaifuList']

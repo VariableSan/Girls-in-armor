@@ -60,6 +60,12 @@
 
 <script>
 export default {
+	head() {
+		return {
+			title: 'Add'
+		}
+	},
+	
 	data: () => ({
 		isValid: false,
 		
