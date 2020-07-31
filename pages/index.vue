@@ -3,6 +3,7 @@
 		app-parallax
 		app-confrontation
 		app-cards
+		app-slider
 		.spacer
 </template>
 
@@ -10,12 +11,14 @@
 import AppParallax from '~/components/home/parallax'
 import AppConfrontation from '~/components/home/confrontation'
 import AppCards from '~/components/home/cards'
+import AppSlider from '~/components/home/slider'
 
 export default {
 	components: {
 		AppParallax,
 		AppConfrontation,
-		AppCards
+		AppCards,
+		AppSlider
 	}
 }
 </script>
