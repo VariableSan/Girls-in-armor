@@ -3,24 +3,24 @@
 		v-container(  )
 			.section__describe
 				h2.section__describe__headline Destiny
-				p.section__describe__subhead
-				small.section__describe__additional
+				p.section__describe__subhead each armor has its own history
+				small.section__describe__additional click on the element to get more information
 				
-		.home__slider__block
-			.home__slider__item(
-				v-for='character in characters'
-				:key='character.name'
-			)
-				.home__slider__inner(ref='scene' data-hover-only='true')
-					.home__slider__backdrop(
-						data-depth="0.21"
-						:style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-slider.jpg") + ")" '
-					)
-					.home__slider__doll(
-						data-calibrate-x
-						data-depth="0.9"
-						:style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-doll.png") + ")" '
-					)
+			.home__slider__block
+				.home__slider__item(
+					v-for='character in characters'
+					:key='character.name'
+				)
+					.home__slider__inner(ref='scene' data-hover-only='true')
+						.home__slider__backdrop(
+							data-depth="0.21"
+							:style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-slider.jpg") + ");" + "background-position: " + character.backdropPosition.bgX '
+						)
+						.home__slider__doll(
+							data-calibrate-x
+							data-depth="1"
+							:style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-doll.png") + ")" '
+						)
 			
 </template>
 
@@ -85,15 +85,17 @@ export default {
 		justify-content: center
 		align-items: center
 		height: 600px
-		transition: flex-basis 0.6s ease-in-out
+		transition: flex-basis 1s ease-in-out
 		overflow: hidden
 		cursor: pointer
 		&:not(:last-child)
-			border-right: 2px solid #fff
+			border-right: 3px solid #fff
 		&:hover
 			flex-basis: 100%
 			.home__slider__backdrop
-				filter: blur(8px)
+				filter: blur(2px)
+			.home__slider__doll
+				opacity: 1
 	&__inner
 		position: relative
 		width: 100%
@@ -110,12 +112,14 @@ export default {
 		background-repeat: no-repeat
 		background-position: center
 	&__backdrop
-		scale: 1.5
+		scale: 1.1
 		background-size: cover
 		background-color: $color--black
 		transition: filter .5s linear
 	&__doll
 		scale: .9
 		background-size: contain
+		opacity: 0
+		transition: opacity 0.7s linear
 		
 </style>
