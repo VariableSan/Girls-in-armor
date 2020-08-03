@@ -1,12 +1,17 @@
+/*==================== LIBRARIES, MIDDLEWARES START====================*/
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const { startMongo } = require('./middleware/mongoose.middle')
+const passport = require('passport')
+const passportStrategy = require('./middleware/passport-strategy')
+/*==================== LIBRARIES, MIDDLEWARES END====================*/
 
 /*==================== ROUTES EXPORTS START====================*/
 const listRoute = require('./routes/list.route')
 const addRoute = require('./routes/add.route')
 const waifuRoute = require('./routes/waifu.route')
+const authRoute = require('./routes/auth.route')
 /*==================== ROUTES EXPORTS END====================*/
 
 /*==================== MONGO SERVER START====================*/
@@ -16,12 +21,15 @@ startMongo()
 /*==================== EXPRESS CONFIGS START====================*/
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(passport.initialize())
+passport.use(passportStrategy)
 /*==================== EXPRESS CONFIGS END====================*/
 
 /*==================== ROUTES START====================*/
 app.use('/list', listRoute)
 app.use('/add', addRoute)
 app.use('/waifu', waifuRoute)
+app.use('/auth', authRoute)
 /*==================== ROUTES END====================*/
 
 module.exports = {
