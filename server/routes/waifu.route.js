@@ -1,16 +1,8 @@
 const { Router } = require('express')
 const router = Router()
-const WaifusModel = require('../models/list.model')
+const { getWaifuById } = require('../controllers/waifu.controller')
 
 /* /api/waifu/:id */
-router.get('/:id', async (req, res) => {
-	try {
-		const waifu = await WaifusModel.findById(req.params.id)
-
-		res.json(waifu)
-	} catch (error) {
-		console.log(error)
-	}
-})
+router.get('/:id', getWaifuById)
 
 module.exports = router

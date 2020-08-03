@@ -1,22 +1,8 @@
 const { Router } = require('express')
 const router = Router()
-const WaifusModel = require('../models/list.model')
+const { addWaifu } = require('../controllers/add.controller')
 
 /* /api/add */
-router.post('/', async (req, res) => {
-	const waifus = new WaifusModel({
-		name: req.body.name,
-		imgUrl: req.body.imgUrl,
-		description: req.body.description
-	})
-
-	try {
-		await waifus.save()
-		res.sendStatus(200)
-	} catch (error) {
-		console.log(error)
-		res.sendStatus(500)
-	}
-})
+router.post('/', addWaifu)
 
 module.exports = router
