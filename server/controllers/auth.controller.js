@@ -17,7 +17,7 @@ module.exports.login = async (req, res) => {
 				userId: user._id
 			}, keys.JWT, { expiresIn: 60 * 60 })
 
-			res.json({ token })
+			res.json({ token, user })
 		}
 		else {
 			userUndefined(res)
@@ -34,7 +34,7 @@ module.exports.createUser = async (req, res) => {
 	const isUserExist = await User.findOne({ login })
 
 	if (isUserExist) {
-		res.status(409).json({ message: 'This login already exists' })
+		res.status(409).json({ text: 'This login already exists' })
 	}
 	else {
 		const salt = bcrypt.genSaltSync(10)
@@ -48,12 +48,11 @@ module.exports.createUser = async (req, res) => {
 		await newUser.save()
 
 		res.status(201).json({
-			message: 'A new user was created',
-			newUser
+			text: 'A new user was created'
 		})
 	}
 }
 
 function userUndefined(res) {
-	res.status(404).json({ message: 'User is undefined' })
+	res.status(404).json({ text: 'User is undefined' })
 }

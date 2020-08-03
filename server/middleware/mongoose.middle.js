@@ -26,7 +26,8 @@ async function startMongo() {
 		const { mongoURI } = require('../keys')
 		await connect(mongoURI, {
 			useNewUrlParser: true,
-			useUnifiedTopology: true
+			useUnifiedTopology: true,
+			useCreateIndex: true
 		})
 	} catch (error) {
 		console.log(error)
