@@ -65,6 +65,8 @@ export default {
 			title: 'Add'
 		}
 	},
+
+	middleware: ['auth.middle'],
 	
 	data: () => ({
 		isValid: false,
@@ -87,30 +89,48 @@ export default {
 	computed: {
 		loading() {
 			return this.$store.getters['loadingStore/getLoading']
+		},
+
+		user() {
+			return this.$store.getters['userStore/getUser']
 		}
 	},
 	
 	methods: {
-		saveWaifu() {
+		setError(text) {
+			this.$store.commit('setMessage', {
+				text,
+				color: 'color--error'
+			})
+		},
+		
+		async saveWaifu() {
 			if (this.$refs.addForm.validate()) {
-				this.$store.commit('loadingStore/setLoading', true)
-				
-				this.$axios.$post('/api/add', {
-					name: this.name,
-					imgUrl: this.imgUrl,
-					description: this.description
-				})
-				.then(response => {
-					if (response) {
-						this.$router.push('/list?added=true')
+				try {
+					this.$store.commit('loadingStore/setLoading', true)
+
+					const serverResponse = await this.$axios.$post('/api/add', {
+						name: this.name,
+						imgUrl: this.imgUrl,
+						description: this.description,
+						user: this.user
+					}) 
+					
+					this.$router.push('/list?added=true')
+				}
+				catch (e) {
+					switch (e.response.data) {
+						case 'Unauthorized':
+							this.$router.push('/auth/login')
+							this.setError('Please log in to the application first')		
+							break
+						default:
+							this.setError(e.response.data)
 					}
-				})
-				.catch(error => {
-					console.log(error)
-				})
-				.finally(() => {
+				}
+				finally {
 					this.$store.commit('loadingStore/setLoading', false)
-				})
+				}
 			}
 		}
 	}

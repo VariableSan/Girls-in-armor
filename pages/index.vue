@@ -25,6 +25,17 @@ export default {
 		return {
 			title: 'Home page'
 		}
+	},
+
+	mounted() {
+		const { login } = this.$route.query
+
+		if (login) {
+			this.$store.commit('setMessage', {
+				text: 'You need to login first',
+				color: 'color--warning'
+			})
+		}
 	}
 }
 </script>

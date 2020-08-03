@@ -51,7 +51,14 @@ export default {
 
 	computed: {
 		getLinks() {
-			return this.$store.state.linkStore.links
+			if (this.user) {
+				return this.$store.getters['linkStore/getLinks']
+					.filter(link => !link.onlyNoAuth)
+			}
+			else {
+				return this.$store.getters['linkStore/getLinks']
+					.filter(link => !link.authRequire)
+			}
 		},
 
 		currentRoute() {
@@ -60,6 +67,10 @@ export default {
 
 		mainHeader() {
 			return this.$refs.mainHeader.$el
+		},
+
+		user() {
+			return this.$store.getters['userStore/getUser']
 		},
 
 		scrollBreakPoint: () => window.innerHeight / 2

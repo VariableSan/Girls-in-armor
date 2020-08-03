@@ -35,15 +35,12 @@ export const mutations = {
 export const actions = {
 	async getWaifuListFromServer({ commit }, paginationId) {
 		try {
-			this.$axios.$get('/api/list')
-			.then(response => {
-				commit('setWaifuList', response)
-			})
-			.catch(error => console.log(error))
+			const waifus = await this.$axios.$get('/api/list')
+			
+			commit('setWaifuList', waifus)
 		} 
-		
-		catch (error) {
-			console.error(error)
+		catch (e) {
+			commit('setError', e, { root: true })
 		}
 	},
 

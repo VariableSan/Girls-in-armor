@@ -1,13 +1,13 @@
 export const state = () => ({
-	error: null
+	message: ''
 })
 
 export const getters = {
-	getError: (state) => state.error
+	getMessage: (state) => state.message
 }
 
 export const mutations = {
-	setError(state, { message }) {
-		state.error = message
+	setMessage(state, message) {
+		state.message = message
 	}
 }

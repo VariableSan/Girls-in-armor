@@ -3,7 +3,7 @@
 		v-container(  )
 			.section__describe
 				h2.section__describe__headline Destiny
-				p.section__describe__subhead each armor has its own history
+				p.section__describe__subhead hover the cursor over the slide and move it to different points of the element
 				small.section__describe__additional click on the element to get more information
 				
 			.home__slider__block

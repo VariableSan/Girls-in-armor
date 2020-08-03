@@ -32,7 +32,18 @@ export default {
 		},
 		
 		getLinks() {
-			return this.$store.state.linkStore.links
+			if (this.user) {
+				return this.$store.getters['linkStore/getLinks']
+					.filter(link => !link.onlyNoAuth)
+			}
+			else {
+				return this.$store.getters['linkStore/getLinks']
+					.filter(link => !link.authRequire)
+			}
+		},
+
+		user() {
+			return this.$store.getters['userStore/getUser']
 		}
 	}
 }

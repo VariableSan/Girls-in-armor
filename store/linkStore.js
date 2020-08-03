@@ -13,7 +13,30 @@ export const state = () => ({
 		{
 			title: 'Add waifu',
 			url: '/add',
-			icon: 'mdi-plus'
+			icon: 'mdi-plus',
+			authRequire: true
+		},
+		{
+			title: 'Logout',
+			url: '/auth/logout',
+			icon: 'mdi-logout',
+			authRequire: true
+		},
+		{
+			title: 'Login',
+			url: '/auth/login',
+			icon: 'mdi-login',
+			onlyNoAuth: true
+		},
+		{
+			title: 'Register',
+			url: '/auth/register',
+			icon: 'mdi-account-plus',
+			onlyNoAuth: true
 		}
 	]
 })
+
+export const getters = {
+	getLinks: (state) => state.links
+}
