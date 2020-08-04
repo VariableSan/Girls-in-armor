@@ -40,7 +40,7 @@ export const actions = {
 			commit('setWaifuList', waifus)
 		} 
 		catch (e) {
-			commit('setError', e, { root: true })
+			console.error(e)
 		}
 	},
 
@@ -56,6 +56,24 @@ export const actions = {
 		}
 		finally {
 			commit('loadingStore/setFetchLoading', false, {root: true})
+		}
+	},
+
+	async saveWaifu({ commit }, character) {
+		try {
+			commit('loadingStore/setLoading', true, { root: true })
+
+			const message = await this.$axios.$post('/api/add', character)
+
+			commit('setMessage', message, { root: true })
+			
+			this.$router.push('/list?added=true')
+		}
+		catch (error) {
+			console.error(error)
+		}
+		finally {
+			commit('loadingStore/setLoading', false, { root: true })
 		}
 	}
 }

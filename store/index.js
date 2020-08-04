@@ -11,3 +11,9 @@ export const mutations = {
 		state.message = message
 	}
 }
+
+export const actions = {
+	nuxtServerInit ({ dispatch }) {
+		dispatch('userStore/autoLogin')
+	}
+}

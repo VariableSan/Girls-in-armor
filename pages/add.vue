@@ -97,40 +97,13 @@ export default {
 	},
 	
 	methods: {
-		setError(text) {
-			this.$store.commit('setMessage', {
-				text,
-				color: 'color--error'
-			})
-		},
-		
-		async saveWaifu() {
+		saveWaifu() {
 			if (this.$refs.addForm.validate()) {
-				try {
-					this.$store.commit('loadingStore/setLoading', true)
-
-					const serverResponse = await this.$axios.$post('/api/add', {
-						name: this.name,
-						imgUrl: this.imgUrl,
-						description: this.description,
-						user: this.user
-					}) 
-					
-					this.$router.push('/list?added=true')
-				}
-				catch (e) {
-					switch (e.response.data) {
-						case 'Unauthorized':
-							this.$router.push('/auth/login')
-							this.setError('Please log in to the application first')		
-							break
-						default:
-							this.setError(e.response.data)
-					}
-				}
-				finally {
-					this.$store.commit('loadingStore/setLoading', false)
-				}
+				const { name, imgUrl, description, user } = this
+				
+				this.$store.dispatch('waifuStore/saveWaifu', {
+					name, imgUrl, description, user
+				})
 			}
 		}
 	}

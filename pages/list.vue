@@ -109,6 +109,7 @@ export default {
 		-webkit-box-orient: vertical
 
 	&__card
+		height: 100%
 		transition: box-shadow .2s ease-in-out
 		&:hover
 			box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12)
