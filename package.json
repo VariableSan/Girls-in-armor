@@ -14,12 +14,16 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
     "bcrypt-nodejs": "0.0.3",
+    "cookie": "^0.4.1",
+    "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "mongoose": "^5.9.22",
     "nuxt": "^2.13.3",
     "parallax-js": "^3.1.0",
     "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.0.0",
