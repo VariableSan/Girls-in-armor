@@ -50,6 +50,7 @@ export default {
 	** https://nuxtjs.org/guide/plugins
 	*/
 	plugins: [
+		'~/plugins/axios'
 	],
 	/*
 	** Auto import components
