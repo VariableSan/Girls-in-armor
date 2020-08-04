@@ -27,7 +27,8 @@ async function startMongo() {
 		await connect(mongoURI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
-			useCreateIndex: true
+			useCreateIndex: true,
+			useFindAndModify: false
 		})
 	} catch (error) {
 		console.log(error)
