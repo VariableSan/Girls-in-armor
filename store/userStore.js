@@ -18,8 +18,14 @@ export const mutations = {
 		state.user = payload
 	},
 
-	setToken(state, payload) {
-		state.token = payload
+	setToken(state, token) {
+		this.$axios.setToken(token, 'Bearer')
+		state.token = token
+	},
+
+	logout(state) {
+		this.$axios.setToken(false)
+		state.token = null
 	}
 }
 
