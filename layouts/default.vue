@@ -5,7 +5,7 @@
       v-main
          nuxt
       main-snackbar
-      main-footer
+      main-footer(v-if="getRoute === 'index'")
 </template>
 
 <script>
@@ -26,6 +26,10 @@ export default {
    computed: {
       theme() {
          return this.$vuetify.theme.dark
+      },
+
+      getRoute() {
+         return this.$route.name
       }
    }
 }
