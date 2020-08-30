@@ -17,6 +17,12 @@ export const state = () => ({
 			authRequire: true
 		},
 		{
+			title: 'Moderate',
+			url: '/moderate',
+			icon: 'mdi-microsoft-access',
+			onlyAdmin: true
+		},
+		{
 			title: 'Logout',
 			url: '/auth/logout',
 			icon: 'mdi-logout',
@@ -33,7 +39,7 @@ export const state = () => ({
 			url: '/auth/register',
 			icon: 'mdi-account-plus',
 			onlyNoAuth: true
-		}
+		},
 	]
 })
 

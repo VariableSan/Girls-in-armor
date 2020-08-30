@@ -52,12 +52,18 @@ export default {
 	computed: {
 		getLinks() {
 			if (this.user) {
+				
+				if (this.permission) {
+					return this.$store.getters['linkStore/getLinks']
+						.filter(link => !link.onlyNoAuth)
+				}
+				
 				return this.$store.getters['linkStore/getLinks']
-					.filter(link => !link.onlyNoAuth)
+					.filter(link => !link.onlyNoAuth && !link.onlyAdmin)
 			}
 			else {
 				return this.$store.getters['linkStore/getLinks']
-					.filter(link => !link.authRequire)
+					.filter(link => !link.authRequire && !link.onlyAdmin)
 			}
 		},
 
@@ -71,6 +77,10 @@ export default {
 
 		user() {
 			return this.$store.getters['userStore/getUser']
+		},
+
+		permission() {
+			return this.$store.getters['userStore/getPermission']
 		},
 
 		scrollBreakPoint: () => window.innerHeight / 2

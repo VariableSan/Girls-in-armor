@@ -5,7 +5,13 @@ module.exports.getWaifuById = async (req, res) => {
 		const waifu = await WaifusModel.findById(req.params.id).populate('user')
 		
 		res.json(waifu)
+
 	} catch (error) {
-		console.log(error)
+		console.error(error)
+		
+		res.sendStatus(500).json({
+			text: 'Something went wrong in waifu route',
+			color: 'color--error'
+		})
 	}
 }

@@ -1,14 +1,12 @@
-const WaifusModel = require('../models/list.model')
+const ModerateWaifusModel = require('../models/moderate.model')
 
 module.exports.addWaifu = async (req, res) => {
-	const { name, imgUrl, description, user } = req.body
-	
-	const waifus = new WaifusModel(req.body)
-
 	try {
+		const waifus = new ModerateWaifusModel(req.body)
+		
 		await waifus.save()
 		res.sendStatus(200).json({
-			text: 'Character is added',
+			text: 'Your request has been accepted, the post is being moderated',
 			color: 'color--success'
 		})
 	}

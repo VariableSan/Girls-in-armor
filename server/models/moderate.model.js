@@ -1,7 +1,7 @@
 const { Schema } = require('mongoose')
 const { createModel } = require('../middleware/mongoose.middle')
 
-const waifusSchema = new Schema({
+const moderateSchema = new Schema({
 	name: {
 		required: true,
 		type: String
@@ -21,4 +21,4 @@ const waifusSchema = new Schema({
 	}
 })
 
-module.exports = createModel('Waifus', waifusSchema)
+module.exports = createModel('Moderate', moderateSchema)

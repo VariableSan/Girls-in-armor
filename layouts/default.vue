@@ -5,12 +5,10 @@
       v-main
          nuxt
       main-snackbar
-      main-footer(v-if="getRoute === 'index'")
 </template>
 
 <script>
 import header from '@/components/header'
-import footer from '@/components/footer'
 import drawer from '@/components/drawer'
 import snackbar from '@/components/snackbar'
 
@@ -18,7 +16,6 @@ import snackbar from '@/components/snackbar'
 export default {
    components: {
       mainHeader: header,
-      mainFooter: footer,
       mainDrawer: drawer,
       mainSnackbar: snackbar
    },

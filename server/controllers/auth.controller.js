@@ -14,12 +14,14 @@ module.exports.login = async (req, res) => {
 		if (isPasswordCorrect) {
 			const token = jwt.sign({
 				login: user.login,
-				userId: user._id
+				userId: user._id,
+				permission: user.permission
 			}, keys.JWT, { expiresIn: 60 * 60 })
 
 			res.json({
 				token,
 				user: user._id,
+				permission: user.permission,
 				text: 'You are successfully logged in',
 				color: 'color--success'
 			})

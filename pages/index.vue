@@ -4,6 +4,7 @@
 		app-confrontation
 		app-cards
 		app-slider
+		app-footer
 </template>
 
 <script>
@@ -18,7 +19,8 @@ export default {
 		AppParallax,
 		AppConfrontation,
 		AppCards,
-		AppSlider
+		AppSlider,
+		AppFooter
 	},
 
 	head() {

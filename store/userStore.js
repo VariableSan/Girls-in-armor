@@ -4,7 +4,8 @@ import jwtDecode from 'jwt-decode'
 
 export const state = () => ({
 	token: null,
-	user: null
+	user: null,
+	permission: false
 })
 
 export const getters = {
@@ -12,7 +13,9 @@ export const getters = {
 
 	isAuth: (state) => Boolean(state.user),
 
-	getToken: (state) => state.token
+	getToken: (state) => state.token,
+
+	getPermission: (state) => state.permission
 }
 
 export const mutations = {
@@ -26,6 +29,10 @@ export const mutations = {
 		Cookies.set('jwt-token', token)
 	},
 
+	setPermission(state, permission) {
+		state.permission = permission
+	},
+
 	logout(state) {
 		this.$axios.setToken(false)
 		state.token = null
@@ -37,11 +44,12 @@ export const mutations = {
 export const actions = {
 	async login({ commit }, userForm) {
 		try {
-			const { token, user, text, color } = await this.$axios.$post('/api/auth/login', userForm)
+			const { token, user, text, color, permission } = await this.$axios.$post('/api/auth/login', userForm)
 
 			if (token && user) {
 				commit('setUser', user)
 				commit('setToken', token)
+				commit('setPermission', permission)
 
 				this.$router.push('/')
 			}
@@ -60,6 +68,7 @@ export const actions = {
 		try {
 			const { text, color } = await this.$axios.$post('/api/auth/create', userForm)
 
+			this.$router.push('/auth/login')
 			commit('setMessage', { text, color }, { root: true })
 		} 
 		catch (e) {
@@ -88,6 +97,7 @@ export const actions = {
 		if (isJWTValid(token)) {
 			commit('setToken', token)
 			commit('setUser', decodeJWT(token).userId)
+			commit('setPermission', decodeJWT(token).permission)
 		}
 		else {
 			dispatch('logout')

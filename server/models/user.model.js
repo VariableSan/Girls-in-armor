@@ -17,6 +17,11 @@ const userSchema = new Schema({
 	email: {
 		type: String,
 		required: true
+	},
+
+	permission: {
+		type: Boolean,
+		default: false
 	}
 })
 

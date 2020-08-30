@@ -12,6 +12,7 @@ const listRoute = require('./routes/list.route')
 const addRoute = require('./routes/add.route')
 const waifuRoute = require('./routes/waifu.route')
 const authRoute = require('./routes/auth.route')
+const moderateRoute = require('./routes/moderate.route')
 /*==================== ROUTES EXPORTS END====================*/
 
 /*==================== MONGO SERVER START====================*/
@@ -30,6 +31,7 @@ app.use('/list', listRoute)
 app.use('/add', addRoute)
 app.use('/waifu', waifuRoute)
 app.use('/auth', authRoute)
+app.use('/moderate', moderateRoute)
 /*==================== ROUTES END====================*/
 
 module.exports = {

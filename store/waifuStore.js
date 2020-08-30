@@ -35,6 +35,7 @@ export const mutations = {
 export const actions = {
 	async getWaifuListFromServer({ commit }, paginationId) {
 		try {
+			commit('loadingStore/setFetchLoading', true, {root: true})
 			const waifus = await this.$axios.$get('/api/list')
 			
 			commit('setWaifuList', waifus)
@@ -42,11 +43,15 @@ export const actions = {
 		catch (e) {
 			console.error(e)
 		}
+		finally {
+			commit('loadingStore/setFetchLoading', false, {root: true})
+
+		}
 	},
 
 	async getWaifuLengthFromServer({ commit }) {
-		commit('loadingStore/setFetchLoading', true, {root: true})
 		try {
+			commit('loadingStore/setFetchLoading', true, {root: true})
 			const length = await this.$axios.$get('/api/list/waifusLength')
 
 			commit('setWaifuLength', length)
