@@ -24,38 +24,25 @@ export const mutations = {
 }
 
 export const actions = {
-	async getModeratesLength({ commit }) {
+	async getModerates({ commit, state }) {
 		try {
 			commit('loadingStore/setFetchLoading', true, {
 				root: true
 			})
 
-			const length = await this.$axios.$get('/api/moderate/length')
-
-			commit('setModeratesLength', length)
-		} 
-		catch (error) {
-			console.error(error)
-		}
-		finally {
-			commit('loadingStore/setFetchLoading', false, {
-				root: true
-			})
-		}
-	},
-
-	async getModerates({ commit }) {
-		try {
-			commit('loadingStore/setFetchLoading', true, {
-				root: true
+			const moderates = await this.$axios.$post('/api/moderate/list', {
+				page: state.pagination
 			})
 
-			const moderates = await this.$axios.$get('/api/moderate/list')
-
-			commit('setModerates', moderates)
+			commit('setModerates', moderates.docs)
+			commit('setModeratesLength', moderates.totalPages)
 		}
-		catch (error) {
-			console.error(error)	
+		catch (e) {
+			console.error(e.response)
+
+			commit('setMessage', e.response.data, {
+				root: true
+			})
 		}
 		finally {
 			commit('loadingStore/setFetchLoading', false, {

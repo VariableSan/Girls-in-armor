@@ -4,17 +4,10 @@ const router = Router()
 const ModerateCtr = require('../controllers/moderate.controller')
 
 /* /api/moderate/list */
-router.get(
+router.post(
 	'/list', 
 	passport.authenticate('jwt', { session: false }),
 	ModerateCtr.getModerate
-)
-
-/* /api/moderate/length */
-router.get(
-	'/length',
-	passport.authenticate('jwt', { session: false }),
-	ModerateCtr.getLength
 )
 
 /* /api/moderate/:id */

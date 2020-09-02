@@ -60,7 +60,9 @@ export const actions = {
 			}, { root: true })
 		} 
 		catch (e) {
-			console.error(error)
+			console.error(e.response)
+
+			this.$store.commit('setMessage', e.response.data)
 		}
 	},
 
@@ -72,7 +74,9 @@ export const actions = {
 			commit('setMessage', { text, color }, { root: true })
 		} 
 		catch (e) {
-			console.error(e)
+			console.error(e.response)
+			
+			this.$store.commit('setMessage', e.response.data)
 		}
 	},
 

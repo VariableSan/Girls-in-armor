@@ -26,12 +26,19 @@
 				:key='index'
 			)
 				v-hover(v-slot:default='{ hover }')
-					v-card.list__card(dark link :to='"/moderate/" + waifu._id')
-						v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
+					v-card.list__card(dark)
+						nuxt-link(link :to='"/moderate/" + waifu._id')
+							v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
 						v-card-title 
 							h4.list__text--ellipsis {{waifu.name}}
 						v-card-text
 							p.list__text--ellipsis {{waifu.description}}
+						v-card-actions
+							v-btn(
+								color="color--primary"
+								@click.prevent="publicShow({id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user})" 
+							) Accept
+								
 
 		template(v-if='paginationLength > 1')
 			v-pagination(
@@ -51,8 +58,12 @@ export default {
 		title: 'Moderate list'
 	}),
 
+	middleware: ['moderate.middle'],
+
 	mounted() {
-		this.getModerates()
+		if (this.$store.getters['moderate.store/moderates'].length < 1) {
+			this.getModerates()
+		}
 	},
 		
 	computed: {
@@ -83,7 +94,13 @@ export default {
 	methods: {
 		getModerates() {
 			this.$store.dispatch('moderate.store/getModerates')
-			this.$store.dispatch('moderate.store/getModeratesLength')
+		},
+
+		async publicShow(waifuInfo) {
+			const message = await this.$axios.$post('/api/moderate/add', waifuInfo)
+			this.$store('setMessage', message)
+
+			this.getModerates()
 		}
 	}
 }
@@ -92,9 +109,6 @@ export default {
 <style lang="sass" scoped>
 @import "~/assets/colors"
 @import "~/assets/_smart-grid"
-
-.color--primary
-	background-color: darken($color--primary, 15) !important
 
 .list
 	&__buttons

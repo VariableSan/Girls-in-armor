@@ -6,7 +6,7 @@
 			div(:class=' windowWidth ? "container" : "" ' class='header__wrapper')
 				div.header__content
 					v-toolbar-title(
-						v-if='currentRoute == "waifu-id"'
+						v-if='currentRoute == "waifu-id" || currentRoute == "moderate-id"'
 						@click='backToList'
 						class='clickable'
 					)

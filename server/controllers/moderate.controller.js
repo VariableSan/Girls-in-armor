@@ -3,30 +3,29 @@ const WaifusModel = require('../models/list.model')
 
 module.exports.getModerate = async (req, res) => {
 	try {
-		const moderates = await ModerateModel.find()
+		const moderates = await ModerateModel.paginate({}, req.body)
 
 		res.json(moderates)
-	} catch (error) {
+	} 
+	catch (error) {
 		console.error(error)
-	}
-}
 
-module.exports.getLength = async (req, res) => {
-	try {
-		const moderatesLength = await ModerateModel.countDocuments()
-
-		res.json(moderatesLength)
-	} catch (error) {
-		console.error(error)
+		res.status(500).json({
+			text: 'Something went wrong in moderate route',
+			color: 'color--error'
+		})
 	}
 }
 
 module.exports.addToWaifuList = async(req, res) => {
 	try {
+		const { id } = req.body
+		delete req.body.id
+		
 		const waifus = await WaifusModel(req.body)
 		await waifus.save()
 
-		await ModerateModel().deleteOne({_id: req.body.id})
+		await ModerateModel.findByIdAndRemove(id)
 
 		res.sendStatus(200).json({
 			text: 'The post is now visible to everyone',
@@ -44,7 +43,7 @@ module.exports.addToWaifuList = async(req, res) => {
 
 module.exports.removeById = async(req, res) => {
 	try {
-		await ModerateModel().deleteOne({_id: req.body.id})
+		await ModerateModel.findByIdAndRemove(req.body.id)
 
 		res.sendStatus(200).json({
 			text: 'The post is removed',
@@ -53,6 +52,7 @@ module.exports.removeById = async(req, res) => {
 	} 
 	catch (error) {
 		console.error(error)
+		
 		res.sendStatus(500).json({
 			text: 'Something went wrong in moderate route',
 			color: 'color--error'

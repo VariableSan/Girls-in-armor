@@ -32,7 +32,9 @@ export default {
 			return { waifu }
 		} 
 		catch (e) {
-			console.error(e)	
+			console.error(e.response)
+
+			this.$store.commit('setMessage', e.response.data)
 		}
 	}
 }

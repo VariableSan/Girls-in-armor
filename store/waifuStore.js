@@ -27,40 +27,30 @@ export const mutations = {
 		state.pagination = payload
 	},
 
-	setWaifuLength(state, payload) {
-		state.waifusLength = Math.floor(payload / 15)
+	setWaifusLength(state, length) {
+		state.waifusLength = length
 	}
 }
 
 export const actions = {
-	async getWaifuListFromServer({ commit }, paginationId) {
+	async getWaifuListFromServer({ commit, state }, paginationId) {
 		try {
 			commit('loadingStore/setFetchLoading', true, {root: true})
-			const waifus = await this.$axios.$get('/api/list')
+			const waifus = await this.$axios.$post('/api/list', {
+				page: state.pagination
+			})
 			
-			commit('setWaifuList', waifus)
+			commit('setWaifuList', waifus.docs)
+			commit('setWaifusLength', waifus.totalPages)
 		} 
 		catch (e) {
-			console.error(e)
+			console.error(e.response)
+		
+			this.$store.commit('setMessage', e.response.data)
 		}
 		finally {
 			commit('loadingStore/setFetchLoading', false, {root: true})
 
-		}
-	},
-
-	async getWaifuLengthFromServer({ commit }) {
-		try {
-			commit('loadingStore/setFetchLoading', true, {root: true})
-			const length = await this.$axios.$get('/api/list/waifusLength')
-
-			commit('setWaifuLength', length)
-		}
-		catch (e) {
-			console.error(e)
-		}
-		finally {
-			commit('loadingStore/setFetchLoading', false, {root: true})
 		}
 	},
 
@@ -74,8 +64,10 @@ export const actions = {
 			
 			this.$router.push('/list?added=true')
 		}
-		catch (error) {
-			console.error(error)
+		catch (e) {
+			console.error(e.response)
+
+			this.$store.commit('setMessage', e.response.data)
 		}
 		finally {
 			commit('loadingStore/setLoading', false, { root: true })

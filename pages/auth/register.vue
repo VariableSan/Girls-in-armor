@@ -64,6 +64,8 @@ export default {
 		}
 	},
 
+	middleware: ['login.middle'],
+
 	mixins: [validationMixin],
 
 	validations: {

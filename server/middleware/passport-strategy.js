@@ -18,7 +18,7 @@ module.exports = new Strategy(options, async (payload, done) => {
 			done(null, false)
 		}
 	}
-	catch (err) {
-		console.error(err)
+	catch (e) {
+		console.error(e)
 	}
 })

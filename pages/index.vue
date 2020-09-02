@@ -30,13 +30,19 @@ export default {
 	},
 
 	mounted() {
-		const { login } = this.$route.query
+		const { message } = this.$route.query
 
-		if (login) {
-			this.$store.commit('setMessage', {
-				text: 'You need to login first',
-				color: 'color--warning'
-			})
+		if (message) {
+			switch (message) {
+				case 'already':
+					this.$store.commit('setMessage', {
+						text: 'You need to log out',
+						color: 'color--warning'
+					})
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }

@@ -12,6 +12,7 @@ module.exports.addWaifu = async (req, res) => {
 	}
 	catch (error) {
 		console.error(error)
+		
 		res.sendStatus(500).json({
 			text: 'Something went wrong in add route',
 			color: 'color--error'

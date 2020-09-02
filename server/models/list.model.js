@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose')
 const { createModel } = require('../middleware/mongoose.middle')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const waifusSchema = new Schema({
 	name: {
@@ -20,5 +21,7 @@ const waifusSchema = new Schema({
 		ref: 'User'
 	}
 })
+
+waifusSchema.plugin(mongoosePaginate)
 
 module.exports = createModel('Waifus', waifusSchema)

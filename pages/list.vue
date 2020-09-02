@@ -50,9 +50,11 @@ export default {
 		},
 
 		pagination: {
-			get() { return this.$store.getters['waifuStore/pagination'] },
+			get() {
+				return this.$store.getters['waifuStore/getPagination'] 
+			},
 			set(state, payload) {
-				if (state !== this.$store.getters['waifuStore/pagination']) {
+				if (state !== this.$store.getters['waifuStore/getPagination']) {
 					this.$store.commit('waifuStore/setPagination', state)
 				}
 			}
@@ -70,20 +72,26 @@ export default {
 	methods: {
 		getWaifus() {
 			this.$store.dispatch('waifuStore/getWaifuListFromServer')
-			this.$store.dispatch('waifuStore/getWaifuLengthFromServer')
 		}
 	},
 
 	mounted() {
-		const { added } = this.$route.query
+		const { added, permission } = this.$route.query
 		
 		this.$store.getters['waifuStore/getWaifuList'].length < 1 ?
 			this.getWaifus() :
 			null
 
-		added ? 
-			this.getWaifus() :
-			null
+		if (permission) {
+			this.$store.commit('setMessage', {
+				text: 'You do not have administrator access rights',
+				color: 'color--warning'
+			})
+		}
+	},
+
+	watch: {
+		paginationLength() {}
 	}
 }
 </script>
@@ -91,9 +99,6 @@ export default {
 <style lang="sass" scoped>
 @import "~/assets/colors"
 @import "~/assets/_smart-grid"
-
-.color--primary
-	background-color: darken($color--primary, 15) !important
 
 .list
 	&__buttons
