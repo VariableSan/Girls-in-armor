@@ -25,12 +25,8 @@ export default {
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/shield-and-sword.svg' },
 			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap' },
-			{ rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css' }
 		],
-		script: [
-			{ src: '//code.jquery.com/jquery-3.2.1.min.js' },
-			{ src: 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js' }
-		]
+		script: []
 	},
 	/*
 	** Global CSS
