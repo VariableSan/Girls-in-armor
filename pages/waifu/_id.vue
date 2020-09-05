@@ -1,14 +1,17 @@
 <template lang='pug'>
 	section(class='section')
+		CoolLightBox(:items='[waifu.imgUrl]' :index='index' @close='index = null' :fullscreen='true')
+
 		v-container
 			v-card(dark loader-height="4" class='waifu-id__card' outlined)
 				v-row
 					v-col(cols='12' md='6' lg='6')
-						a(data-fancybox :href='waifu.imgUrl' class='waifu-id__fancy')
+						a(class='waifu-id__fancy')
 							v-img(
 								dark
 								:src='waifu.imgUrl'
 								max-height='500'
+								@click.prevent='index = 0'
 							)
 					v-col(cols='12' md='6' lg='6')
 						v-card-title(class='waifu-id__title') {{ waifu.name }}
@@ -19,7 +22,14 @@
 </template>
 
 <script>
+import CoolLightBox from 'vue-cool-lightbox'
+import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
+
 export default {
+	components: {
+		CoolLightBox
+	},
+	
 	head() {
 		return {
 			title: this.waifu.name
@@ -36,7 +46,11 @@ export default {
 
 			this.$store.commit('setMessage', e.response.data)
 		}
-	}
+	},
+
+	data: () => ({
+		index: null
+	})
 }
 </script>
 

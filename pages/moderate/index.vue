@@ -98,7 +98,7 @@ export default {
 
 		async publicShow(waifuInfo) {
 			const message = await this.$axios.$post('/api/moderate/add', waifuInfo)
-			this.$store('setMessage', message)
+			this.$store.commit('setMessage', message)
 
 			this.getModerates()
 		}

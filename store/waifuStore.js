@@ -62,7 +62,7 @@ export const actions = {
 
 			commit('setMessage', message, { root: true })
 			
-			this.$router.push('/list?added=true')
+			this.$router.push('/list')
 		}
 		catch (e) {
 			console.error(e.response)

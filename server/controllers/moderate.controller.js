@@ -27,14 +27,14 @@ module.exports.addToWaifuList = async(req, res) => {
 
 		await ModerateModel.findByIdAndRemove(id)
 
-		res.sendStatus(200).json({
+		res.status(200).json({
 			text: 'The post is now visible to everyone',
 			color: 'color--success'
 		})
 	} 
 	catch (error) {
 		console.error(error)
-		res.sendStatus(500).json({
+		res.status(500).json({
 			text: 'Something went wrong in moderate route',
 			color: 'color--error'
 		})
@@ -45,7 +45,7 @@ module.exports.removeById = async(req, res) => {
 	try {
 		await ModerateModel.findByIdAndRemove(req.body.id)
 
-		res.sendStatus(200).json({
+		res.status(200).json({
 			text: 'The post is removed',
 			color: 'color--success'
 		})
@@ -53,7 +53,7 @@ module.exports.removeById = async(req, res) => {
 	catch (error) {
 		console.error(error)
 		
-		res.sendStatus(500).json({
+		res.status(500).json({
 			text: 'Something went wrong in moderate route',
 			color: 'color--error'
 		})
@@ -68,7 +68,7 @@ module.exports.getById = async (req, res) => {
 	} 
 	catch (error) {
 		console.error(error)
-		res.sendStatus(500).json({
+		res.status(500).json({
 			text: 'Something went wrong in moderate route',
 			color: 'color--error'
 		})

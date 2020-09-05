@@ -9,7 +9,7 @@ module.exports.getWaifuById = async (req, res) => {
 	} catch (error) {
 		console.error(error)
 		
-		res.sendStatus(500).json({
+		res.status(500).json({
 			text: 'Something went wrong in waifu route',
 			color: 'color--error'
 		})

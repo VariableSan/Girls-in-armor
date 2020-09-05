@@ -9,7 +9,7 @@
 						color='color--primary'
 						@click='getWaifus'
 						dark
-					) Fetch data from server
+					) Update
 				
 						v-icon(right dark) mdi-download-circle
 					
@@ -76,17 +76,21 @@ export default {
 	},
 
 	mounted() {
-		const { added, permission } = this.$route.query
+		const { message } = this.$route.query
 		
 		this.$store.getters['waifuStore/getWaifuList'].length < 1 ?
 			this.getWaifus() :
 			null
 
-		if (permission) {
-			this.$store.commit('setMessage', {
-				text: 'You do not have administrator access rights',
-				color: 'color--warning'
-			})
+		if (message) {
+			switch (message) {
+				case 'permission':
+					this.$store.commit('setMessage', {
+						text: 'You do not have administrator access rights',
+						color: 'color--warning'
+					})			
+					break;
+			}
 		}
 	},
 
