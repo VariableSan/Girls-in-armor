@@ -1,5 +1,7 @@
 <template lang="pug">
-	section.section.login__section
+	section.section.login__section(
+		:style='"background-image: url(" + require("~/assets/images/auth/login-bg.jpg") + ")"'
+	)
 		v-container
 			v-card.register__card(dark)
 				v-toolbar(color='color--primary')
@@ -13,6 +15,7 @@
 							label='Login'
 							required
 							@blur='$v.login.$touch()'
+							@keyup.enter='onSubmit'
 						)
 
 						v-text-field(
@@ -24,6 +27,7 @@
 							label='Password'
 							required
 							@blur='$v.password.$touch()'
+							@keyup.enter='onSubmit'
 						)
 
 					v-card-actions
@@ -33,6 +37,21 @@
 						) submit
 				
 </template>
+
+
+<style lang="sass" scoped>
+.login
+	&__section
+		display: flex
+		align-items: center
+		justify-content: center
+		min-height: 100vh
+		padding-top: 0
+		background-size: cover
+		background-position: center top
+		background-repeat: no-repeat
+</style>
+
 
 <script>
 import { validationMixin } from 'vuelidate'

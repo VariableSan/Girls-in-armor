@@ -1,7 +1,7 @@
 <template lang="pug">
 	div(v-resize='onResize')
 		v-toolbar(flat dark class='header' ref='mainHeader' 
-			:class='currentRoute == "index" ? "header--transparent": ""'
+			:class='isTransparent ? "header--transparent": ""'
 		)
 			div(:class=' windowWidth ? "container" : "" ' class='header__wrapper')
 				div.header__content
@@ -34,7 +34,7 @@
 
 		div(
 			ref='headerClone'
-			v-show='currentRoute != "index"'
+			v-show='!isTransparent'
 		)
 			
 </template>
@@ -83,7 +83,13 @@ export default {
 			return this.$store.getters['userStore/getPermission']
 		},
 
-		scrollBreakPoint: () => window.innerHeight / 2
+		scrollBreakPoint: () => window.innerHeight / 2,
+
+		isTransparent() {
+			const allowRoutes = ['index', 'auth-register', 'auth-login']
+
+			return allowRoutes.some(route => route == this.currentRoute)
+		}
 	},
 
 	methods: {

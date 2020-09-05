@@ -52,7 +52,7 @@ export default {
 			const relativeSpeed = 1
 			
 			window.addEventListener('scroll', () => {
-				let scrollValue = window.scrollY
+				let scrollValue = window.scrollY >= 0 ? window.scrollY : 0
 				let scrollSpeed = scrollValue * relativeSpeed
 				
 				if (scrollValue < window.innerHeight) {
