@@ -31,7 +31,8 @@ export const actions = {
 			})
 
 			const moderates = await this.$axios.$post('/api/moderate/list', {
-				page: state.pagination
+				page: state.pagination,
+				limit: 12
 			})
 
 			commit('setModerates', moderates.docs)

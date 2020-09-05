@@ -56,6 +56,7 @@ export default {
 			set(state, payload) {
 				if (state !== this.$store.getters['waifuStore/getPagination']) {
 					this.$store.commit('waifuStore/setPagination', state)
+					this.getWaifus()
 				}
 			}
 		},

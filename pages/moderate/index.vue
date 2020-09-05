@@ -74,6 +74,7 @@ export default {
 			set(state, payload) {
 				if (state !== this.$store.getters['moderate.store/pagination']) {
 					this.$store.commit('moderate.store/setPagination', state)
+					this.getModerates()
 				}
 			}
 		},

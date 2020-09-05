@@ -33,11 +33,12 @@ export const mutations = {
 }
 
 export const actions = {
-	async getWaifuListFromServer({ commit, state }, paginationId) {
+	async getWaifuListFromServer({ commit, state }) {
 		try {
 			commit('loadingStore/setFetchLoading', true, {root: true})
 			const waifus = await this.$axios.$post('/api/list', {
-				page: state.pagination
+				page: state.pagination,
+				limit: 12
 			})
 			
 			commit('setWaifuList', waifus.docs)

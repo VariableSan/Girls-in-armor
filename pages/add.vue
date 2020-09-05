@@ -14,6 +14,7 @@
 						required
 						dark
 						autofocus
+						@keyup.enter='saveWaifu'
 					)
 					v-text-field(
 						v-model='imgUrl'
@@ -21,6 +22,7 @@
 						label='Image URL'
 						required
 						dark
+						@keyup.enter='saveWaifu'
 					)
 					v-textarea.add__textarea(
 						v-model='description'
@@ -32,6 +34,7 @@
 						dense
 						rows='2'
 						row-height='20'
+						@keyup.enter='saveWaifu'
 					)
 
 					v-btn(
