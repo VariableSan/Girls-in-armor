@@ -73,5 +73,35 @@ export const actions = {
 		finally {
 			commit('loadingStore/setLoading', false, { root: true })
 		}
+	},
+
+	async removeWaifu({ commit, dispatch }, id) {
+		try {
+			commit('loadingStore/setLoading', true, {
+				root: true
+			})
+			
+			const message = await this.$axios.$delete('/api/list/remove', {
+				data: {
+					id
+				}
+			})
+
+			dispatch('getWaifuListFromServer')
+
+			commit('setMessage', message, {
+				root: true
+			})
+		} 
+		catch (e) {
+			console.error(e)
+			
+			this.$store.commit('setMessage', e.response.data)
+		}
+		finally {
+			commit('loadingStore/setLoading', false, {
+				root: true
+			})
+		}
 	}
 }

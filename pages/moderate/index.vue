@@ -36,8 +36,15 @@
 						v-card-actions
 							v-btn(
 								color="color--primary"
-								@click.prevent="publicShow({id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user})" 
+								@click="publicShow({id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user})" 
 							) Accept
+
+							v-spacer
+
+							v-btn(
+								color="color--deeporange"
+								@click="rejectPost(waifu._id)"
+							) Reject
 								
 
 		template(v-if='paginationLength > 1')
@@ -61,8 +68,18 @@ export default {
 	middleware: ['moderate.middle'],
 
 	mounted() {
+		const { message } = this.$route.query
+		
 		if (this.$store.getters['moderate.store/moderates'].length < 1) {
 			this.getModerates()
+		}
+
+		if (message) {
+			switch (message) {
+				case 'moderated':
+					this.getModerates()		
+					break;
+			}
 		}
 	},
 		
@@ -102,6 +119,18 @@ export default {
 			this.$store.commit('setMessage', message)
 
 			this.getModerates()
+		},
+
+		async rejectPost(id) {
+			const message = await this.$axios.$delete('/api/moderate/remove', {
+				data: {
+					id
+				}
+			})
+
+			this.$store.commit('setMessage', message)
+			
+			this.getModerates()
 		}
 	}
 }
@@ -126,6 +155,7 @@ export default {
 
 	&__card
 		height: 100%
+		overflow: hidden
 		transition: box-shadow .2s ease-in-out
 		&:hover
 			box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12)

@@ -82,12 +82,6 @@ export const actions = {
 
 	logout({ commit }) {
 		commit('logout')
-		commit('setMessage', {
-			text: 'You are successfully logged out',
-			color: 'color--success'
-		}, { root: true })
-
-		this.$router.push('/auth/login')
 	},
 
 	autoLogin({ commit, dispatch }) {

@@ -34,7 +34,6 @@
 						dense
 						rows='2'
 						row-height='20'
-						@keyup.enter='saveWaifu'
 					)
 
 					v-btn(

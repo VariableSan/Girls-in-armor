@@ -14,11 +14,28 @@
 								@click.prevent='index = 0'
 							)
 					v-col(cols='12' md='6' lg='6')
-						v-card-title(class='waifu-id__title') {{ waifu.name }}
-						v-divider
-						v-card-text(class='waifu-id__description' v-text='waifu.description') 
-						.waifu-id__author
-							p Author: {{ waifu.user.login }}
+						.waifu-id__info
+							.waifu-id__text
+								v-card-title(class='waifu-id__title') {{ waifu.name }}
+								v-divider
+								v-card-text(class='waifu-id__description' v-text='waifu.description') 
+
+							v-card-actions
+								v-btn(
+									class="waifu-id__action" 
+									color="color--primary"
+									@click="publicShow({id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user})" 
+								) Accept
+
+								v-btn(
+									class="waifu-id__action" 
+									color="color--deeporange"
+									@click="rejectPost"
+								) Reject
+								
+						.waifu-id__details
+							p.waifu-id__author Author: {{ waifu.user.login }}
+							p.waifu-id__date Date: {{ date }}
 </template>
 
 <script>
@@ -50,11 +67,41 @@ export default {
 
 	data: () => ({
 		index: null
-	})
+	}),
+
+	computed: {
+		date() {
+			const date = new Date(this.waifu.date)
+			
+			const day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
+			const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
+			const year = date.getFullYear()
+
+			return `${day}-${month}-${year}`
+		}
+	},
+
+	methods: {
+		async publicShow(waifuInfo) {
+			const message = await this.$axios.$post('/api/moderate/add', waifuInfo)
+			this.$store.commit('setMessage', message)
+			this.$router.push('/moderate?message=moderated')
+		},
+
+		async rejectPost() {
+			const message = await this.$axios.$delete('/api/moderate/remove', {
+				data: {
+					id: this.$route.params.id
+				}
+			})
+			this.$store.commit('setMessage', message)
+			this.$router.push('/moderate?message=moderated')
+		}
+	}
 }
 </script>
 
-<style lang='sass'>
+<style lang='sass' scoped>
 @import '~/assets/_smart-grid'
 
 .waifu-id
@@ -69,6 +116,12 @@ export default {
 	&__fancy
 		cursor: zoom-in
 
+	&__info
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		height: 100%
+	
 	&__title
 		font-size: 1.3rem
 		font-weight: 700
@@ -79,8 +132,16 @@ export default {
 		font-size: 1.1rem
 		+sm(font-size, 1rem)
 
-	&__author
+	&__details
 		position: absolute
 		bottom: 15px
 		right: 15px
+		display: flex
+
+	&__author
+		margin-right: 10px
+
+	&__action
+		&:not(:last-child)
+			margin-right: 10px
 </style>

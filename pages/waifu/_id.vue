@@ -14,11 +14,21 @@
 								@click.prevent='index = 0'
 							)
 					v-col(cols='12' md='6' lg='6')
-						v-card-title(class='waifu-id__title') {{ waifu.name }}
-						v-divider
-						v-card-text(class='waifu-id__description' v-text='waifu.description') 
-						.waifu-id__author
-							p Author: {{ waifu.user.login }}
+						.waifu-id__info
+							.waifu-id__text
+								v-card-title(class='waifu-id__title') {{ waifu.name }}
+								v-divider
+								v-card-text(class='waifu-id__description' v-text='waifu.description') 
+							v-card-actions
+								v-btn(
+									@click="removeWaifuById(waifu.user)" 
+									color="color--deeporange"
+									v-if="waifu.user._id == user"
+								) remove
+								
+						.waifu-id__details
+							p.waifu-id__author Author: {{ waifu.user.login }}
+							p.waifu-id__date Date: {{ date }}
 </template>
 
 <script>
@@ -50,11 +60,43 @@ export default {
 
 	data: () => ({
 		index: null
-	})
+	}),
+
+	computed: {
+		user() {
+			return this.$store.getters['userStore/getUser']
+		},
+
+		date() {
+			const date = new Date(this.waifu.date)
+			
+			const day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
+			const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
+			const year = date.getFullYear()
+
+			return `${day}-${month}-${year}`
+		}
+	},
+
+	methods: {
+		removeWaifuById(user) {
+			if (user._id == this.user) {
+				this.$store.dispatch('waifuStore/removeWaifu', this.$route.params.id)
+	
+				this.$router.push('/list')
+			}
+			else {
+				this.$store.commit('setMessage', {
+					text: 'You are not the owner of this post',
+					color: 'color--warning'
+				})
+			}
+		}
+	}
 }
 </script>
 
-<style lang='sass'>
+<style lang='sass' scoped>
 @import '~/assets/_smart-grid'
 
 .waifu-id
@@ -69,6 +111,12 @@ export default {
 	&__fancy
 		cursor: zoom-in
 
+	&__info
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		height: 100%
+	
 	&__title
 		font-size: 1.3rem
 		font-weight: 700
@@ -79,8 +127,12 @@ export default {
 		font-size: 1.1rem
 		+sm(font-size, 1rem)
 
-	&__author
+	&__details
 		position: absolute
 		bottom: 15px
 		right: 15px
+		display: flex
+
+	&__author
+		margin-right: 10px
 </style>

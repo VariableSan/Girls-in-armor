@@ -12,7 +12,7 @@ export default function({ $axios, redirect, store }) {
 		if (error.response) {
 			if (error.response.status === 401) {
 				redirect('/auth/login?message=session')
-				store.dispatch('auth/logout')
+				store.dispatch('userStore/logout')
 			}
 
 			if (error.response.status === 500) {

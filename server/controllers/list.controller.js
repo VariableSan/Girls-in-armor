@@ -13,3 +13,19 @@ module.exports.getWaifus = async (req, res) => {
 		defaultError(res, 'list')
 	}
 }
+
+module.exports.removeWaifuById = async (req, res) => {
+	try {
+		await WaifusModel.findByIdAndRemove(req.body.id)
+
+		res.status(200).json({
+			text: 'The post was successfully deleted',
+			color: 'color--success'
+		})
+	} 
+	catch (e) {
+		console.error(e)
+
+		defaultError(res, 'list')
+	}
+}

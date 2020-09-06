@@ -16,6 +16,7 @@
 							required
 							@blur='$v.login.$touch()'
 							@keyup.enter='onSubmit'
+							autofocus
 						)
 
 						v-text-field(
