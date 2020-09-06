@@ -1,22 +1,6 @@
-@import "colors"
+$color-collection: ("primary": #1976d2,"deeporange": #dd2c00,"black": #212121,"info": #26a69a,"warning": #ff8f00,"error": #e64a19,"success": #00e676,"dark": #1E1E1E)
 
-.color--primary
-	background-color: $color--primary !important
 
-.color--deeporange
-	background-color: $color--deeporange !important
-
-.color--black
-	background-color: $color--black !important
-
-.color--info
-	background-color: $color--info !important
-
-.color--warning
-	background-color: $color--warning !important
-
-.color--error
-	background-color: $color--error !important
-
-.color--success
-	background-color: $color--success !important
+@each $modificator, $color in $color-collection
+	.color--#{$modificator}
+		background-color: #{$color}
