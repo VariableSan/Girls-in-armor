@@ -25,6 +25,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "vue-cool-lightbox": "^2.5.1",
+    "vue-sweetalert2": "^3.0.8",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
