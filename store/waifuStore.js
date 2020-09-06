@@ -77,6 +77,21 @@ export const actions = {
 
 	async removeWaifu({ commit, dispatch }, id) {
 		try {
+			const userConfirm = await this.$swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!',
+				scrollbarPadding: false
+			})
+
+			if (!userConfirm.value) {
+				return
+			}
+			
 			commit('loadingStore/setLoading', true, {
 				root: true
 			})
