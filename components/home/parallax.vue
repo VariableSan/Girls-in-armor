@@ -71,7 +71,9 @@ export default {
 	},
 	
 	mounted() {
-		this.parallax()
+		if (window.innerWidth > 1200) {
+			this.parallax()
+		}
 	}
 }
 </script>
@@ -105,10 +107,12 @@ export default {
 			z-index: 1
 	&__sky
 		top: -5px
+		width: 100%
 	&__clouds
-		top: -200px
-		left: -10%
+		top: -30%
 		z-index: 20
+		left: -10%
+		width: 100%
 		transform: scale(1.2)
 		+xl-block()
 			top: 0
