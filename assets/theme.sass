@@ -1,6 +1,6 @@
-$color-collection: ("primary": #1976d2,"deeporange": #dd2c00,"black": #212121,"info": #26a69a,"warning": #ff8f00,"error": #e64a19,"success": #00e676,"dark": #1E1E1E)
+$color_collection: ("primary": #1976d2,"deeporange": #dd2c00,"black": #212121,"info": #26a69a,"warning": #ff8f00,"error": #e64a19,"success": #00e676,"dark": #1E1E1E)
 
 
 @each $modificator, $color in $color-collection
 	.color--#{$modificator}
-		background-color: #{$color}
+		background-color: #{$color} !important
