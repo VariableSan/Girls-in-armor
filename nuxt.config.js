@@ -23,8 +23,7 @@ export default {
 			{ hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/shield-and-sword.svg' },
-			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap' },
+			{ rel: 'icon', type: 'image/x-icon', href: '/shield-and-sword.svg' }
 		],
 		script: []
 	},
