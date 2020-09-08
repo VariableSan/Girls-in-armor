@@ -23,8 +23,8 @@ function createModel(modelName, modelSchema) {
 
 async function startMongo() {
 	try {
-		const { mongoURI } = require('../keys')
-		await connect(mongoURI, {
+		const { MONGO_URI } = require('../keys')
+		await connect(MONGO_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useCreateIndex: true,
