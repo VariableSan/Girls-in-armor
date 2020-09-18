@@ -57,7 +57,7 @@ export default {
         const scrollValue = window.scrollY
         const windowHeight = window.innerHeight
 
-        if (scrollValue < windowHeight) {
+        if (scrollValue > windowHeight) {
           animated.forEach((el) => {
             el.style.animationPlayState = 'paused'
           })
