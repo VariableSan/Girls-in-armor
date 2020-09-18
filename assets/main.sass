@@ -9,10 +9,10 @@
 
 html, body
 	font-family: 'Source Sans Pro', sans-serif
-	
+
 body
 	position: relative
-	
+
 img
 	max-width: 100%
 
@@ -27,7 +27,7 @@ img
 .pagination--dark
 	.v-pagination__more
 		color: #fff
-		
+
 	.v-pagination__item--active
 		background: $color--primary !important
 
@@ -36,13 +36,15 @@ img
 
 .section
 	padding-top: 60px
+	+md-block()
+		padding-top: 40px
 	+sm-block()
 		padding-top: 30px
 
 .color
 	&--light
 		color: #fff
-	
+
 .section__describe
 	display: flex
 	flex-direction: column

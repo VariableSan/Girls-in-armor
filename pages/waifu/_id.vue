@@ -18,14 +18,14 @@
 							.waifu-id__text
 								v-card-title(class='waifu-id__title') {{ waifu.name }}
 								v-divider
-								v-card-text(class='waifu-id__description' v-text='waifu.description') 
+								v-card-text(class='waifu-id__description' v-text='waifu.description')
 							v-card-actions
 								v-btn(
-									@click="removeWaifuById(waifu.user)" 
+									@click="removeWaifuById(waifu.user)"
 									color="color--deeporange"
 									v-if="waifu.user._id == user"
 								) remove
-								
+
 						.waifu-id__details
 							p.waifu-id__author Author: {{ waifu.user.login }}
 							p.waifu-id__date Date: {{ date }}
@@ -39,20 +39,20 @@ export default {
 	components: {
 		CoolLightBox
 	},
-	
+
 	head() {
 		return {
 			title: this.waifu.name
 		}
 	},
-	
+
 	async asyncData({ $axios, params }) {
 		try {
 			const waifu = await $axios.$get(`/api/waifu/${params.id}`)
 			return { waifu }
-		} 
+		}
 		catch (e) {
-			console.error(e.response)	
+			console.error(e.response)
 
 			this.$store.commit('setMessage', e.response.data)
 		}
@@ -69,7 +69,7 @@ export default {
 
 		date() {
 			const date = new Date(this.waifu.date)
-			
+
 			const day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
 			const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
 			const year = date.getFullYear()
@@ -82,7 +82,7 @@ export default {
 		removeWaifuById(user) {
 			if (user._id == this.user) {
 				this.$store.dispatch('waifuStore/removeWaifu', this.$route.params.id)
-	
+
 				this.$router.push('/list')
 			}
 			else {
@@ -116,12 +116,12 @@ export default {
 		flex-direction: column
 		justify-content: space-between
 		height: 100%
-	
+
 	&__title
 		font-size: 1.3rem
 		font-weight: 700
 		+sm(font-size, 1.2rem)
-	
+
 	&__description
 		white-space: pre
 		font-size: 1.1rem

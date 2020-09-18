@@ -1,10 +1,10 @@
 <template lang="pug">
-	div
-		app-parallax
-		app-confrontation
-		app-cards
-		app-slider
-		app-footer
+  div
+    app-parallax
+    app-confrontation
+    app-cards
+    app-slider
+    app-footer
 </template>
 
 <script>
@@ -15,35 +15,35 @@ import AppSlider from '~/components/home/slider'
 import AppFooter from '~/components/footer'
 
 export default {
-	components: {
-		AppParallax,
-		AppConfrontation,
-		AppCards,
-		AppSlider,
-		AppFooter
-	},
+  components: {
+    AppParallax,
+    AppConfrontation,
+    AppCards,
+    AppSlider,
+    AppFooter
+  },
 
-	head() {
-		return {
-			title: 'Home page'
-		}
-	},
+  head() {
+    return {
+      title: 'Home page'
+    }
+  },
 
-	mounted() {
-		const { message } = this.$route.query
+  mounted() {
+    const { message } = this.$route.query
 
-		if (message) {
-			switch (message) {
-				case 'already':
-					this.$store.commit('setMessage', {
-						text: 'You need to log out',
-						color: 'color--warning'
-					})
-					break;
-				default:
-					break;
-			}
-		}
-	}
+    if (message) {
+      switch (message) {
+        case 'already':
+          this.$store.commit('setMessage', {
+            text: 'You need to log out',
+            color: 'color--warning'
+          })
+          break;
+        default:
+          break;
+      }
+    }
+  }
 }
 </script>
