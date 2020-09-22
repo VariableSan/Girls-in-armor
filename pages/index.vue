@@ -23,26 +23,26 @@ export default {
     AppFooter
   },
 
-  head() {
-    return {
-      title: 'Home page'
-    }
-  },
-
-  mounted() {
+  mounted () {
     const { message } = this.$route.query
 
     if (message) {
       switch (message) {
-        case 'already':
-          this.$store.commit('setMessage', {
-            text: 'You need to log out',
-            color: 'color--warning'
-          })
-          break;
-        default:
-          break;
+      case 'already':
+        this.$store.commit('setMessage', {
+          text: 'You need to log out',
+          color: 'color--warning'
+        })
+        break
+      default:
+        break
       }
+    }
+  },
+
+  head () {
+    return {
+      title: 'Home page'
     }
   }
 }
