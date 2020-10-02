@@ -81,7 +81,7 @@ export default {
   ],
 
   styleResources: {
-    scss: ['@/assets/*.sass']
+    sass: ['@/assets/_smart-grid.sass', '@/assets/colors.sass']
   },
 
   pwa: {

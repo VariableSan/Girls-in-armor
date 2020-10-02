@@ -5,82 +5,82 @@
 @import "fonts"
 
 *
-	box-sizing: border-box
+  box-sizing: border-box
 
 html, body
-	font-family: 'Source Sans Pro', sans-serif
+  font-family: 'Source Sans Pro', sans-serif
 
 body
-	position: relative
+  position: relative
 
 img
-	max-width: 100%
+  max-width: 100%
 
 .error--text
-	color: $color--deeporange !important
+  color: $color--deeporange !important
 
 .default-template--dark
-	min-height: 100vh
-	background-color: $color--black
-	color: #fff
+  min-height: 100vh
+  background-color: $color--black
+  color: #fff
 
 .pagination--dark
-	.v-pagination__more
-		color: #fff
+  .v-pagination__more
+    color: #fff
 
-	.v-pagination__item--active
-		background: $color--primary !important
+  .v-pagination__item--active
+    background: $color--primary !important
 
 .clickable
-	cursor: pointer
+  cursor: pointer
 
 .section
-	padding-top: 60px
-	+md-block()
-		padding-top: 40px
-	+sm-block()
-		padding-top: 30px
+  padding-top: 60px
+  +md-block()
+    padding-top: 40px
+  +sm-block()
+    padding-top: 30px
 
 .color
-	&--light
-		color: #fff
+  &--light
+    color: #fff
 
 .section__describe
-	display: flex
-	flex-direction: column
-	justify-content: center
-	margin-bottom: 30px
-	text-align: center
-	&__headline
-		position: relative
-		margin-bottom: 15px
-		font-size: 36px
-		+sm(font-size, 24px)
-		&:after, &:before
-			content: ''
-			position: absolute
-			top: 50%
-			width: 30px
-			height: 3px
-			background-color: #fff
-		&:after
-			right: 0
-		&:before
-			left: 0
-	&__subhead
-		font-size: 20px
-		opacity: 0.5
-		+sm(font-size, 18px)
-	&__additional
-		margin-top: 5px
-		opacity: 0.3
+  display: flex
+  flex-direction: column
+  justify-content: center
+  margin-bottom: 30px
+  text-align: center
+  &__headline
+    position: relative
+    margin-bottom: 15px
+    font-size: 36px
+    +sm(font-size, 24px)
+    &:after, &:before
+      content: ''
+      position: absolute
+      top: 50%
+      width: 30px
+      height: 3px
+      background-color: #fff
+    &:after
+      right: 0
+    &:before
+      left: 0
+  &__subhead
+    font-size: 20px
+    opacity: 0.5
+    +sm(font-size, 18px)
+  &__additional
+    margin-top: 5px
+    opacity: 0.3
 
 .register
-	&__card
-		max-width: 50% !important
-		margin: 0 auto
-		background-color: rgba($color--dark, 0.7) !important
-		+md(max-width, 100% !important)
+  &__card
+    max-width: 50% !important
+    margin: 0 auto
+    background-color: rgba($color--dark, 0.7) !important
+    +md(max-width, 100% !important)
 
-		.v-toolbar
-			background-color: rgba($color--primary, 0.7) !important
+    .v-toolbar
+      background-color: rgba($color--primary, 0.7) !important

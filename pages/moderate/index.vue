@@ -1,63 +1,48 @@
 <template lang="pug">
-  v-container
-    v-row
-      v-col
-        div.list__buttons
-          v-btn.white--text(
-            :loading='fetchLoading'
-            :disabled='fetchLoading'
-            color='color--primary'
-            @click='getModerates'
-            dark
-          )
-            | Reload
-            v-icon(right dark) mdi-download-circle
+v-container
+  v-row
+    v-col
+      .list__buttons
+        v-btn.white--text(
+          :loading="fetchLoading",
+          :disabled="fetchLoading",
+          color="color--primary",
+          @click="getModerates",
+          dark
+        )
+          | Reload
+          v-icon(right, dark) mdi-download-circle
 
-    v-divider(dark)
+  v-divider(dark)
 
-    v-row
-      v-col(
-        cols='12'
-        sm='6'
-        md='4'
-        lg='3'
-        v-for='(waifu, index) in moderates'
-        :key='index'
-      )
-        v-hover(v-slot:default='{ hover }')
-          v-card.list__card(dark)
-            nuxt-link(link :to='"/moderate/" + waifu._id')
-              v-img.white--text.align-end(height='350px' :src='waifu.imgUrl')
-            v-card-title
-              h4.list__text--ellipsis {{waifu.name}}
-            v-card-text
-              p.list__text--ellipsis {{waifu.description}}
-            v-card-actions
-              v-btn(
-                color="color--primary"
-                @click="publicShow({id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user})"
-              ) Accept
+  WaifuCards(:waifus="moderates" route-name="moderate")
+    template(v-slot:actions)
+      v-btn(
+        color="color--primary",
+        @click="publicShow({ id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user })"
+      ) Accept
 
-              v-spacer
+      v-spacer
 
-              v-btn(
-                color="color--deeporange"
-                @click="rejectPost(waifu._id)"
-              ) Reject
+      v-btn(color="color--deeporange", @click="rejectPost(waifu._id)") Reject
 
-    template(v-if='paginationLength > 1')
-      v-pagination(
-        dark
-        v-model='pagination'
-        :length='paginationLength'
-        :total-visible='7'
-        :class='this.$vuetify.theme.dark ? "pagination--dark" : ""'
-      )
-
+  template(v-if="paginationLength > 1")
+    v-pagination(
+      dark,
+      v-model="pagination",
+      :length="paginationLength",
+      :total-visible="7",
+      :class="this.$vuetify.theme.dark ? 'pagination--dark' : ''"
+    )
 </template>
 
 <script>
+import WaifuCards from '@/components/waifu/WaifuCards'
+
 export default {
+  components: {
+    WaifuCards
+  },
 
   computed: {
     pagination: {
@@ -156,5 +141,4 @@ export default {
     transition: box-shadow .2s ease-in-out
     &:hover
       box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12)
-
 </style>

@@ -1,41 +1,42 @@
 <template lang="pug">
   section.section.login__section(
-      :style='"background-image: url(" + require("~/assets/images/auth/login-bg.jpg") + ")"'
+    ref="loginSection"
+    :style='"background-image: url(" + require("~/assets/images/auth/login-bg.jpg") + ")"'
   )
-      v-container
-        v-card.register__card(dark)
-            v-toolbar(color='color--primary')
-              v-toolbar-title Login form
-            v-card-text
-              v-form
-                  v-text-field(
-                    v-model='login'
-                    :error-messages='loginErrors'
-                    :counter='10'
-                    label='Login'
-                    required
-                    @blur='$v.login.$touch()'
-                    @keyup.enter='onSubmit'
-                    autofocus
-                  )
+    v-container
+      v-card.register__card(dark)
+        v-toolbar(color='color--primary')
+          v-toolbar-title Login form
+        v-card-text
+          v-form
+            v-text-field(
+              v-model='login'
+              :error-messages='loginErrors'
+              :counter='10'
+              label='Login'
+              required
+              @blur='$v.login.$touch()'
+              @keyup.enter='onSubmit'
+              autofocus
+            )
 
-                  v-text-field(
-                    v-model='password'
-                    :type="showPass ? 'text' : 'password'"
-                    :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                    @click:append="showPass = !showPass"
-                    :error-messages='passwordErrors'
-                    label='Password'
-                    required
-                    @blur='$v.password.$touch()'
-                    @keyup.enter='onSubmit'
-                  )
+            v-text-field(
+              v-model='password'
+              :type="showPass ? 'text' : 'password'"
+              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPass = !showPass"
+              :error-messages='passwordErrors'
+              label='Password'
+              required
+              @blur='$v.password.$touch()'
+              @keyup.enter='onSubmit'
+            )
 
-              v-card-actions
-                  v-btn(
-                    @click='onSubmit'
-                    :disabled='$v.$invalid'
-                  ) submit
+        v-card-actions
+            v-btn(
+              @click='onSubmit'
+              :disabled='$v.$invalid'
+            ) submit
 
 </template>
 
@@ -45,11 +46,12 @@
     display: flex
     align-items: center
     justify-content: center
-    min-height: 100vh
     padding-top: 0
     background-size: cover
     background-position: center top
     background-repeat: no-repeat
+    +sm-block
+      background-position-x: 70%
 </style>
 
 <script>
@@ -107,6 +109,10 @@ export default {
         break
       }
     }
+
+    const $loginSection = this.$refs.loginSection
+
+    $loginSection.style.height = `${window.innerHeight}px`
   },
 
   methods: {

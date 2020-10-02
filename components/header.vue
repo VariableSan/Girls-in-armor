@@ -171,9 +171,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import "~/assets/_smart-grid"
-@import "~/assets/colors"
-
 .header
   position: fixed
   top: 0
@@ -206,7 +203,7 @@ export default {
   &__link
     &:not(:nth-last-child(2))
       margin-right: 15px
-    +md(display, none)
+    +lg(display, none)
   &__wrapper
     width: 100%
   &__content
@@ -217,7 +214,7 @@ export default {
 
 .burger-icon
   display: none
-  +md(display, block)
+  +lg(display, block)
 
 .scroll-down
   top: -100px

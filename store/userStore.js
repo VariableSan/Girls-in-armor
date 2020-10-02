@@ -3,117 +3,110 @@ import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
 export const state = () => ({
-	token: null,
-	user: null,
-	permission: false
+  token: null,
+  user: null,
+  permission: false
 })
 
 export const getters = {
-	getUser: (state) => state.user,
+  getUser: state => state.user,
 
-	isAuth: (state) => Boolean(state.user),
+  isAuth: state => Boolean(state.user),
 
-	getToken: (state) => state.token,
+  getToken: state => state.token,
 
-	getPermission: (state) => state.permission
+  getPermission: state => state.permission
 }
 
 export const mutations = {
-	setUser(state, payload) {
-		state.user = payload
-	},
+  setUser (state, payload) {
+    state.user = payload
+  },
 
-	setToken(state, token) {
-		this.$axios.setToken(token, 'Bearer')
-		state.token = token
-		Cookies.set('jwt-token', token)
-	},
+  setToken (state, token) {
+    this.$axios.setToken(token, 'Bearer')
+    state.token = token
+    Cookies.set('jwt-token', token)
+  },
 
-	setPermission(state, permission) {
-		state.permission = permission
-	},
+  setPermission (state, permission) {
+    state.permission = permission
+  },
 
-	logout(state) {
-		this.$axios.setToken(false)
-		state.token = null
-		state.user = null
-		Cookies.remove('jwt-token')
-	}
+  logout (state) {
+    this.$axios.setToken(false)
+    state.token = null
+    state.user = null
+    Cookies.remove('jwt-token')
+  }
 }
 
 export const actions = {
-	async login({ commit }, userForm) {
-		try {
-			const { token, user, text, color, permission } = await this.$axios.$post('/api/auth/login', userForm)
+  async login ({ commit }, userForm) {
+    try {
+      const { token, user, text, color, permission } = await this.$axios.$post('/api/auth/login', userForm)
 
-			if (token && user) {
-				commit('setUser', user)
-				commit('setToken', token)
-				commit('setPermission', permission)
+      if (token && user) {
+        commit('setUser', user)
+        commit('setToken', token)
+        commit('setPermission', permission)
 
-				this.$router.push('/')
-			}
+        this.$router.push('/')
+      }
 
-			commit('setMessage', {
-				text,
-				color
-			}, { root: true })
-		} 
-		catch (e) {
-			console.error(e.response)
+      commit('setMessage', {
+        text,
+        color
+      }, { root: true })
+    } catch (e) {
+      this.$store.commit('setMessage', e.response.data)
+    }
+  },
 
-			this.$store.commit('setMessage', e.response.data)
-		}
-	},
+  async createUser ({ commit }, userForm) {
+    try {
+      const { text, color } = await this.$axios.$post('/api/auth/create', userForm)
 
-	async createUser({ commit }, userForm) {
-		try {
-			const { text, color } = await this.$axios.$post('/api/auth/create', userForm)
+      this.$router.push('/auth/login')
+      commit('setMessage', { text, color }, { root: true })
+    } catch (e) {
+      this.$store.commit('setMessage', e.response.data)
+    }
+  },
 
-			this.$router.push('/auth/login')
-			commit('setMessage', { text, color }, { root: true })
-		} 
-		catch (e) {
-			console.error(e.response)
-			
-			this.$store.commit('setMessage', e.response.data)
-		}
-	},
+  logout ({ commit }) {
+    commit('logout')
+  },
 
-	logout({ commit }) {
-		commit('logout')
-	},
+  autoLogin ({ commit, dispatch }) {
+    const cookieStr = process.browser
+      ? document.cookie
+      : this.app.context.req.headers.cookie
 
-	autoLogin({ commit, dispatch }) {
-		const cookieStr = process.browser ?
-			document.cookie :
-			this.app.context.req.headers.cookie
+    const cookies = Cookie.parse(cookieStr || '') || {}
+    const token = cookies['jwt-token']
 
-		const cookies = Cookie.parse(cookieStr || '') || {}
-		const token = cookies['jwt-token']
-
-		if (isJWTValid(token)) {
-			commit('setToken', token)
-			commit('setUser', decodeJWT(token).userId)
-			commit('setPermission', decodeJWT(token).permission)
-		}
-		else {
-			dispatch('logout')
-		}
-	}
+    if (isJWTValid(token)) {
+      commit('setToken', token)
+      commit('setUser', decodeJWT(token).userId)
+      commit('setPermission', decodeJWT(token).permission)
+    } else {
+      dispatch('logout')
+    }
+  }
 }
 
-function isJWTValid(token) {
-	if (!token) {
-		return false
-	}
+function isJWTValid (token) {
+  if (!token) {
+    return false
+  }
 
-	const jwtData = decodeJWT(token)
-	const expires = jwtData.exp || 0
+  const jwtData = decodeJWT(token)
+  const expires = jwtData.exp || 0
 
-	return (new Date().getTime() / 1000) < expires
+  return (new Date().getTime() / 1000) < expires
 }
 
-function decodeJWT(token) {
-	return jwtDecode(token) || {}
+function decodeJWT (token) {
+  return jwtDecode(token) || {}
 }
