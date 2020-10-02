@@ -79,9 +79,6 @@ export default {
 </script>
 
 <style lang="sass">
-
-@import "~/assets/colors"
-@import "~/assets/_smart-grid"
 @import "~/assets/keyframes"
 
 .home
@@ -95,7 +92,7 @@ export default {
     +lg-block()
       min-height: 70vh
     +md-block()
-      min-height: 60vh
+      min-height: 50vh
     +sm-block()
       min-height: none
 
