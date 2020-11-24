@@ -1,30 +1,33 @@
 <template lang="pug">
-  section.section.home__character-cards
-    v-container
-      .section__describe
-        h2.section__describe__headline Character cards
-        p.section__describe__subhead hover the cursor over the image or quote
-        small.section__describe__additional if you are using a smartphone, just click on an element (to hide an image or quote, click on any other element)
+section.section.home__character-cards
+  v-container
+    .section__describe
+      h2.section__describe__headline Character cards
+      p.section__describe__subhead hover the cursor over the image or quote
+      small.section__describe__additional if you are using a smartphone, just click on an element (to hide an image or quote, click on any other element)
 
-      v-row
-        v-col(
-          cols='12' sm='6' md='6' lg='4'
-          v-for='character in characters'
-          :key='character.name'
-        )
-          v-card.home__character-cards__item(dark)
-            .home__character-cards__image(
-              :style='"background-image: url(" + require("~/assets/images/cards/" + character.image + ".jpg") + ")"'
-            )
-            v-card-title.home__character-cards__quote
-              h4.home__character-cards__title {{ character.name }}
-              q {{ character.quote }}
+    v-row
+      v-col(
+        :key='character.name'
+        cols='12'
+        lg='4'
+        md='6'
+        sm='6'
+        v-for='character in characters'
+      )
+        v-card.home__character-cards__item(dark)
+          .home__character-cards__image(
+            :style='"background-image: url(" + require("~/assets/images/cards/" + character.image + ".jpg") + ")"'
+          )
+          v-card-title.home__character-cards__quote
+            h4.home__character-cards__title {{ character.name }}
+            q {{ character.quote }}
 </template>
 
 <script>
 export default {
   computed: {
-    characters () {
+    characters() {
       return this.$store.getters['characters/getCharacters']
     }
   }

@@ -44,7 +44,10 @@ export const mutations = {
 export const actions = {
   async login ({ commit }, userForm) {
     try {
-      const { token, user, text, color, permission } = await this.$axios.$post('/api/auth/login', userForm)
+      const { token, user, text, color, permission } = await this.$axios.$post(
+        '/api/auth/login',
+        userForm
+      )
 
       if (token && user) {
         commit('setUser', user)
@@ -54,10 +57,14 @@ export const actions = {
         this.$router.push('/')
       }
 
-      commit('setMessage', {
-        text,
-        color
-      }, { root: true })
+      commit(
+        'setMessage',
+        {
+          text,
+          color
+        },
+        { root: true }
+      )
     } catch (e) {
       this.$store.commit('setMessage', e.response.data)
     }
@@ -65,7 +72,10 @@ export const actions = {
 
   async createUser ({ commit }, userForm) {
     try {
-      const { text, color } = await this.$axios.$post('/api/auth/create', userForm)
+      const { text, color } = await this.$axios.$post(
+        '/api/auth/create',
+        userForm
+      )
 
       this.$router.push('/auth/login')
       commit('setMessage', { text, color }, { root: true })
@@ -104,7 +114,7 @@ function isJWTValid (token) {
   const jwtData = decodeJWT(token)
   const expires = jwtData.exp || 0
 
-  return (new Date().getTime() / 1000) < expires
+  return new Date().getTime() / 1000 < expires
 }
 
 function decodeJWT (token) {

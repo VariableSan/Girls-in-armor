@@ -4,74 +4,73 @@ const keys = require('../keys')
 const User = require('../models/user.model')
 
 module.exports.login = async (req, res) => {
-	const { login, password } = req.body
-	
-	const user = await User.findOne({ login })
+  const { login, password } = req.body
 
-	if (user) {
-		const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+  const user = await User.findOne({ login })
 
-		if (isPasswordCorrect) {
-			const token = jwt.sign({
-				login: user.login,
-				userId: user._id,
-				permission: user.permission
-			}, keys.JWT, { expiresIn: 60 * 60 })
+  if (user) {
+    const isPasswordCorrect = bcrypt.compareSync(password, user.password)
 
-			res.json({
-				token,
-				user: user._id,
-				permission: user.permission,
-				text: 'You are successfully logged in',
-				color: 'color--success'
-			})
-		}
-		else {
-			userUndefined(res)
-		}
-	}
-	else {
-		userUndefined(res)
-	}
+    if (isPasswordCorrect) {
+      const token = jwt.sign(
+        {
+          login: user.login,
+          userId: user._id,
+          permission: user.permission
+        },
+        keys.JWT,
+        { expiresIn: 60 * 60 }
+      )
+
+      res.json({
+        token,
+        user: user._id,
+        permission: user.permission,
+        text: 'You are successfully logged in',
+        color: 'color--success'
+      })
+    } else {
+      userUndefined(res)
+    }
+  } else {
+    userUndefined(res)
+  }
 }
 
 module.exports.createUser = async (req, res) => {
-	const { login, password, email } = req.body
-	
-	const isUserExist = await User.findOne({ login })
+  const { login, password, email } = req.body
 
-	if (isUserExist) {
-		res.status(409).json({
-			text: 'This login already exists',
-			color: 'color--error'
-		})
-	}
-	else {
-		const salt = bcrypt.genSaltSync(10)
-		const cryptPassword = bcrypt.hashSync(password, salt)
+  const isUserExist = await User.findOne({ login })
 
-		const newUser = new User({
-			login,
-			password: cryptPassword,
-			email
-		})
+  if (isUserExist) {
+    res.status(409).json({
+      text: 'This login already exists',
+      color: 'color--error'
+    })
+  } else {
+    const salt = bcrypt.genSaltSync(10)
+    const cryptPassword = bcrypt.hashSync(password, salt)
 
-		await newUser.save()
+    const newUser = new User({
+      login,
+      password: cryptPassword,
+      email
+    })
 
-		res.status(201).json({
-			text: 'A new user was created',
-			color: 'color--success'
-		})
-	}
+    await newUser.save()
+
+    res.status(201).json({
+      text: 'A new user was created',
+      color: 'color--success'
+    })
+  }
 }
 
-module.exports.logout = async (req, res) => {
-	
-}
+module.exports.logout = async (req, res) => {}
 
-function userUndefined(res) {
-	res.json({
-		text: 'User is undefined',
-		color: 'color--error'
-	})
+function userUndefined (res) {
+  res.json({
+    text: 'User is undefined',
+    color: 'color--error'
+  })
 }

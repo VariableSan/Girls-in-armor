@@ -2,17 +2,17 @@
 div
   v-row
     v-col(
-      cols="12",
-      sm="6",
-      md="4",
-      lg="3",
-      v-for="(waifu, index) in waifus",
-      :key="index"
+      :key='index'
+      cols='12'
+      lg='3'
+      md='4'
+      sm='6'
+      v-for='(waifu, index) in waifus'
     )
-      v-hover(v-slot:default="{ hover }")
+      v-hover(v-slot:default='{ hover }')
         v-card.list__card.list-card(dark)
-          nuxt-link(:to="`/${routeName}/${waifu._id}`")
-            v-img.white--text.align-end(height="350px", :src="waifu.imgUrl")
+          nuxt-link(:to='`/${routeName}/${waifu._id}`')
+            v-img.white--text.align-end(:src='waifu.imgUrl' height='350px')
           .list-card__info
             .list-card__text
               v-card-title
@@ -20,7 +20,7 @@ div
               v-card-text
                 p.list__text--ellipsis {{ waifu.description }}
             v-card-actions
-              slot(name="actions" tag="div" :waifu="waifu")
+              slot(:waifu='waifu' name='actions' tag='div')
 </template>
 
 <style lang="sass" scoped>

@@ -2,27 +2,27 @@ const { Schema } = require('mongoose')
 const { createModel } = require('../middleware/mongoose.middle')
 
 const userSchema = new Schema({
-	login: {
-		type: String,
-		required: true,
-		unique: true
-	},
+  login: {
+    type: String,
+    required: true,
+    unique: true
+  },
 
-	password: {
-		type: String,
-		required: true,
-		minlength: 6
-	},
+  password: {
+    type: String,
+    required: true,
+    minlength: 6
+  },
 
-	email: {
-		type: String,
-		required: true
-	},
+  email: {
+    type: String,
+    required: true
+  },
 
-	permission: {
-		type: Boolean,
-		default: false
-	}
+  permission: {
+    type: Boolean,
+    default: false
+  }
 })
 
 module.exports = createModel('User', userSchema)

@@ -4,35 +4,35 @@ v-container
     v-col
       .list__buttons
         v-btn.white--text(
-          :loading="fetchLoading",
-          :disabled="fetchLoading",
-          color="color--primary",
-          @click="getModerates",
+          :disabled='fetchLoading'
+          :loading='fetchLoading'
+          @click='getModerates'
+          color='color--primary'
           dark
         )
           | Reload
-          v-icon(right, dark) mdi-download-circle
+          v-icon(dark right) mdi-download-circle
 
   v-divider(dark)
 
-  WaifuCards(:waifus="moderates" route-name="moderate")
-    template(v-slot:actions="{ waifu }")
+  WaifuCards(:waifus='moderates' route-name='moderate')
+    template(v-slot:actions='{ waifu }')
       v-btn(
-        color="color--primary",
-        @click="publicShow({ id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user })"
+        @click='publicShow({ id: waifu._id, imgUrl: waifu.imgUrl, name: waifu.name, description: waifu.description, user: waifu.user })'
+        color='color--primary'
       ) Accept
 
       v-spacer
 
-      v-btn(color="color--deeporange", @click="rejectPost(waifu._id)") Reject
+      v-btn(@click='rejectPost(waifu._id)' color='color--deeporange') Reject
 
-  template(v-if="paginationLength > 1")
+  template(v-if='paginationLength > 1')
     v-pagination(
-      dark,
-      v-model="pagination",
-      :length="paginationLength",
-      :total-visible="7",
-      :class="this.$vuetify.theme.dark ? 'pagination--dark' : ''"
+      :class='this.$vuetify.theme.dark ? "pagination--dark" : ""'
+      :length='paginationLength'
+      :total-visible='7'
+      dark
+      v-model='pagination'
     )
 </template>
 
@@ -46,10 +46,10 @@ export default {
 
   computed: {
     pagination: {
-      get () {
+      get() {
         return this.$store.getters['moderate.store/pagination']
       },
-      set (state, payload) {
+      set(state, payload) {
         if (state !== this.$store.getters['moderate.store/pagination']) {
           this.$store.commit('moderate.store/setPagination', state)
           this.getModerates()
@@ -57,20 +57,20 @@ export default {
       }
     },
 
-    paginationLength () {
+    paginationLength() {
       return this.$store.getters['moderate.store/moderatesLength']
     },
 
-    fetchLoading () {
+    fetchLoading() {
       return this.$store.getters['loadingStore/getFetchLoading']
     },
 
-    moderates () {
+    moderates() {
       return this.$store.getters['moderate.store/moderates']
     }
   },
 
-  mounted () {
+  mounted() {
     const { message } = this.$route.query
 
     if (this.$store.getters['moderate.store/moderates'].length < 1) {
@@ -79,26 +79,26 @@ export default {
 
     if (message) {
       switch (message) {
-      case 'moderated':
-        this.getModerates()
-        break
+        case 'moderated':
+          this.getModerates()
+          break
       }
     }
   },
 
   methods: {
-    getModerates () {
+    getModerates() {
       this.$store.dispatch('moderate.store/getModerates')
     },
 
-    async publicShow (waifuInfo) {
+    async publicShow(waifuInfo) {
       const message = await this.$axios.$post('/api/moderate/add', waifuInfo)
       this.$store.commit('setMessage', message)
 
       this.getModerates()
     },
 
-    async rejectPost (id) {
+    async rejectPost(id) {
       const message = await this.$axios.$delete('/api/moderate/remove', {
         data: {
           id

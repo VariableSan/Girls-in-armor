@@ -1,27 +1,26 @@
 <template lang="pug">
-  section.section.home__slider(v-resize='onResize')
-    v-container(  )
-      .section__describe
-        h2.section__describe__headline Destiny
-        p.section__describe__subhead hover the cursor over the slide and move it to different points of the element
-        small.section__describe__additional click on the element to get more information
+section.section.home__slider(v-resize='onResize')
+  v-container
+    .section__describe
+      h2.section__describe__headline Destiny
+      p.section__describe__subhead hover the cursor over the slide and move it to different points of the element
+      small.section__describe__additional click on the element to get more information
 
-      .home__slider__block
-        .home__slider__item(
-          v-for='character in characters'
-          :key='character.name'
-        )
-          .home__slider__inner(ref='scene' data-hover-only='true')
-            .home__slider__backdrop(
-              data-depth="0.21"
-              :style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-slider.jpg") + ");" + "background-position: " + character.backdropPosition.bgX '
-            )
-            .home__slider__doll(
-              data-calibrate-x
-              data-depth="1"
-              :style=' "background-image: url(" + require("~/assets/images/slider/" + character.image + "-doll.png") + ")" '
-            )
-
+    .home__slider__block
+      .home__slider__item(
+        :key='character.name'
+        v-for='character in characters'
+      )
+        .home__slider__inner(data-hover-only='true' ref='scene')
+          .home__slider__backdrop(
+            :style='"background-image: url(" + require("~/assets/images/slider/" + character.image + "-slider.jpg") + ");" + "background-position: " + character.backdropPosition.bgX'
+            data-depth='0.21'
+          )
+          .home__slider__doll(
+            :style='"background-image: url(" + require("~/assets/images/slider/" + character.image + "-doll.png") + ")"'
+            data-calibrate-x
+            data-depth='1'
+          )
 </template>
 
 <script>
@@ -33,12 +32,12 @@ export default {
   }),
 
   computed: {
-    characters () {
+    characters() {
       return this.$store.getters['characters/getCharacters']
     }
   },
 
-  mounted () {
+  mounted() {
     const scene = this.$refs.scene
 
     scene.forEach((element, index) => {
@@ -53,13 +52,13 @@ export default {
   },
 
   methods: {
-    onResize () {
+    onResize() {
       if (window.innerWidth > 1200) {
-        this.parallax.forEach((element) => {
+        this.parallax.forEach(element => {
           element.enable()
         })
       } else {
-        this.parallax.forEach((element) => {
+        this.parallax.forEach(element => {
           element.disable()
         })
       }
@@ -125,5 +124,4 @@ export default {
     background-size: contain
     opacity: 0
     transition: opacity 0.7s linear
-
 </style>

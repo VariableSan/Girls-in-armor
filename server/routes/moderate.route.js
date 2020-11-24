@@ -5,34 +5,34 @@ const ModerateCtr = require('../controllers/moderate.controller')
 
 /* /api/moderate/list */
 router.post(
-	'/list', 
-	passport.authenticate('jwt', { session: false }),
-	ModerateCtr.getModerate
+  '/list',
+  passport.authenticate('jwt', { session: false }),
+  ModerateCtr.getModerate
 )
 
 /* /api/moderate/:id */
 router.get(
-	'/:id',
-	passport.authenticate('jwt', { session: false }),
-	ModerateCtr.getById
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  ModerateCtr.getById
 )
 
 /* /api/moderate/add */
 router.post(
-	'/add',
-	passport.authenticate('jwt', {
-		session: false
-	}),
-	ModerateCtr.addToWaifuList
+  '/add',
+  passport.authenticate('jwt', {
+    session: false
+  }),
+  ModerateCtr.addToWaifuList
 )
 
 /* /api/moderate/remove */
 router.delete(
-	'/remove',
-	passport.authenticate('jwt', {
-		session: false
-	}),
-	ModerateCtr.removeById
+  '/remove',
+  passport.authenticate('jwt', {
+    session: false
+  }),
+  ModerateCtr.removeById
 )
 
 module.exports = router

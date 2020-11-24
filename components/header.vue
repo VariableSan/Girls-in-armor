@@ -1,43 +1,34 @@
 <template lang="pug">
-  div(v-resize='onResize')
-    v-toolbar(flat dark class='header' ref='mainHeader'
-      :class='isTransparent ? "header--transparent": ""'
-    )
-      div(:class=' windowWidth ? "container" : "" ' class='header__wrapper')
-        div.header__content
-          v-toolbar-title(
-            v-if='currentRoute == "waifu-id" || currentRoute == "moderate-id"'
-            @click='backToList'
-            class='clickable'
-          )
-            v-icon(
-              size='40px'
-              class='back-icon'
-            ) mdi-arrow-left-circle-outline
+div(v-resize='onResize')
+  v-toolbar.header(
+    :class='isTransparent ? "header--transparent" : ""'
+    dark
+    flat
+    ref='mainHeader'
+  )
+    .header__wrapper(:class='windowWidth ? "container" : ""')
+      .header__content
+        v-toolbar-title.clickable(
+          @click='backToList'
+          v-if='currentRoute == "waifu-id" || currentRoute == "moderate-id"'
+        )
+          v-icon.back-icon(size='40px') mdi-arrow-left-circle-outline
 
-          v-toolbar-title(v-else)
-            nuxt-link(to='/' class='header__logo' ) Girls in Armor
-          v-spacer
-          v-btn(
-            class='header__link'
-            depressed
-            v-for="(link, index) in getLinks"
-            :key="index"
-            :to='link.url'
-          )
-            v-icon(left) {{ link.icon }}
-            | {{ link.title }}
+        v-toolbar-title(v-else)
+          nuxt-link.header__logo(to='/') Girls in Armor
+        v-spacer
+        v-btn.header__link(
+          :key='index'
+          :to='link.url'
+          depressed
+          v-for='(link, index) in getLinks'
+        )
+          v-icon(left) {{ link.icon }}
+          | {{ link.title }}
 
-          v-app-bar-nav-icon(
-            class='burger-icon'
-            @click='setDrawer'
-          )
+        v-app-bar-nav-icon.burger-icon(@click='setDrawer')
 
-    div(
-      ref='headerClone'
-      v-show='!isTransparent'
-    )
-
+  div(ref='headerClone' v-show='!isTransparent')
 </template>
 
 <script>
@@ -53,15 +44,18 @@ export default {
     getLinks () {
       if (this.user) {
         if (this.permission) {
-          return this.$store.getters['linkStore/getLinks']
-            .filter(link => !link.onlyNoAuth)
+          return this.$store.getters['linkStore/getLinks'].filter(
+            link => !link.onlyNoAuth
+          )
         }
 
-        return this.$store.getters['linkStore/getLinks']
-          .filter(link => !link.onlyNoAuth && !link.onlyAdmin)
+        return this.$store.getters['linkStore/getLinks'].filter(
+          link => !link.onlyNoAuth && !link.onlyAdmin
+        )
       } else {
-        return this.$store.getters['linkStore/getLinks']
-          .filter(link => !link.authRequire && !link.onlyAdmin)
+        return this.$store.getters['linkStore/getLinks'].filter(
+          link => !link.authRequire && !link.onlyAdmin
+        )
       }
     },
 
@@ -121,7 +115,10 @@ export default {
       const $header = this.mainHeader
       const $headerClone = this.$refs.headerClone
 
-      const heightToClone = $header.offsetHeight + $header.style.paddingTop + $header.style.paddingBottom
+      const heightToClone =
+        $header.offsetHeight +
+        $header.style.paddingTop +
+        $header.style.paddingBottom
 
       $headerClone.style.height = `${heightToClone}px`
     },
@@ -135,12 +132,14 @@ export default {
 
       if (currentScroll > breakPoint - 100) {
         if (
-          currentScroll > this.lastScroll && !nav.classList.contains(scrollDown)
+          currentScroll > this.lastScroll &&
+          !nav.classList.contains(scrollDown)
         ) {
           // down
           nav.classList.add(scrollDown)
         } else if (
-          currentScroll < this.lastScroll && nav.classList.contains(scrollDown)
+          currentScroll < this.lastScroll &&
+          nav.classList.contains(scrollDown)
         ) {
           // up
           nav.classList.remove(scrollDown)
@@ -203,7 +202,7 @@ export default {
   &__link
     &:not(:nth-last-child(2))
       margin-right: 15px
-    +lg(display, none)
+      +lg(display, none)
   &__wrapper
     width: 100%
   &__content

@@ -1,11 +1,11 @@
-<template lang='pug'>
+<template lang="pug">
 section.section
-  WaifuMore(:waifu="waifu")
+  WaifuMore(:waifu='waifu')
     template(v-slot:actions)
       v-btn(
-        @click="removeWaifuById(waifu.user)",
-        color="color--deeporange",
-        v-if="waifu.user._id === user || permission"
+        @click='removeWaifuById(waifu.user)'
+        color='color--deeporange'
+        v-if='waifu.user._id === user || permission'
       ) remove
 </template>
 
@@ -17,7 +17,7 @@ export default {
     WaifuMore
   },
 
-  async asyncData ({ $axios, params }) {
+  async asyncData({ $axios, params }) {
     try {
       const waifu = await $axios.$get(`/api/waifu/${params.id}`)
       return { waifu }
@@ -28,17 +28,17 @@ export default {
   },
 
   computed: {
-    user () {
+    user() {
       return this.$store.getters['userStore/getUser']
     },
 
-    permission () {
+    permission() {
       return this.$store.getters['userStore/getPermission']
     }
   },
 
   methods: {
-    removeWaifuById (user) {
+    removeWaifuById(user) {
       if (user._id === this.user || this.permission) {
         this.$store.dispatch('waifuStore/removeWaifu', {
           id: this.$route.params.id,
@@ -53,7 +53,7 @@ export default {
     }
   },
 
-  head () {
+  head() {
     return {
       title: this.waifu.name
     }

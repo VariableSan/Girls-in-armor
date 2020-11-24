@@ -4,31 +4,31 @@ v-container
     v-col
       .list__buttons
         v-btn.white--text(
-          :loading="fetchLoading",
-          :disabled="fetchLoading",
-          color="color--primary",
-          @click="getWaifus",
+          :disabled='fetchLoading'
+          :loading='fetchLoading'
+          @click='getWaifus'
+          color='color--primary'
           dark
         ) Update
-          v-icon(right, dark) mdi-download-circle
+          v-icon(dark right) mdi-download-circle
 
   v-divider(dark)
 
-  WaifuCards(:waifus="waifus" route-name="waifu")
-    template(v-slot:actions="{ waifu }")
+  WaifuCards(:waifus='waifus' route-name='waifu')
+    template(v-slot:actions='{ waifu }')
       v-btn(
-        @click="removeCardById(waifu._id, waifu.user)",
-        color="color--deeporange",
-        v-if="waifu.user === user || permission"
+        @click='removeCardById(waifu._id, waifu.user)'
+        color='color--deeporange'
+        v-if='waifu.user === user || permission'
       ) Remove
 
-  template(v-if="paginationLength > 1")
+  template(v-if='paginationLength > 1')
     v-pagination(
-      dark,
-      v-model="pagination",
-      :length="paginationLength",
-      :total-visible="7",
-      :class="this.$vuetify.theme.dark ? 'pagination--dark' : ''"
+      :class='this.$vuetify.theme.dark ? "pagination--dark" : ""'
+      :length='paginationLength'
+      :total-visible='7'
+      dark
+      v-model='pagination'
     )
 </template>
 
@@ -41,15 +41,15 @@ export default {
   },
 
   computed: {
-    waifus () {
+    waifus() {
       return this.$store.getters['waifuStore/getWaifuList']
     },
 
     pagination: {
-      get () {
+      get() {
         return this.$store.getters['waifuStore/getPagination']
       },
-      set (state, payload) {
+      set(state, payload) {
         if (state !== this.$store.getters['waifuStore/getPagination']) {
           this.$store.commit('waifuStore/setPagination', state)
           this.getWaifus()
@@ -57,28 +57,28 @@ export default {
       }
     },
 
-    paginationLength () {
+    paginationLength() {
       return this.$store.getters['waifuStore/getWaifusLength']
     },
 
-    fetchLoading () {
+    fetchLoading() {
       return this.$store.getters['loadingStore/getFetchLoading']
     },
 
-    user () {
+    user() {
       return this.$store.getters['userStore/getUser']
     },
 
-    permission () {
+    permission() {
       return this.$store.getters['userStore/getPermission']
     }
   },
 
   watch: {
-    paginationLength () {}
+    paginationLength() {}
   },
 
-  mounted () {
+  mounted() {
     const { message } = this.$route.query
 
     if (this.$store.getters['waifuStore/getWaifuList'].length < 1) {
@@ -87,28 +87,28 @@ export default {
 
     if (message) {
       switch (message) {
-      case 'permission':
-        this.$store.commit('setMessage', {
-          text: 'You do not have administrator access rights',
-          color: 'color--warning'
-        })
-        break
+        case 'permission':
+          this.$store.commit('setMessage', {
+            text: 'You do not have administrator access rights',
+            color: 'color--warning'
+          })
+          break
       }
     }
   },
 
   methods: {
-    getWaifus () {
+    getWaifus() {
       this.$store.dispatch('waifuStore/getWaifuListFromServer')
     },
 
-    removeCardById (id, user) {
+    removeCardById(id, user) {
       if (this.user === user || this.permission) {
         this.$store.dispatch('waifuStore/removeWaifu', { id })
       }
     }
   },
-  head () {
+  head() {
     return {
       title: 'List'
     }

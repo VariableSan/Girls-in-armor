@@ -1,33 +1,33 @@
-<template lang='pug'>
+<template lang="pug">
 div
   CoolLightBox(
-    :items="[waifu.imgUrl]",
-    :index="index",
-    @close="index = null",
-    :fullscreen="true"
+    :fullscreen='true'
+    :index='index'
+    :items='[waifu.imgUrl]'
+    @close='index = null'
   )
 
   v-container
-    v-card.waifu-id__card(dark, loader-height="4", outlined)
+    v-card.waifu-id__card(dark loader-height='4' outlined)
       v-row
-        v-col(cols="12", md="6", lg="6")
+        v-col(cols='12' lg='6' md='6')
           div
             a.waifu-id__fancy
               v-img(
-                dark,
-                :src="waifu.imgUrl",
-                max-height="500",
-                @click.prevent="index = 0"
+                :src='waifu.imgUrl'
+                @click.prevent='index = 0'
+                dark
+                max-height='500'
               )
-        v-col(cols="12", md="6", lg="6")
-          div.waifu-id__info
+        v-col(cols='12' lg='6' md='6')
+          .waifu-id__info
             .waifu-id__text
               v-card-title.waifu-id__title {{ waifu.name }}
               v-divider
-              v-card-text.waifu-id__description(v-text="waifu.description")
+              v-card-text.waifu-id__description(v-text='waifu.description')
             v-card-actions
               div
-                slot(name="actions")
+                slot(name='actions')
 
                 .waifu-id__details
                   p.waifu-id__author Author: {{ waifu.user.login }}
@@ -71,7 +71,7 @@ export default {
 }
 </script>
 
-<style lang='sass' scoped>
+<style lang="sass" scoped>
 .waifu-id
   &__card
     position: relative
@@ -79,7 +79,7 @@ export default {
     box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12)
     overflow: hidden
     +sm-block()
-      padding: 0px 10px
+    padding: 0px 10px
 
   &__fancy
     cursor: zoom-in
@@ -106,8 +106,8 @@ export default {
     right: 15px
     display: flex
     +md-block()
-      position: static
-      margin-top: 1.5rem
+    position: static
+    margin-top: 1.5rem
 
   &__author
     margin-right: 10px

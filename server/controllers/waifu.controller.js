@@ -1,17 +1,16 @@
 const WaifusModel = require('../models/list.model')
 
 module.exports.getWaifuById = async (req, res) => {
-	try {
-		const waifu = await WaifusModel.findById(req.params.id).populate('user')
-		
-		res.json(waifu)
+  try {
+    const waifu = await WaifusModel.findById(req.params.id).populate('user')
 
-	} catch (error) {
-		console.error(error)
-		
-		res.status(500).json({
-			text: 'Something went wrong in waifu route',
-			color: 'color--error'
-		})
-	}
+    res.json(waifu)
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      text: 'Something went wrong in waifu route',
+      color: 'color--error'
+    })
+  }
 }

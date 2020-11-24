@@ -1,14 +1,12 @@
 <template lang="pug">
-  section.home__hero
-    img(
-      v-for='image in images'
-      :src='require("~/assets/images/" + image.src)'
-      class='home__image'
-      :class='getClasses(image)'
-      :ref='image.className'
-    )
-    v-img( :src='require("~/assets/images/mobile-bg.jpg")' class="home__mobile-image"  )
-
+section.home__hero
+  img.home__image(
+    :class='getClasses(image)'
+    :ref='image.className'
+    :src='require("~/assets/images/" + image.src)'
+    v-for='image in images'
+  )
+  v-img.home__mobile-image(:src='require("~/assets/images/mobile-bg.jpg")')
 </template>
 
 <script>
@@ -20,7 +18,7 @@ export default {
         className: 'clouds'
       },
       {
-        src: 'Jeanne d\'Arc-min.png',
+        src: "Jeanne d'Arc-min.png",
         className: 'jeanne'
       },
       {
@@ -39,14 +37,14 @@ export default {
     ]
   }),
 
-  mounted () {
+  mounted() {
     if (window.innerWidth > 1200) {
       this.parallax()
     }
   },
 
   methods: {
-    parallax () {
+    parallax() {
       const moon = this.$refs.moon[0]
       const clouds = this.$refs.clouds[0]
       const sky = this.$refs.sky[0]
@@ -58,11 +56,11 @@ export default {
         const windowHeight = window.innerHeight
 
         if (scrollValue > windowHeight) {
-          animated.forEach((el) => {
+          animated.forEach(el => {
             el.style.animationPlayState = 'paused'
           })
         } else {
-          animated.forEach((el) => {
+          animated.forEach(el => {
             el.style.animationPlayState = 'running'
           })
         }

@@ -1,31 +1,36 @@
 <template lang="pug">
-  section.section.home__confrontation
-    v-container
-      .section__describe
-        h2.section__describe__headline Confrontation
-        p.section__describe__subhead click on the image to get a description
-        small.section__describe__additional to close description click on the {{ windowSize.width > breakPoint ? "image again" : "text" }}
-      .home__confrontation__block
+section.section.home__confrontation
+  v-container
+    .section__describe
+      h2.section__describe__headline Confrontation
+      p.section__describe__subhead click on the image to get a description
+      small.section__describe__additional to close description click on the {{ windowSize.width > breakPoint ? "image again" : "text" }}
+    .home__confrontation__block
+      .home__confrontation__item.home__confrontation__item--left(ref='alter')
+        .home__confrontation__image
+          .home__confrontation__portrait(
+            :style='"background-image: url(" + require("~/assets/images/confrontation/alter-saber.jpg") + ")"'
+            @click='clickExpand({ refName: "alter", descName: "alterDescription" })'
+          )
+        .home__confrontation__description.home__confrontation__description--dark.color--light(
+          @click='decreaseMobile("alterDescription")'
+          ref='alterDescription'
+        )
+          h3.home__confrontation__title Alter Saber
+          p.home__confrontation__subtitle Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-        .home__confrontation__item.home__confrontation__item--left(ref='alter')
-          .home__confrontation__image
-            .home__confrontation__portrait(
-              :style="'background-image: url(' + require('~/assets/images/confrontation/alter-saber.jpg') + ')'"
-              @click="clickExpand({refName: 'alter', descName: 'alterDescription'})"
-            )
-          .home__confrontation__description.home__confrontation__description--dark.color--light(@click='decreaseMobile("alterDescription")' ref='alterDescription')
-            h3.home__confrontation__title Alter Saber
-            p.home__confrontation__subtitle Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-        .home__confrontation__item.home__confrontation__item--right(ref='main')
-          .home__confrontation__image
-            .home__confrontation__portrait(
-              :style="'background-image: url(' + require('~/assets/images/confrontation/saber.jpg') + ')'"
-              @click="clickExpand({refName: 'main', descName: 'mainDescription'})"
-            )
-          .home__confrontation__description.home__confrontation__description--light(@click='decreaseMobile("mainDescription")' ref='mainDescription')
-            h3.home__confrontation__title Saber
-            p.home__confrontation__subtitle Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      .home__confrontation__item.home__confrontation__item--right(ref='main')
+        .home__confrontation__image
+          .home__confrontation__portrait(
+            :style='"background-image: url(" + require("~/assets/images/confrontation/saber.jpg") + ")"'
+            @click='clickExpand({ refName: "main", descName: "mainDescription" })'
+          )
+        .home__confrontation__description.home__confrontation__description--light(
+          @click='decreaseMobile("mainDescription")'
+          ref='mainDescription'
+        )
+          h3.home__confrontation__title Saber
+          p.home__confrontation__subtitle Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 </template>
 
 <script>
@@ -37,12 +42,12 @@ export default {
     breakPoint: 576
   }),
 
-  mounted () {
+  mounted() {
     this.onResize()
   },
 
   methods: {
-    clickExpand (params) {
+    clickExpand(params) {
       const { refName, descName } = params
 
       if (this.windowSize.width > this.breakPoint) {
@@ -52,7 +57,7 @@ export default {
       }
     },
 
-    expandDesktop (refName) {
+    expandDesktop(refName) {
       const parentItem = this.$refs[refName]
 
       if (refName === 'alter') {
@@ -63,23 +68,29 @@ export default {
       } else {
         parentItem.style.zIndex = '10'
         parentItem.classList.toggle('home__confrontation__item--clip-left')
-        this.$refs.alter.classList.remove('home__confrontation__item--clip-right')
+        this.$refs.alter.classList.remove(
+          'home__confrontation__item--clip-right'
+        )
         this.$refs.alter.style.zIndex = '1'
       }
       parentItem.classList.toggle('home__confrontation__item--clip')
     },
 
-    expandMobile (descName) {
-      this.$refs[descName].classList.add('home__confrontation__description--show')
+    expandMobile(descName) {
+      this.$refs[descName].classList.add(
+        'home__confrontation__description--show'
+      )
     },
 
-    decreaseMobile (descName) {
+    decreaseMobile(descName) {
       if (this.windowSize.width < this.breakPoint) {
-        this.$refs[descName].classList.remove('home__confrontation__description--show')
+        this.$refs[descName].classList.remove(
+          'home__confrontation__description--show'
+        )
       }
     },
 
-    onResize () {
+    onResize() {
       // initialize
       this.calculateWindowSize()
 
@@ -88,7 +99,7 @@ export default {
       })
     },
 
-    calculateWindowSize () {
+    calculateWindowSize() {
       this.windowSize = {
         width: window.innerWidth
       }

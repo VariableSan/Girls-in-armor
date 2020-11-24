@@ -1,43 +1,39 @@
 <template lang="pug">
-  section.section.login__section(
-    ref="loginSection"
-    :style='"background-image: url(" + require("~/assets/images/auth/login-bg.jpg") + ")"'
-  )
-    v-container
-      v-card.register__card(dark)
-        v-toolbar(color='color--primary')
-          v-toolbar-title Login form
-        v-card-text
-          v-form
-            v-text-field(
-              v-model='login'
-              :error-messages='loginErrors'
-              :counter='10'
-              label='Login'
-              required
-              @blur='$v.login.$touch()'
-              @keyup.enter='onSubmit'
-              autofocus
-            )
+section.section.login__section(
+  :style='"background-image: url(" + require("~/assets/images/auth/login-bg.jpg") + ")"'
+  ref='loginSection'
+)
+  v-container
+    v-card.register__card(dark)
+      v-toolbar(color='color--primary')
+        v-toolbar-title Login form
+      v-card-text
+        v-form
+          v-text-field(
+            :counter='10'
+            :error-messages='loginErrors'
+            @blur='$v.login.$touch()'
+            @keyup.enter='onSubmit'
+            autofocus
+            label='Login'
+            required
+            v-model='login'
+          )
 
-            v-text-field(
-              v-model='password'
-              :type="showPass ? 'text' : 'password'"
-              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="showPass = !showPass"
-              :error-messages='passwordErrors'
-              label='Password'
-              required
-              @blur='$v.password.$touch()'
-              @keyup.enter='onSubmit'
-            )
+          v-text-field(
+            :append-icon='showPass ? "mdi-eye" : "mdi-eye-off"'
+            :error-messages='passwordErrors'
+            :type='showPass ? "text" : "password"'
+            @blur='$v.password.$touch()'
+            @click:append='showPass = !showPass'
+            @keyup.enter='onSubmit'
+            label='Password'
+            required
+            v-model='password'
+          )
 
-        v-card-actions
-            v-btn(
-              @click='onSubmit'
-              :disabled='$v.$invalid'
-            ) submit
-
+      v-card-actions
+        v-btn(:disabled='$v.$invalid' @click='onSubmit') submit
 </template>
 
 <style lang="sass" scoped>
@@ -57,10 +53,15 @@
 <script>
 import { validationMixin } from 'vuelidate'
 // eslint-disable-next-line no-unused-vars
-import { required, maxLength, minLength, email, sameAs } from 'vuelidate/lib/validators'
+import {
+  required,
+  maxLength,
+  minLength,
+  email,
+  sameAs
+} from 'vuelidate/lib/validators'
 
 export default {
-
   mixins: [validationMixin],
 
   data: () => ({
@@ -70,43 +71,47 @@ export default {
   }),
 
   computed: {
-    loginErrors () {
+    loginErrors() {
       const errors = []
-      if (!this.$v.login.$dirty) { return errors }
+      if (!this.$v.login.$dirty) {
+        return errors
+      }
       !this.$v.login.required && errors.push('Login is required.')
       return errors
     },
-    passwordErrors () {
+    passwordErrors() {
       const errors = []
-      if (!this.$v.password.$dirty) { return errors }
+      if (!this.$v.password.$dirty) {
+        return errors
+      }
       !this.$v.password.required && errors.push('Password is required')
       return errors
     }
   },
 
-  mounted () {
+  mounted() {
     const { message } = this.$route.query
 
     if (message) {
       switch (message) {
-      case 'login':
-        this.$store.commit('setMessage', {
-          text: 'Please log in first',
-          color: 'color--warning'
-        })
-        break
-      case 'logout':
-        this.$store.commit('setMessage', {
-          text: 'You have successfully logged out',
-          color: 'color--success'
-        })
-        break
-      case 'session':
-        this.$store.commit('setMessage', {
-          text: 'Session time has expired, log in again',
-          color: 'color--info'
-        })
-        break
+        case 'login':
+          this.$store.commit('setMessage', {
+            text: 'Please log in first',
+            color: 'color--warning'
+          })
+          break
+        case 'logout':
+          this.$store.commit('setMessage', {
+            text: 'You have successfully logged out',
+            color: 'color--success'
+          })
+          break
+        case 'session':
+          this.$store.commit('setMessage', {
+            text: 'Session time has expired, log in again',
+            color: 'color--info'
+          })
+          break
       }
     }
 
@@ -116,12 +121,13 @@ export default {
   },
 
   methods: {
-    onSubmit () {
+    onSubmit() {
       if (!this.$v.$invalid) {
         const { login, password } = this
 
         this.$store.dispatch('userStore/login', {
-          login, password
+          login,
+          password
         })
       } else {
         this.$store.commit('setMessage', {
@@ -131,7 +137,7 @@ export default {
       }
     }
   },
-  head () {
+  head() {
     return {
       title: 'Login'
     }

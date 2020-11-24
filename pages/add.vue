@@ -1,68 +1,58 @@
 <template lang="pug">
-  v-container
-    v-row
-      v-col(cols='12' lg='6')
-        v-form(
-          v-model='isValid'
-          ref='addForm'
-          lazy-validation
+v-container
+  v-row
+    v-col(cols='12' lg='6')
+      v-form(lazy-validation ref='addForm' v-model='isValid')
+        v-text-field(
+          :rules='nameRules'
+          @keyup.enter='saveWaifu'
+          autofocus
+          dark
+          label='Name'
+          required
+          v-model='name'
         )
-          v-text-field(
-            v-model='name'
-            :rules='nameRules'
-            label='Name'
-            required
-            dark
-            autofocus
-            @keyup.enter='saveWaifu'
-          )
-          v-text-field(
-            v-model='imgUrl'
-            :rules='imageRules'
-            label='Image URL'
-            required
-            dark
-            @keyup.enter='saveWaifu'
-          )
-          v-textarea.add__textarea(
-            v-model='description'
-            :rules='descriptionRules'
-            counter='950'
-            label='Description'
-            auto-grow
-            dark
-            dense
-            rows='2'
-            row-height='20'
-          )
+        v-text-field(
+          :rules='imageRules'
+          @keyup.enter='saveWaifu'
+          dark
+          label='Image URL'
+          required
+          v-model='imgUrl'
+        )
+        v-textarea.add__textarea(
+          :rules='descriptionRules'
+          auto-grow
+          counter='950'
+          dark
+          dense
+          label='Description'
+          row-height='20'
+          rows='2'
+          v-model='description'
+        )
 
-          v-btn(
-            dark
-            :disabled='!isValid || loading'
-            :loading='loading'
-            @click='saveWaifu'
-          ) Add waifu
+        v-btn(
+          :disabled='!isValid || loading'
+          :loading='loading'
+          @click='saveWaifu'
+          dark
+        ) Add waifu
 
-      v-col(cols='12' lg='6')
-        v-sheet.px-3.pt-3.pb-3.add__sheet(dark v-if='imgUrl.length < 1')
-          v-skeleton-loader.mx-auto(type='image')
-          h3.add__image-preview Image preview, please enter the url
+    v-col(cols='12' lg='6')
+      v-sheet.px-3.pt-3.pb-3.add__sheet(dark v-if='imgUrl.length < 1')
+        v-skeleton-loader.mx-auto(type='image')
+        h3.add__image-preview Image preview, please enter the url
 
-        v-card.add__image-card(v-else dark min-height="200px")
-          v-img(
-            dark
-            :src='imgUrl'
-            :lazy-src='imgUrl'
-            class='add__img'
-          )
-            template(v-slot:placeholder)
-              v-row.fill-height.add__progress
-                v-progress-circular(indeterminate color='#fff')
+      v-card.add__image-card(dark min-height='200px' v-else)
+        v-img.add__img(:lazy-src='imgUrl' :src='imgUrl' dark)
+          template(v-slot:placeholder)
+            v-row.fill-height.add__progress
+              v-progress-circular(color='#fff' indeterminate)
 </template>
 
 <script>
 export default {
-
   data: () => ({
     isValid: false,
 
@@ -70,39 +60,36 @@ export default {
     imgUrl: '',
     description: '',
 
-    nameRules: [
-      v => !!v || 'Name is required'
-    ],
-    imageRules: [
-      v => !!v || 'Image url is required'
-    ],
-    descriptionRules: [
-      v => v.length < 950 || 'Text length is too long'
-    ]
+    nameRules: [v => !!v || 'Name is required'],
+    imageRules: [v => !!v || 'Image url is required'],
+    descriptionRules: [v => v.length < 950 || 'Text length is too long']
   }),
 
   computed: {
-    loading () {
+    loading() {
       return this.$store.getters['loadingStore/getLoading']
     },
 
-    user () {
+    user() {
       return this.$store.getters['userStore/getUser']
     }
   },
 
   methods: {
-    saveWaifu () {
+    saveWaifu() {
       if (this.$refs.addForm.validate()) {
         const { name, imgUrl, description, user } = this
 
         this.$store.dispatch('waifuStore/saveWaifu', {
-          name, imgUrl, description, user
+          name,
+          imgUrl,
+          description,
+          user
         })
       }
     }
   },
-  head () {
+  head() {
     return {
       title: 'Add'
     }
