@@ -1,5 +1,5 @@
 <template lang="pug">
-div(:class='theme ? "default-template--dark" : "default-template--light"')
+div(:class="theme ? 'default-template--dark' : 'default-template--light'")
   main-header
   main-drawer
   v-main
@@ -20,11 +20,11 @@ export default {
   },
 
   computed: {
-    theme() {
+    theme () {
       return this.$vuetify.theme.dark
     },
 
-    getRoute() {
+    getRoute () {
       return this.$route.name
     }
   }

@@ -1,38 +1,47 @@
 <template lang="pug">
-div(v-resize='onResize')
+div(data-app v-resize="onResize")
   v-toolbar.header(
-    :class='isTransparent ? "header--transparent" : ""'
+    :class="isTransparent ? 'header--transparent' : ''"
     dark
     flat
-    ref='mainHeader'
+    ref="mainHeader"
   )
-    .header__wrapper(:class='windowWidth ? "container" : ""')
+    .header__wrapper(:class="windowWidth ? 'container' : ''")
       .header__content
         v-toolbar-title.clickable(
-          @click='backToList'
-          v-if='currentRoute == "waifu-id" || currentRoute == "moderate-id"'
+          @click="backToList"
+          v-if="currentRoute == 'waifu-id' || currentRoute == 'moderate-id'"
         )
-          v-icon.back-icon(size='40px') mdi-arrow-left-circle-outline
+          v-icon.back-icon(size="40px") mdi-arrow-left-circle-outline
 
         v-toolbar-title(v-else)
-          nuxt-link.header__logo(to='/') Girls in Armor
+          nuxt-link.header__logo(to="/") Girls in Armor
+
         v-spacer
+
         v-btn.header__link(
-          :key='index'
-          :to='link.url'
+          :key="index"
+          :to="link.url"
           depressed
-          v-for='(link, index) in getLinks'
+          v-for="(link, index) in getLinks"
         )
           v-icon(left) {{ link.icon }}
           | {{ link.title }}
 
-        v-app-bar-nav-icon.burger-icon(@click='setDrawer')
+        v-app-bar-nav-icon.burger-icon(@click="setDrawer")
 
-  div(ref='headerClone' v-show='!isTransparent')
+        LanguageDrop
+
+  div(ref="headerClone" v-show="!isTransparent")
 </template>
 
 <script>
 export default {
+
+  components: {
+    LanguageDrop: () => import('@/components/LanguageDrop')
+  },
+
   data: () => ({
     lastScroll: 0,
     scrollUp: 'scroll-up',
@@ -199,17 +208,36 @@ export default {
       margin: 0 auto
       background-color: #fff
       transition: all 0.3s ease-in-out
+
   &__link
+    +lg(display, none)
     &:not(:nth-last-child(2))
       margin-right: 15px
-      +lg(display, none)
+
   &__wrapper
     width: 100%
+
   &__content
     width: 100%
     display: flex
     flex-wrap: wrap
     align-items: center
+
+  &__menu
+    top: auto
+    bottom: 0
+
+  &__desktop-translate
+    +lg(display, none)
+
+  &__mobile-translate
+    display: none
+    +lg(display, block)
+
+  &__lang
+    &--active
+      .v-list-item__title
+        color: gold
 
 .burger-icon
   display: none

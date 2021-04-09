@@ -1,3 +1,7 @@
-export default {
-  welcome: 'Welcome'
+const translate = {
+  home: {
+    welcome: 'Hello'
+  }
 }
+
+export default translate

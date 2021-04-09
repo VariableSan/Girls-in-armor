@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
+import en from './lang/en'
+import ru from './lang/ru'
 
 export default {
   /*
@@ -56,7 +58,11 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/global', '~/plugins/axios'],
+  plugins: [
+    '~/plugins/global',
+    '~/plugins/axios',
+    '~/plugins/breakpoints'
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -79,31 +85,32 @@ export default {
     'vue-sweetalert2/nuxt',
     '@nuxtjs/style-resources',
     '@nuxtjs/pwa',
-    [
-      'nuxt-i18n',
-      {
-        locales: [
-          {
-            code: 'en',
-            name: 'English',
-            iso: 'en-US',
-            file: 'en.js'
-          },
-          {
-            code: 'ru',
-            name: 'Russian',
-            iso: 'ru-RU',
-            file: 'ru.js'
-          }
-        ],
-        lazy: true,
-        langDir: 'lang/',
-        defaultLocale: 'en',
-        fallbackLocale: 'ru',
-        strategy: 'no_prefix'
-      }
-    ]
+    'nuxt-i18n'
   ],
+
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        name: 'English',
+        iso: 'en-US'
+      },
+      {
+        code: 'ru',
+        name: 'Russian',
+        iso: 'ru-RU'
+      }
+    ],
+    strategy: 'no_prefix',
+    defaultLocale: 'en',
+    vueI18n: {
+      fallbackLocale: 'ru',
+      messages: {
+        en,
+        ru
+      }
+    }
+  },
 
   styleResources: {
     sass: ['@/assets/_smart-grid.sass', '@/assets/colors.sass']
