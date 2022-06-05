@@ -8,7 +8,7 @@ v-footer.footer(dark padless)
           v-col(cols='12' sm='6')
             p.footer__subtitle Here is my Github page:
             a.footer__link(
-              href='https://github.com/JudgementHC'
+              href='https://github.com/VariableSan'
               target='_blank'
             )
               v-img.footer__github-link(
@@ -37,17 +37,13 @@ v-footer.footer(dark padless)
           v-col(cols='6')
             p.footer__subtitle Other projects:
             a.footer__link(
-              href='https://judgementhc.github.io/meme-project/'
+              href='https://lone-social.tech/'
               target='_blank'
-            ) Meme Project
+            ) Portfolio
             a.footer__link(
               href='https://judgementhc.github.io/Girls-in-armor/'
               target='_blank'
             ) Girls in armor v1
-            a.footer__link(
-              href='https://judgementhc.github.io/MFS/'
-              target='_blank'
-            ) First site
 </template>
 
 <style lang="sass" scoped>

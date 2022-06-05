@@ -30,7 +30,7 @@ div(data-app v-resize="onResize")
 
         v-app-bar-nav-icon.burger-icon(@click="setDrawer")
 
-        LanguageDrop
+        //- LanguageDrop
 
   div(ref="headerClone" v-show="!isTransparent")
 </template>

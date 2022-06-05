@@ -12,9 +12,6 @@
     "lint": "npm run lint:js",
     "heroku-postbuild": "npm run build"
   },
-  "engines": {
-    "node": "12.x"
-  },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/pwa": "^3.0.2",

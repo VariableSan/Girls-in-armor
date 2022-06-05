@@ -17,7 +17,7 @@ section.section.home__confrontation
           ref='alterDescription'
         )
           h3.home__confrontation__title Alter Saber
-          p.home__confrontation__subtitle Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          p.home__confrontation__subtitle If you do evil out of a hatred for evil, that rage and hate will merely birth new conflict
 
       .home__confrontation__item.home__confrontation__item--right(ref='main')
         .home__confrontation__image
@@ -30,7 +30,7 @@ section.section.home__confrontation
           ref='mainDescription'
         )
           h3.home__confrontation__title Saber
-          p.home__confrontation__subtitle Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          p.home__confrontation__subtitle Of what worth is a king who fails to protect the powerless
 </template>
 
 <script>

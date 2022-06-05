@@ -3,7 +3,6 @@
   "useTabs": false,
   "singleQuote": true,
   "trailingComma": "none",
-  "plugins": ["@prettier/plugin-pug"],
   "pugAttributeSeparator": "none",
   "pugSortAttributes": "asc",
   "pugWrapAttributesPattern": "1",
