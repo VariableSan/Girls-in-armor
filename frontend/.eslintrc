@@ -1,0 +1,60 @@
+{
+  "root": true,
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": {
+      "ts": "@typescript-eslint/parser",
+      "<template>": "espree"
+    }
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "prettier",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "./.eslintrc-auto-import.json"
+  ],
+  "rules": {
+    "semi": "off",
+    "@typescript-eslint/no-empty-interface": [
+      "error",
+      {
+        "allowSingleExtends": true
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-undef": "off",
+    "vue/attributes-order": [
+      "error",
+      {
+        "order": [
+          "DEFINITION",
+          "LIST_RENDERING",
+          "CONDITIONALS",
+          "RENDER_MODIFIERS",
+          "GLOBAL",
+          [
+            "UNIQUE",
+            "SLOT"
+          ],
+          "TWO_WAY_BINDING",
+          "OTHER_DIRECTIVES",
+          "OTHER_ATTR",
+          "EVENTS",
+          "CONTENT"
+        ],
+        "alphabetical": false
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "*.d.ts"
+  ]
+}
