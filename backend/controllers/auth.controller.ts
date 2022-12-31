@@ -15,23 +15,23 @@ export const login: RequestHandler = async (req, res) => {
     const isPasswordCorrect = compareSync(password, user.password)
 
     if (isPasswordCorrect) {
+      const formattedUser = JSON.parse(JSON.stringify(user))
+      delete formattedUser.password
+      delete formattedUser.__v
+
       const token = sign(
         {
-          login: user.login,
-          userId: user._id,
-          permission: user.role
+          ...formattedUser
         },
         process.env.JWT,
         { expiresIn: 60 * 60 }
       )
 
-      return res
-        .header('Authorization', `Bearer ${token}`)
-        .status(200)
-        .json({
-          text: 'You are successfully logged in',
-          color: 'success'
-        } as TMessage)
+      return res.status(200).json({
+        text: 'You are successfully logged in',
+        color: 'success',
+        token
+      } as TMessage)
     }
   }
 
