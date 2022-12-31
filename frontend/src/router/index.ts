@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
             path: ":id",
             name: RouterKeys.WAIFU_DETAIL,
             meta: {
-              backToListRoute: "",
+              backToListRoute: RouterKeys.WAIFU_PAGE,
             },
             props: true,
             component: () => import("@/views/waifu/WaifuDetail.vue"),
@@ -33,6 +33,11 @@ const routes: RouteRecordRaw[] = [
         ],
       },
     ],
+  },
+  {
+    path: "/login",
+    name: RouterKeys.LOGIN_PAGE,
+    component: () => import("@/views/LoginPage.vue"),
   },
 ]
 

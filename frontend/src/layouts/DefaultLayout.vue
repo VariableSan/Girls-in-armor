@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { RouterKeys } from "@/router/router-keys"
 import { useUserStore } from "@/store/user"
 import { Link } from "@/types/common"
 
@@ -8,46 +9,40 @@ const userStore = useUserStore()
 const links = ref<Link[]>([
   {
     title: "Home",
-    url: "/",
+    route: RouterKeys.HOME_PAGE,
     icon: "mdi-home",
     permission: ["all"],
   },
   {
     title: "Waifu list",
-    url: "/list",
+    route: RouterKeys.WAIFU_PAGE,
     icon: "mdi-format-list-bulleted",
     permission: ["all"],
   },
-  {
+  /* {
     title: "Add waifu",
-    url: "/add",
+    route: "/add",
     icon: "mdi-plus",
     permission: ["authRequire"],
   },
   {
     title: "Moderate",
-    url: "/moderate",
+    route: "/moderate",
     icon: "mdi-microsoft-access",
     permission: ["adminOnly"],
-  },
-  {
-    title: "Logout",
-    url: "/auth/logout",
-    icon: "mdi-logout",
-    permission: ["authRequire"],
-  },
+  }, */
   {
     title: "Login",
-    url: "/auth/login",
+    route: RouterKeys.LOGIN_PAGE,
     icon: "mdi-login",
     permission: ["onlyNoAuth"],
   },
-  {
+  /* {
     title: "Register",
-    url: "/auth/register",
+    route: "/auth/register",
     icon: "mdi-account-plus",
     permission: ["onlyNoAuth"],
-  },
+  }, */
 ])
 
 const drawer = ref(false)

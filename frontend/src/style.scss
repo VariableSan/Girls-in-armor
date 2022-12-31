@@ -1,3 +1,13 @@
+html {
+  overflow: auto;
+
+  &.dark {
+    .swal2-popup {
+      @apply bg-dark-300 text-light-400;
+    }
+  }
+}
+
 a {
   &:visited {
     color: inherit;

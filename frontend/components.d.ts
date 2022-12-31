@@ -11,7 +11,6 @@ declare module '@vue/runtime-core' {
     Confrontation: typeof import('./src/components/home/confrontation.vue')['default']
     Drawer: typeof import('./src/components/drawer.vue')['default']
     Footer: typeof import('./src/components/footer.vue')['default']
-    Header: typeof import('./src/components/header.vue')['default']
     HeaderComponent: typeof import('./src/components/HeaderComponent.vue')['default']
     HeaderComponentOld: typeof import('./src/components/HeaderComponentOld.vue')['default']
     LanguageDrop: typeof import('./src/components/LanguageDrop.vue')['default']
@@ -20,7 +19,6 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Slider: typeof import('./src/components/home/slider.vue')['default']
     Snackbar: typeof import('./src/components/snackbar.vue')['default']
-    SomeComponent: typeof import('./src/components/SomeComponent.vue')['default']
     WaifuCards: typeof import('./src/components/waifu/WaifuCards.vue')['default']
     WaifuMore: typeof import('./src/components/waifu/WaifuMore.vue')['default']
   }

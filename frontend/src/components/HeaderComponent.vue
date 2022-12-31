@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { RouterKeys } from "@/router/router-keys"
+import { useMainStore } from "@/store"
+import { useThemeStore } from "@/store/theme"
+import { useUserStore } from "@/store/user"
 import { Link } from "@/types/common"
 import { PropType } from "vue"
-import { useThemeStore } from "@/store/theme"
 
-const { meta } = useRoute()
+const route = useRoute()
 const themeStore = useThemeStore()
 const { locale, availableLocales } = useI18n()
+const userStore = useUserStore()
+const mainStore = useMainStore()
+const router = useRouter()
 
 /* ==================== defines START ==================== */
 defineProps({
@@ -21,6 +27,10 @@ const emit = defineEmits(["setDrawer"])
 const isMobile = ref(false)
 /* ==================== refs END ==================== */
 
+/* ==================== computeds START ==================== */
+const routeMeta = computed(() => route.meta.backToListRoute as RouterKeys)
+/* ==================== computeds END ==================== */
+
 /* ==================== methods START ==================== */
 const onResize = () => {
   isMobile.value = window.innerWidth < 768
@@ -35,19 +45,34 @@ const changeLocale = () => {
 const setDrawer = () => {
   emit("setDrawer", true)
 }
+
+const logout = () => {
+  userStore.logout()
+  mainStore.setMessage({
+    text: "You are successfully logged out",
+    color: "success",
+  })
+  router.push({
+    name: RouterKeys.HOME_PAGE,
+  })
+}
 /* ==================== methods END ==================== */
 </script>
 
 <template>
   <v-toolbar v-resize="onResize" flat>
-    <v-container class="d-flex w-100 align-center">
-      <v-toolbar-title>
-        <router-link v-if="meta.backToListRoute" :to="meta.backToListRoute">
+    <v-container class="w-100 d-flex items-center">
+      <div class="flex items-center">
+        <router-link
+          v-if="routeMeta"
+          :to="{ name: routeMeta }"
+          class="mr-4 transition-colors duration-200 hover:text-gray-400"
+        >
           <v-icon size="35px" icon="mdi-arrow-left-circle-outline"></v-icon>
         </router-link>
 
         <router-link to="/" class="logo"> Girls in Armor </router-link>
-      </v-toolbar-title>
+      </div>
 
       <v-spacer></v-spacer>
 
@@ -62,13 +87,27 @@ const setDrawer = () => {
           <v-tooltip activator="parent"> change theme </v-tooltip>
         </v-btn>
 
-        <v-btn v-for="(link, index) in links" :key="index" :to="link.url">
+        <v-btn @click="logout">
+          <v-icon icon="mdi-logout" class="mr-2"></v-icon>
+          Logout
+        </v-btn>
+
+        <v-btn
+          v-for="(link, index) in links"
+          :key="index"
+          :to="{ name: link.route }"
+          :exact="link.route === RouterKeys.HOME_PAGE"
+        >
           <v-icon :icon="link.icon" class="mr-2"></v-icon>
           {{ link.title }}
         </v-btn>
       </div>
 
-      <v-app-bar-nav-icon size="small" @click="setDrawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        class="hidden -md:block"
+        size="small"
+        @click="setDrawer"
+      ></v-app-bar-nav-icon>
     </v-container>
   </v-toolbar>
 </template>
@@ -86,16 +125,14 @@ const setDrawer = () => {
 }
 
 .logo {
-  position: relative;
-  text-decoration: none;
+  @apply text-lg relative no-underline focus:outline-none;
+
   &:hover {
     &::after {
       width: 100%;
     }
   }
-  &:focus {
-    outline: none;
-  }
+
   &::after {
     content: "";
     position: absolute;

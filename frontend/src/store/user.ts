@@ -1,4 +1,3 @@
-import { axios } from "@/plugins/axios"
 import { RouterKeys } from "@/router/router-keys"
 import { User, UserForm } from "@/types/common"
 import Cookie from "cookie"
@@ -6,10 +5,12 @@ import Cookies from "js-cookie"
 import jwtDecode from "jwt-decode"
 import { defineStore } from "pinia"
 import { useMainStore } from "."
+import { useAxiosStore } from "./axios-store"
 
 export const useUserStore = defineStore("user", () => {
   const router = useRouter()
   const mainStore = useMainStore()
+  const axios = useAxiosStore()
 
   /* ==================== refs START ==================== */
   const token = ref<string>()
@@ -24,6 +25,7 @@ export const useUserStore = defineStore("user", () => {
   /* ==================== methods START ==================== */
   const setUser = (payload: User) => {
     user.value = payload
+    setPermission(user.value.permission)
   }
 
   const setToken = (newToken: string) => {
@@ -45,37 +47,39 @@ export const useUserStore = defineStore("user", () => {
     token.value = undefined
     user.value = undefined
     Cookies.remove("jwt-token")
+    router.push({ name: RouterKeys.HOME_PAGE })
+    mainStore.setMessage({
+      text: "Successful logout",
+      color: "info",
+    })
   }
 
   const login = async (userForm: UserForm) => {
+    mainStore.globalLoading = true
     try {
-      const { token, user, text, color, permission } = await axios
-        .post("/api/auth/login", userForm)
-        .then(res => res.data)
-
-      if (token && user) {
+      const res = await axios.post("/auth/login", userForm)
+      const { token, text, color } = res.data
+      const user = decodeJWT(token)
+      if (user) {
         setUser(user)
         setToken(token)
-        setPermission(permission)
         router.push({ name: RouterKeys.HOME_PAGE })
       }
-
       mainStore.setMessage({ text, color })
-    } catch (e: any) {
-      mainStore.setMessage(e.response.data)
+    } finally {
+      mainStore.globalLoading = false
     }
   }
 
   const createUser = async (userForm: UserForm) => {
+    mainStore.globalLoading = true
     try {
-      const { text, color } = await axios
-        .post("/api/auth/create", userForm)
-        .then(res => res.data)
-
-      router.push("/auth/login")
+      const res = await axios.post("/auth/create", userForm)
+      const { text, color } = res.data
+      router.push({ name: RouterKeys.LOGIN_PAGE })
       mainStore.setMessage({ text, color })
-    } catch (e: any) {
-      mainStore.setMessage(e.response.data)
+    } finally {
+      mainStore.globalLoading = false
     }
   }
 
@@ -83,20 +87,21 @@ export const useUserStore = defineStore("user", () => {
     const cookieStr = document.cookie
     const cookies = Cookie.parse(cookieStr || "") || {}
     const token = cookies["jwt-token"]
-    if (isJWTValid(token)) {
-      setToken(token)
-      setUser(decodeJWT(token).userId)
-      setPermission(decodeJWT(token).permission)
-    } else {
-      logout()
+    if (token) {
+      if (isJWTValid(token)) {
+        setToken(token)
+        setUser(decodeJWT(token))
+      } else {
+        logout()
+      }
     }
   }
   /* ==================== methods END ==================== */
 
   return {
     token,
-    permission,
     isAuth,
+    user,
 
     setUser,
     setToken,

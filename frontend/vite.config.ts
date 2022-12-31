@@ -5,6 +5,8 @@ import AutoImport from "unplugin-auto-import/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 import Components from "unplugin-vue-components/vite"
 import { defineConfig } from "vite"
+import WindiCSS from "vite-plugin-windicss"
+import windiConfig from "./windi.config"
 
 export default defineConfig({
   resolve: {
@@ -15,6 +17,9 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    WindiCSS({
+      config: windiConfig,
+    }),
     AutoImport({
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/, /\.ts$/],
       imports: ["vue", "vue-router", "vue-i18n"],

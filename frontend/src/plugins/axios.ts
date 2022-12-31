@@ -1,6 +1,4 @@
 import AxiosInstance from "axios"
-import { env } from "process"
-
 export const axios = AxiosInstance.create({
-  baseURL: env.BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL,
 })

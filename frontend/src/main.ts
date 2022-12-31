@@ -1,7 +1,10 @@
 import "@mdi/font/css/materialdesignicons.css"
 import { createPinia } from "pinia"
+import "sweetalert2/dist/sweetalert2.min.css"
+import "virtual:windi.css"
 import { createApp } from "vue"
 import { createI18n } from "vue-i18n"
+import VueSweetalert2 from "vue-sweetalert2"
 import { createVuetify } from "vuetify"
 import * as components from "vuetify/components"
 import * as directives from "vuetify/directives"
@@ -42,4 +45,10 @@ const i18n = createI18n({
 
 const app = createApp(App)
 
-app.use(router).use(pinia).use(vuetify).use(i18n).mount("#app")
+app
+  .use(router)
+  .use(pinia)
+  .use(vuetify)
+  .use(i18n)
+  .use(VueSweetalert2)
+  .mount("#app")
