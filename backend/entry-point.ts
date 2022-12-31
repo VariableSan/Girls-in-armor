@@ -70,5 +70,6 @@ app.use('/moderate', ModerateRouter)
 app.set('port', PORT)
 app.listen(PORT, () => {
   console.info(`server has started on port ${PORT}`)
+  console.info(`is dev mode ${isDev}`)
 })
 /*==================== SERVER END ====================*/
