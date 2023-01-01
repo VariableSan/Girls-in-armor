@@ -4,6 +4,7 @@ import { useMainStore } from "@/store"
 import { useThemeStore } from "@/store/theme"
 import { useUserStore } from "@/store/user"
 import { Link } from "@/types/common"
+import swal from "sweetalert2"
 import { PropType } from "vue"
 
 const route = useRoute()
@@ -11,7 +12,6 @@ const themeStore = useThemeStore()
 const { locale, availableLocales } = useI18n()
 const userStore = useUserStore()
 const mainStore = useMainStore()
-const router = useRouter()
 
 /* ==================== defines START ==================== */
 defineProps({
@@ -23,19 +23,13 @@ defineProps({
 const emit = defineEmits(["setDrawer"])
 /* ==================== defines END ==================== */
 
-/* ==================== refs START ==================== */
-const isMobile = ref(false)
-/* ==================== refs END ==================== */
-
 /* ==================== computeds START ==================== */
-const routeMeta = computed(() => route.meta.backToListRoute as RouterKeys)
+const backToListRoute = computed(() => route.meta.backToListRoute as RouterKeys)
+const isHomePage = computed(() => route.name === RouterKeys.HOME_PAGE)
+const showLocale = computed(() => import.meta.env.VITE_SHOW_LOCALE === "true")
 /* ==================== computeds END ==================== */
 
 /* ==================== methods START ==================== */
-const onResize = () => {
-  isMobile.value = window.innerWidth < 768
-}
-
 const changeLocale = () => {
   const index = availableLocales.findIndex(el => el === locale.value)
   locale.value =
@@ -46,26 +40,36 @@ const setDrawer = () => {
   emit("setDrawer", true)
 }
 
-const logout = () => {
+const logout = async () => {
+  const userConfirm = await swal.fire({
+    title: "Do you want to log out?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, log out",
+    scrollbarPadding: false,
+  })
+  if (!userConfirm.value) {
+    return
+  }
+
   userStore.logout()
   mainStore.setMessage({
     text: "You are successfully logged out",
     color: "success",
-  })
-  router.push({
-    name: RouterKeys.HOME_PAGE,
   })
 }
 /* ==================== methods END ==================== */
 </script>
 
 <template>
-  <v-toolbar v-resize="onResize" flat>
-    <v-container class="w-100 d-flex items-center">
+  <v-toolbar flat class="header" :class="{ 'home-page-header': isHomePage }">
+    <v-container class="d-flex items-center">
       <div class="flex items-center">
         <router-link
-          v-if="routeMeta"
-          :to="{ name: routeMeta }"
+          v-if="backToListRoute"
+          :to="{ name: backToListRoute }"
           class="mr-4 transition-colors duration-200 hover:text-gray-400"
         >
           <v-icon size="35px" icon="mdi-arrow-left-circle-outline"></v-icon>
@@ -76,22 +80,7 @@ const logout = () => {
 
       <v-spacer></v-spacer>
 
-      <div class="links">
-        <v-btn size="small" @click="changeLocale">
-          <v-icon icon="mdi-translate"></v-icon>
-          <v-tooltip activator="parent"> change locale </v-tooltip>
-        </v-btn>
-
-        <v-btn size="small" @click="themeStore.changeTheme">
-          <v-icon icon="mdi-theme-light-dark"></v-icon>
-          <v-tooltip activator="parent"> change theme </v-tooltip>
-        </v-btn>
-
-        <v-btn @click="logout">
-          <v-icon icon="mdi-logout" class="mr-2"></v-icon>
-          Logout
-        </v-btn>
-
+      <div class="links hidden md:block">
         <v-btn
           v-for="(link, index) in links"
           :key="index"
@@ -101,10 +90,30 @@ const logout = () => {
           <v-icon :icon="link.icon" class="mr-2"></v-icon>
           {{ link.title }}
         </v-btn>
+
+        <v-btn v-if="!userStore.isAuth" :to="{ name: RouterKeys.LOGIN_PAGE }">
+          <v-icon icon="mdi-login" class="mr-2"></v-icon>
+          Login
+        </v-btn>
+
+        <v-btn v-else @click="logout">
+          <v-icon icon="mdi-logout" class="mr-2"></v-icon>
+          Logout
+        </v-btn>
+
+        <v-btn v-if="showLocale" size="small" @click="changeLocale">
+          <v-icon icon="mdi-translate"></v-icon>
+          <v-tooltip activator="parent"> change locale </v-tooltip>
+        </v-btn>
+
+        <v-btn size="small" @click="themeStore.changeTheme">
+          <v-icon icon="mdi-theme-light-dark"></v-icon>
+          <v-tooltip activator="parent"> change theme </v-tooltip>
+        </v-btn>
       </div>
 
       <v-app-bar-nav-icon
-        class="hidden -md:block"
+        class="burger-btn"
         size="small"
         @click="setDrawer"
       ></v-app-bar-nav-icon>
@@ -145,5 +154,19 @@ const logout = () => {
     background-color: #fff;
     transition: all 0.3s ease-in-out;
   }
+}
+
+.burger-btn {
+  @screen md {
+    display: none;
+  }
+}
+
+.header {
+  @apply top-0 left-0 w-[100%] z-100 fixed;
+}
+
+.home-page-header {
+  @apply bg-transparent;
 }
 </style>

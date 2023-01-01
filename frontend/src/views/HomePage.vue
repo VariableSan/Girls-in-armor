@@ -1,11 +1,5 @@
-<script setup lang="ts">
-import { useUserStore } from "@/store/user"
-
-const userStore = useUserStore()
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <v-container class="py-8">
-    <pre>{{ userStore.user }}</pre>
-  </v-container>
+  <ParallaxComponent></ParallaxComponent>
 </template>

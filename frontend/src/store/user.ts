@@ -15,17 +15,15 @@ export const useUserStore = defineStore("user", () => {
   /* ==================== refs START ==================== */
   const token = ref<string>()
   const user = ref<User>()
-  const permission = ref(false)
   /* ==================== refs END ==================== */
 
   /* ==================== computeds START ==================== */
-  const isAuth = computed(() => Boolean(user.value))
+  const isAuth = computed(() => Boolean(token.value))
   /* ==================== computeds END ==================== */
 
   /* ==================== methods START ==================== */
   const setUser = (payload: User) => {
     user.value = payload
-    setPermission(user.value.permission)
   }
 
   const setToken = (newToken: string) => {
@@ -36,10 +34,6 @@ export const useUserStore = defineStore("user", () => {
     Cookies.set("jwt-token", newToken)
   }
 
-  const setPermission = (newPermission: boolean) => {
-    permission.value = newPermission
-  }
-
   const logout = () => {
     axios.defaults.headers.common = {
       Authorization: false,
@@ -47,7 +41,6 @@ export const useUserStore = defineStore("user", () => {
     token.value = undefined
     user.value = undefined
     Cookies.remove("jwt-token")
-    router.push({ name: RouterKeys.HOME_PAGE })
     mainStore.setMessage({
       text: "Successful logout",
       color: "info",
@@ -105,7 +98,6 @@ export const useUserStore = defineStore("user", () => {
 
     setUser,
     setToken,
-    setPermission,
     logout,
     autoLogin,
     createUser,

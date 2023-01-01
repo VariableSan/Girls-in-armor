@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { useMainStore } from "./store"
 import { useAxiosStore } from "./store/axios-store"
+import { useUserStore } from "./store/user";
 
 useAxiosStore()
 const mainStore = useMainStore()
+const userStore = useUserStore()
+
+/* ==================== hooks START ==================== */
+onMounted(() => {
+  userStore.autoLogin()
+})
+/* ==================== hooks END ==================== */
 </script>
 
 <template>
-  <router-view></router-view>
+  <div class="relative">
+    <router-view></router-view>
+  </div>
 
   <v-snackbar
     v-model="mainStore.snackbar"

@@ -4,4 +4,5 @@ export enum RouterKeys {
   WAIFU_DETAIL = "WaifuDetail",
   HOME_PAGE = "HomePage",
   LOGIN_PAGE = "LoginPage",
+  ERROR_PAGE = "ErrorPage",
 }

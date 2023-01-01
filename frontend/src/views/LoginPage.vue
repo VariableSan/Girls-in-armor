@@ -97,14 +97,14 @@ onMounted(() => {
 
 <template>
   <section
-    class="bg-cover bg-no-repeat bg-[center-top] flex h-100vh p-0 w-[100%] items-center justify-center"
+    class="bg-cover bg-no-repeat bg-[center-top] flex h-100vh p-0 w-[100%] items-center justify-center -sm:bg-right"
     :style="{ backgroundImage: `url(${LoginBg})` }"
   >
     <v-container>
       <v-card
-        class="mx-auto bg-light-400 bg-opacity-70 max-w-[50%] dark:bg-dark-400 dark:bg-opacity-70"
+        class="mx-auto bg-light-400 bg-opacity-70 max-w-[30%] -lg:max-w-[60%] dark:bg-dark-400 dark:bg-opacity-70"
       >
-        <v-toolbar color="primary">
+        <v-toolbar color="primary" class="opacity-70">
           <v-toolbar-title>Login form</v-toolbar-title>
         </v-toolbar>
 

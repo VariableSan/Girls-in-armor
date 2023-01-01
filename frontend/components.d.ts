@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     HeaderComponentOld: typeof import('./src/components/HeaderComponentOld.vue')['default']
     LanguageDrop: typeof import('./src/components/LanguageDrop.vue')['default']
     Parallax: typeof import('./src/components/home/parallax.vue')['default']
+    ParallaxComponent: typeof import('./src/components/home/ParallaxComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Slider: typeof import('./src/components/home/slider.vue')['default']

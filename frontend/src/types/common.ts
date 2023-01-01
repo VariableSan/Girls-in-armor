@@ -2,7 +2,6 @@ export interface Link {
   title: string
   route: string
   icon: string
-  permission: string[]
 }
 
 export interface User {
