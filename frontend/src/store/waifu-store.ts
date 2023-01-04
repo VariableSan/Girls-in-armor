@@ -39,7 +39,8 @@ export const useWaifuStore = defineStore("waifu", () => {
       mainStore.globalLoading = false
     }
   }
-  const saveWaifu = async (character: Waifu) => {
+
+  const saveWaifu = async (character: Partial<Waifu>) => {
     mainStore.globalLoading = true
     try {
       const res = await axiosStore.post("/add", character)
@@ -73,17 +74,98 @@ export const useWaifuStore = defineStore("waifu", () => {
         },
       })
       const message = res.data
-
-      getWaifuListFromServer()
-
       mainStore.setMessage(message)
-
       if (routeLink) {
-        router.push({ name: routeLink })
+        return router.push({ name: routeLink })
       }
+      getWaifuListFromServer()
     } finally {
       mainStore.globalLoading = false
     }
+  }
+
+  const getModerateListFromServer = async () => {
+    mainStore.globalLoading = true
+    try {
+      const res = await axiosStore.post("/moderate/list", {
+        page: pagination.value,
+        limit: 12,
+      })
+      const moderates = res.data
+      waifuList.value = moderates.docs
+      totalPages.value = moderates.totalPages
+    } finally {
+      mainStore.globalLoading = false
+    }
+  }
+
+  const rejectWaifu = async (id: string, routeLink?: RouterKeys) => {
+    const userConfirm = await swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject it!",
+      scrollbarPadding: false,
+    })
+    if (!userConfirm.value) {
+      return
+    }
+    mainStore.globalLoading = true
+    try {
+      const res = await axiosStore.delete("/moderate/remove", {
+        data: {
+          id,
+        },
+      })
+      const message = res.data
+      mainStore.setMessage(message)
+      if (routeLink) {
+        return router.push({ name: routeLink })
+      }
+      getModerateListFromServer()
+    } finally {
+      mainStore.globalLoading = false
+    }
+  }
+
+  const acceptWaifu = async (id: string, routeLink?: RouterKeys) => {
+    const userConfirm = await swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, accept it!",
+      scrollbarPadding: false,
+    })
+    if (!userConfirm.value) {
+      return
+    }
+
+    mainStore.globalLoading = true
+    try {
+      const res = await axiosStore.post("/moderate/add", {
+        id,
+      })
+      const message = res.data
+      mainStore.setMessage(message)
+      if (routeLink) {
+        return router.push({ name: routeLink })
+      }
+      getModerateListFromServer()
+    } finally {
+      mainStore.globalLoading = false
+    }
+  }
+
+  const clearWaifuData = () => {
+    waifuList.value = []
+    pagination.value = 1
+    totalPages.value = 0
   }
   /* ==================== methods END ==================== */
 
@@ -97,5 +179,9 @@ export const useWaifuStore = defineStore("waifu", () => {
     getWaifuListFromServer,
     setWaifuList,
     setPagination,
+    getModerateListFromServer,
+    rejectWaifu,
+    acceptWaifu,
+    clearWaifuData,
   }
 })

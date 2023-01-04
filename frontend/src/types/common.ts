@@ -2,6 +2,7 @@ export interface Link {
   title: string
   route: string
   icon: string
+  exact?: boolean
 }
 
 export interface User {

@@ -1,5 +1,5 @@
 import { useMainStore } from "@/store"
-import { useUserStore } from "@/store/user"
+import { useUserStore } from "@/store/user-store"
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import { RouterKeys } from "./router-keys"
 
@@ -47,6 +47,45 @@ const routes: RouteRecordRaw[] = [
               import(
                 /* webpackChunkName: "waifu-page" */ "@/views/waifu/WaifuDetail.vue"
               ),
+          },
+          {
+            path: "/add",
+            name: RouterKeys.WAIFU_ADDING,
+            component: () =>
+              import(
+                /* webpackChunkName: "waifu-page" */ "@/views/waifu/WaifuAdding.vue"
+              ),
+            beforeEnter(to, from, next) {
+              const userStore = useUserStore()
+              if (userStore.isAuth) {
+                return next()
+              }
+              next({ name: RouterKeys.LOGIN_PAGE })
+            },
+          },
+          {
+            path: "/moderate",
+            name: RouterKeys.WAIFU_MODERATE,
+            meta: {
+              moderateMode: true,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "waifu-moderate" */ "@/views/waifu/WaifuPage.vue"
+              ),
+            beforeEnter(to, from, next) {
+              const userStore = useUserStore()
+              const mainStore = useMainStore()
+              if (userStore.user?.permission) {
+                next()
+              } else {
+                next({ name: RouterKeys.WAIFU_PAGE })
+                mainStore.setMessage({
+                  text: "You don't have permission",
+                  color: "warning",
+                })
+              }
+            },
           },
         ],
       },

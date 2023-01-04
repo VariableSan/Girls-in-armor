@@ -2,7 +2,7 @@ import { axios } from "@/plugins/axios"
 import { RouterKeys } from "@/router/router-keys"
 import { defineStore } from "pinia"
 import { useMainStore } from "."
-import { useUserStore } from "./user"
+import { useUserStore } from "./user-store"
 
 export const useAxiosStore = defineStore("axios", () => {
   const userStore = useUserStore()
@@ -12,9 +12,11 @@ export const useAxiosStore = defineStore("axios", () => {
   /* ==================== hooks START ==================== */
   onMounted(() => {
     axios.interceptors.request.use(request => {
-      if (userStore.isAuth && !request.headers?.common?.get("Authorization")) {
-        const token = userStore.token
-        request.headers?.common?.set("Authorization", `Bearer ${token}`)
+      if (userStore.isAuth && userStore.token) {
+        request.headers?.common?.set(
+          "Authorization",
+          `Bearer ${userStore.token}`,
+        )
       }
 
       return request

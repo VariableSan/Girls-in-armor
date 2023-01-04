@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import LoginBg from "@/assets/images/auth/login-bg.jpg"
 import { useMainStore } from "@/store"
-import { useThemeStore } from "@/store/theme"
-import { useUserStore } from "@/store/user"
+import { useThemeStore } from "@/store/theme-store"
+import { useUserStore } from "@/store/user-store"
 import { SnackbarMessage } from "@/types/common"
 import { useVuelidate } from "@vuelidate/core"
 import { helpers, maxLength, required } from "@vuelidate/validators"

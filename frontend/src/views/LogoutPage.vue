@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { RouterKeys } from "@/router/router-keys"
 import { useMainStore } from "@/store"
-import { useUserStore } from "@/store/user"
+import { useUserStore } from "@/store/user-store"
 
 const userStore = useUserStore()
 const mainStore = useMainStore()

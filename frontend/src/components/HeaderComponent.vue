@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouterKeys } from "@/router/router-keys"
 import { useMainStore } from "@/store"
-import { useThemeStore } from "@/store/theme"
-import { useUserStore } from "@/store/user"
+import { useThemeStore } from "@/store/theme-store"
+import { useUserStore } from "@/store/user-store"
 import { Link } from "@/types/common"
 import swal from "sweetalert2"
 import { PropType } from "vue"
@@ -12,6 +12,7 @@ const themeStore = useThemeStore()
 const { locale, availableLocales } = useI18n()
 const userStore = useUserStore()
 const mainStore = useMainStore()
+const router = useRouter()
 
 /* ==================== defines START ==================== */
 defineProps({
@@ -59,6 +60,7 @@ const logout = async () => {
     text: "You are successfully logged out",
     color: "success",
   })
+  router.push({ name: RouterKeys.HOME_PAGE })
 }
 /* ==================== methods END ==================== */
 </script>
@@ -85,10 +87,23 @@ const logout = async () => {
           v-for="(link, index) in links"
           :key="index"
           :to="{ name: link.route }"
-          :exact="link.route === RouterKeys.HOME_PAGE"
+          :exact="link.exact"
         >
           <v-icon :icon="link.icon" class="mr-2"></v-icon>
           {{ link.title }}
+        </v-btn>
+
+        <v-btn
+          v-if="userStore.user?.permission"
+          :to="{ name: RouterKeys.WAIFU_MODERATE }"
+        >
+          <v-icon icon="mdi-microsoft-access" class="mr-2"></v-icon>
+          Moderate
+        </v-btn>
+
+        <v-btn v-if="userStore.isAuth" :to="{ name: RouterKeys.WAIFU_ADDING }">
+          <v-icon icon="mdi-plus" class="mr-2"></v-icon>
+          Add waifu
         </v-btn>
 
         <v-btn v-if="!userStore.isAuth" :to="{ name: RouterKeys.LOGIN_PAGE }">

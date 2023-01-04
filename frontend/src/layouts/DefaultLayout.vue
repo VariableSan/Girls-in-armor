@@ -14,22 +14,14 @@ const links = ref<Link[]>([
     title: "Home",
     route: RouterKeys.HOME_PAGE,
     icon: "mdi-home",
+    exact: true,
   },
   {
     title: "Waifu list",
     route: RouterKeys.WAIFU_PAGE,
     icon: "mdi-format-list-bulleted",
+    exact: true,
   },
-  /* {
-    title: "Add waifu",
-    route: "/add",
-    icon: "mdi-plus",
-  },
-  {
-    title: "Moderate",
-    route: "/moderate",
-    icon: "mdi-microsoft-access",
-  }, */
   /* {
     title: "Register",
     route: "/auth/register",
