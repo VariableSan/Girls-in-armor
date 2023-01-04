@@ -11,7 +11,7 @@ export const getWaifuById = async (req: Request, res: Response) => {
 
     res.status(500).json({
       text: 'Something went wrong in waifu route',
-      color: 'color--error'
+      color: 'error'
     })
   }
 }

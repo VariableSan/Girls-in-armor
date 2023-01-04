@@ -8,14 +8,14 @@ export const addWaifu = async (req: Request, res: Response) => {
     await waifus.save()
     res.status(200).json({
       text: 'Your request has been accepted, the post is being moderated',
-      color: 'color--success'
+      color: 'success'
     })
   } catch (error) {
     console.error(error)
 
     res.status(500).json({
       text: 'Something went wrong in add route',
-      color: 'color--error'
+      color: 'error'
     })
   }
 }

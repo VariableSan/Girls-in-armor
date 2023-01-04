@@ -1,4 +1,4 @@
 export type TLogin = {
-  login: String
-  password: String
+  login: string
+  password: string
 }

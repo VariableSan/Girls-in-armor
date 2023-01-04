@@ -12,7 +12,7 @@ export const getModerate = async (req: Request, res: Response) => {
 
     res.status(500).json({
       text: 'Something went wrong in moderate route',
-      color: 'color--error'
+      color: 'error'
     })
   }
 }
@@ -20,22 +20,26 @@ export const getModerate = async (req: Request, res: Response) => {
 export const addToWaifuList = async (req: Request, res: Response) => {
   try {
     const { id } = req.body
-    delete req.body.id
+    const moderateWaifu = await ModerateModel.findById(id)
 
-    const waifus = await WaifusModel(req.body)
+    const formattedModerateWaifu = JSON.parse(JSON.stringify(moderateWaifu))
+    delete formattedModerateWaifu.password
+    delete formattedModerateWaifu.__v
+
+    const waifus = await WaifusModel(formattedModerateWaifu)
     await waifus.save()
 
     await ModerateModel.findByIdAndRemove(id)
 
     res.status(200).json({
       text: 'The post is now visible to everyone',
-      color: 'color--success'
+      color: 'success'
     })
   } catch (error) {
     console.error(error)
     res.status(500).json({
       text: 'Something went wrong in moderate route',
-      color: 'color--error'
+      color: 'error'
     })
   }
 }
@@ -46,14 +50,14 @@ export const removeById = async (req: Request, res: Response) => {
 
     res.status(200).json({
       text: 'The post is removed',
-      color: 'color--success'
+      color: 'success'
     })
   } catch (error) {
     console.error(error)
 
     res.status(500).json({
       text: 'Something went wrong in moderate route',
-      color: 'color--error'
+      color: 'error'
     })
   }
 }
@@ -69,7 +73,7 @@ export const getById = async (req: Request, res: Response) => {
     console.error(error)
     res.status(500).json({
       text: 'Something went wrong in moderate route',
-      color: 'color--error'
+      color: 'error'
     })
   }
 }

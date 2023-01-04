@@ -8,7 +8,7 @@ const options = {
 
 export const strategy = new Strategy(options, async (payload, done) => {
   try {
-    const userById = await User.findById(payload.userId).select('id')
+    const userById = await User.findById(payload._id).select('id')
 
     if (userById) {
       done(null, userById)
