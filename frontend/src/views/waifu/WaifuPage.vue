@@ -53,14 +53,21 @@ const acceptCardById = (id: string) => {
 
 /* ==================== hooks START ==================== */
 onMounted(() => {
-  waifuStore.clearWaifuData()
-  getWaifus()
+  if (
+    (route.name === RouterKeys.MODERATE_PAGE && waifuStore.mode === "waifu") ||
+    (route.name === RouterKeys.WAIFU_PAGE && waifuStore.mode === "moderate")
+  ) {
+    waifuStore.clearWaifuData()
+  }
+  if (waifuStore.waifuList.length === 0) {
+    getWaifus()
+  }
 })
 /* ==================== hooks END ==================== */
 
 /* ==================== watchers START ==================== */
 watch(route, () => {
-  const routeList = [RouterKeys.WAIFU_PAGE, RouterKeys.WAIFU_MODERATE]
+  const routeList = [RouterKeys.WAIFU_PAGE, RouterKeys.MODERATE_PAGE]
   if (routeList.includes(route.name as RouterKeys)) {
     waifuStore.clearWaifuData()
     getWaifus()
@@ -87,7 +94,7 @@ watch(route, () => {
     <WaifuCards
       :loading="mainStore.globalLoading"
       :waifus="waifus"
-      :route-name="RouterKeys.WAIFU_DETAIL"
+      :route-name="route.meta.toDetailRoute"
       class="mb-5"
     >
       <template #actions="{ waifu }">

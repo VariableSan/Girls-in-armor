@@ -95,7 +95,7 @@ const logout = async () => {
 
         <v-btn
           v-if="userStore.user?.permission"
-          :to="{ name: RouterKeys.WAIFU_MODERATE }"
+          :to="{ name: RouterKeys.MODERATE_PAGE }"
         >
           <v-icon icon="mdi-microsoft-access" class="mr-2"></v-icon>
           Moderate

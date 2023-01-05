@@ -5,6 +5,8 @@ import swal from "sweetalert2"
 import { useMainStore } from "."
 import { useAxiosStore } from "./axios-store"
 
+type ModeType = "waifu" | "moderate"
+
 export const useWaifuStore = defineStore("waifu", () => {
   const mainStore = useMainStore()
   const axiosStore = useAxiosStore()
@@ -14,6 +16,7 @@ export const useWaifuStore = defineStore("waifu", () => {
   const waifuList = ref<Waifu[]>([])
   const pagination = ref(1)
   const totalPages = ref(0)
+  const mode = ref<ModeType>("waifu")
   /* ==================== refs END ==================== */
 
   /* ==================== methods START ==================== */
@@ -35,6 +38,7 @@ export const useWaifuStore = defineStore("waifu", () => {
       const waifus = res.data
       setWaifuList(waifus.docs)
       totalPages.value = waifus.totalPages
+      mode.value = "waifu"
     } finally {
       mainStore.globalLoading = false
     }
@@ -94,6 +98,7 @@ export const useWaifuStore = defineStore("waifu", () => {
       const moderates = res.data
       waifuList.value = moderates.docs
       totalPages.value = moderates.totalPages
+      mode.value = "moderate"
     } finally {
       mainStore.globalLoading = false
     }
@@ -173,6 +178,7 @@ export const useWaifuStore = defineStore("waifu", () => {
     waifuList,
     pagination,
     totalPages,
+    mode,
 
     removeWaifu,
     saveWaifu,

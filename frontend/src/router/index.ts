@@ -31,6 +31,9 @@ const routes: RouteRecordRaw[] = [
           {
             path: "",
             name: RouterKeys.WAIFU_PAGE,
+            meta: {
+              toDetailRoute: RouterKeys.WAIFU_DETAIL,
+            },
             component: () =>
               import(
                 /* webpackChunkName: "waifu-page" */ "@/views/waifu/WaifuPage.vue"
@@ -63,31 +66,54 @@ const routes: RouteRecordRaw[] = [
               next({ name: RouterKeys.LOGIN_PAGE })
             },
           },
+        ],
+      },
+      {
+        path: "/moderate",
+        name: RouterKeys.MODERATE_INDEX,
+        component: () =>
+          import(
+            /* webpackChunkName: "moderate-page" */ "@/views/waifu/WaifuIndex.vue"
+          ),
+        meta: {
+          moderateMode: true,
+        },
+        children: [
           {
-            path: "/moderate",
-            name: RouterKeys.WAIFU_MODERATE,
+            path: "",
+            name: RouterKeys.MODERATE_PAGE,
             meta: {
-              moderateMode: true,
+              toDetailRoute: RouterKeys.MODERATE_DETAIL,
             },
             component: () =>
               import(
-                /* webpackChunkName: "waifu-moderate" */ "@/views/waifu/WaifuPage.vue"
+                /* webpackChunkName: "moderate-page" */ "@/views/waifu/WaifuPage.vue"
               ),
-            beforeEnter(to, from, next) {
-              const userStore = useUserStore()
-              const mainStore = useMainStore()
-              if (userStore.user?.permission) {
-                next()
-              } else {
-                next({ name: RouterKeys.WAIFU_PAGE })
-                mainStore.setMessage({
-                  text: "You don't have permission",
-                  color: "warning",
-                })
-              }
+          },
+          {
+            path: ":id",
+            meta: {
+              backToListRoute: RouterKeys.MODERATE_PAGE,
             },
+            name: RouterKeys.MODERATE_DETAIL,
+            component: import(
+              /* webpackChunkName: "moderate-page" */ "@/views/waifu/WaifuDetail.vue"
+            ),
           },
         ],
+        beforeEnter(to, from, next) {
+          const userStore = useUserStore()
+          const mainStore = useMainStore()
+          if (userStore.user?.permission) {
+            next()
+          } else {
+            next({ name: RouterKeys.WAIFU_PAGE })
+            mainStore.setMessage({
+              text: "You don't have permission",
+              color: "warning",
+            })
+          }
+        },
       },
     ],
   },
