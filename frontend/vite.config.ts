@@ -6,6 +6,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 import Components from "unplugin-vue-components/vite"
 import { defineConfig } from "vite"
 import WindiCSS from "vite-plugin-windicss"
+import svgLoader from "vite-svg-loader"
 import windiConfig from "./windi.config"
 
 export default defineConfig({
@@ -32,5 +33,6 @@ export default defineConfig({
     }),
     Components(),
     vueI18n(),
+    svgLoader(),
   ],
 })

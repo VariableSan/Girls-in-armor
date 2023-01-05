@@ -6,6 +6,7 @@ import { useUserStore } from "@/store/user-store"
 import { Link } from "@/types/common"
 import swal from "sweetalert2"
 import { PropType } from "vue"
+import Logo from "~/static/shield-and-sword.svg?url"
 
 const route = useRoute()
 const themeStore = useThemeStore()
@@ -77,7 +78,10 @@ const logout = async () => {
           <v-icon size="35px" icon="mdi-arrow-left-circle-outline"></v-icon>
         </router-link>
 
-        <router-link to="/" class="logo"> Girls in Armor </router-link>
+        <router-link to="/" class="logo">
+          <img :src="Logo" class="mr-2 w-8" />
+          Girls in Armor
+        </router-link>
       </div>
 
       <v-spacer></v-spacer>
@@ -149,7 +153,7 @@ const logout = async () => {
 }
 
 .logo {
-  @apply text-lg relative no-underline focus:outline-none;
+  @apply flex text-lg relative no-underline items-center focus:outline-none;
 
   &:hover {
     &::after {
