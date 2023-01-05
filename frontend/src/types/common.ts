@@ -15,6 +15,7 @@ export interface User {
 export interface UserForm {
   login: string
   password: string
+  email?: string
 }
 
 export interface SnackbarMessage {

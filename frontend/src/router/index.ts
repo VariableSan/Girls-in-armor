@@ -118,28 +118,36 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: "/login",
+    path: "/auth",
     component: import(
       /* webpackChunkName: "minimalistic-layout" */ "@/layouts/LoginLayout.vue"
     ),
+    beforeEnter(to, from, next) {
+      const userStore = useUserStore()
+      const mainStore = useMainStore()
+      if (!userStore.isAuth) {
+        return next()
+      }
+      mainStore.setMessage({
+        text: "You are already registered in the system",
+        color: "info",
+      })
+      next({ name: RouterKeys.HOME_PAGE })
+    },
     children: [
       {
-        path: "",
+        path: "/login",
         name: RouterKeys.LOGIN_PAGE,
         component: () =>
           import(/* webpackChunkName: "login-page" */ "@/views/LoginPage.vue"),
-        beforeEnter(to, from, next) {
-          const userStore = useUserStore()
-          const mainStore = useMainStore()
-          if (!userStore.isAuth) {
-            return next()
-          }
-          mainStore.setMessage({
-            text: "You are already registered in the system",
-            color: "info",
-          })
-          next({ name: RouterKeys.HOME_PAGE })
-        },
+      },
+      {
+        path: "/register",
+        name: RouterKeys.REGISTER_PAGE,
+        component: () =>
+          import(
+            /* webpackChunkName: "register-page" */ "@/views/RegisterPage.vue"
+          ),
       },
     ],
   },

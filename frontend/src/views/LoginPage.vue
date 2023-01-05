@@ -3,13 +3,11 @@ import LoginBg from "@/assets/images/auth/login-bg.jpg"
 import { useMainStore } from "@/store"
 import { useThemeStore } from "@/store/theme-store"
 import { useUserStore } from "@/store/user-store"
-import { SnackbarMessage } from "@/types/common"
 import { useVuelidate } from "@vuelidate/core"
 import { helpers, maxLength, required } from "@vuelidate/validators"
 
 const userStore = useUserStore()
 const mainStore = useMainStore()
-const route = useRoute()
 const themeStore = useThemeStore()
 
 /* ==================== constants START ==================== */
@@ -58,41 +56,6 @@ const onSubmit = () => {
   }
 }
 /* ==================== methods END ==================== */
-
-/* ==================== hooks START ==================== */
-onMounted(() => {
-  const { message } = route.query
-
-  if (message) {
-    let data: SnackbarMessage = {
-      text: "",
-      color: "info",
-    }
-
-    switch (message) {
-      case "login":
-        data = {
-          text: "Please log in first",
-          color: "warning",
-        }
-        break
-      case "logout":
-        data = {
-          text: "You have successfully logged out",
-          color: "success",
-        }
-        break
-      case "session":
-        data = {
-          text: "Session time has expired, log in again",
-          color: "info",
-        }
-        break
-    }
-    mainStore.setMessage(data)
-  }
-})
-/* ==================== hooks END ==================== */
 </script>
 
 <template>

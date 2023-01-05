@@ -5,6 +5,7 @@ export enum RouterKeys {
   WAIFU_ADDING = "WaifuAdding",
   HOME_PAGE = "HomePage",
   LOGIN_PAGE = "LoginPage",
+  REGISTER_PAGE = "RegisterPage",
   ERROR_PAGE = "ErrorPage",
   MODERATE_INDEX = "ModerateIndex",
   MODERATE_PAGE = "ModeratePage",

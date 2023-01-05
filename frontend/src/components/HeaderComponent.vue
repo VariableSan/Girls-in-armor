@@ -83,10 +83,16 @@ const setDrawer = () => {
           Add waifu
         </v-btn>
 
-        <v-btn v-if="!userStore.isAuth" :to="{ name: RouterKeys.LOGIN_PAGE }">
-          <v-icon icon="mdi-login" class="mr-2"></v-icon>
-          Login
-        </v-btn>
+        <template v-if="!userStore.isAuth">
+          <v-btn :to="{ name: RouterKeys.LOGIN_PAGE }">
+            <v-icon icon="mdi-login" class="mr-2"></v-icon>
+            Login
+          </v-btn>
+          <v-btn :to="{ name: RouterKeys.REGISTER_PAGE }">
+            <v-icon icon="mdi-account-plus" class="mr-2"></v-icon>
+            Register
+          </v-btn>
+        </template>
 
         <v-btn v-else @click="$emit('logout')">
           <v-icon icon="mdi-logout" class="mr-2"></v-icon>
