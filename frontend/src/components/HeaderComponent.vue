@@ -1,19 +1,14 @@
 <script setup lang="ts">
 import { RouterKeys } from "@/router/router-keys"
-import { useMainStore } from "@/store"
 import { useThemeStore } from "@/store/theme-store"
 import { useUserStore } from "@/store/user-store"
 import { Link } from "@/types/common"
-import swal from "sweetalert2"
 import { PropType } from "vue"
 import Logo from "~/static/shield-and-sword.svg?url"
 
 const route = useRoute()
 const themeStore = useThemeStore()
-const { locale, availableLocales } = useI18n()
 const userStore = useUserStore()
-const mainStore = useMainStore()
-const router = useRouter()
 
 /* ==================== defines START ==================== */
 defineProps({
@@ -21,47 +16,25 @@ defineProps({
     type: Array as PropType<Link[]>,
     default: () => [],
   },
+  showLocale: {
+    type: Boolean,
+    default: false,
+  },
+  isHomePage: {
+    type: Boolean,
+    default: false,
+  },
 })
-const emit = defineEmits(["setDrawer"])
+const emit = defineEmits(["setDrawer", "logout", "changeLocale"])
 /* ==================== defines END ==================== */
 
 /* ==================== computeds START ==================== */
 const backToListRoute = computed(() => route.meta.backToListRoute as RouterKeys)
-const isHomePage = computed(() => route.name === RouterKeys.HOME_PAGE)
-const showLocale = computed(() => import.meta.env.VITE_SHOW_LOCALE === "true")
 /* ==================== computeds END ==================== */
 
 /* ==================== methods START ==================== */
-const changeLocale = () => {
-  const index = availableLocales.findIndex(el => el === locale.value)
-  locale.value =
-    availableLocales[index + 1 < availableLocales.length ? index + 1 : 0]
-}
-
 const setDrawer = () => {
   emit("setDrawer", true)
-}
-
-const logout = async () => {
-  const userConfirm = await swal.fire({
-    title: "Do you want to log out?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, log out",
-    scrollbarPadding: false,
-  })
-  if (!userConfirm.value) {
-    return
-  }
-
-  userStore.logout()
-  mainStore.setMessage({
-    text: "You are successfully logged out",
-    color: "success",
-  })
-  router.push({ name: RouterKeys.HOME_PAGE })
 }
 /* ==================== methods END ==================== */
 </script>
@@ -115,12 +88,12 @@ const logout = async () => {
           Login
         </v-btn>
 
-        <v-btn v-else @click="logout">
+        <v-btn v-else @click="$emit('logout')">
           <v-icon icon="mdi-logout" class="mr-2"></v-icon>
           Logout
         </v-btn>
 
-        <v-btn v-if="showLocale" size="small" @click="changeLocale">
+        <v-btn v-if="showLocale" size="small" @click="$emit('changeLocale')">
           <v-icon icon="mdi-translate"></v-icon>
           <v-tooltip activator="parent"> change locale </v-tooltip>
         </v-btn>
