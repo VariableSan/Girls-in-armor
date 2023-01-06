@@ -68,7 +68,34 @@ export const getById = async (req: Request, res: Response) => {
       'user'
     )
 
-    res.json(moderate)
+    const formattedModerate = JSON.parse(JSON.stringify(moderate))
+    delete formattedModerate.user.password
+    delete formattedModerate.user.permission
+    delete formattedModerate.user.__v
+    delete formattedModerate.__v
+
+    res.json(formattedModerate)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      text: 'Something went wrong in moderate route',
+      color: 'error'
+    })
+  }
+}
+
+export const backToModerate = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body
+    const waifu = await WaifusModel.findById(id)
+    const formattedWaifu = JSON.parse(JSON.stringify(waifu))
+    const moderate = await new ModerateModel(formattedWaifu)
+    await moderate.save()
+    await WaifusModel.findByIdAndRemove(id)
+    res.status(200).json({
+      text: 'Your request has been accepted, the post is being moderated',
+      color: 'success'
+    })
   } catch (error) {
     console.error(error)
     res.status(500).json({

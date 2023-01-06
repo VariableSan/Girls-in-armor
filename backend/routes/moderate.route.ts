@@ -4,7 +4,8 @@ import {
   getModerate,
   getById,
   addToWaifuList,
-  removeById
+  removeById,
+  backToModerate
 } from '../controllers/moderate.controller'
 
 const router = Router()
@@ -35,6 +36,12 @@ router.delete(
     session: false
   }),
   removeById
+)
+
+router.post(
+  '/back-to-moderate',
+  passport.authenticate('jwt', { session: false }),
+  backToModerate
 )
 
 export default router
