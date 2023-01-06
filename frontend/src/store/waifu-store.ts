@@ -58,12 +58,12 @@ export const useWaifuStore = defineStore("waifu", () => {
   const removeWaifu = async (id: string, routeLink?: RouterKeys) => {
     const userConfirm = await swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You won't be able to revert this",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, delete it",
       scrollbarPadding: false,
     })
     if (!userConfirm.value) {
@@ -107,12 +107,12 @@ export const useWaifuStore = defineStore("waifu", () => {
   const rejectWaifu = async (id: string, routeLink?: RouterKeys) => {
     const userConfirm = await swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You won't be able to revert this",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, reject it!",
+      confirmButtonText: "Yes, reject it",
       scrollbarPadding: false,
     })
     if (!userConfirm.value) {
@@ -139,12 +139,12 @@ export const useWaifuStore = defineStore("waifu", () => {
   const acceptWaifu = async (id: string, routeLink?: RouterKeys) => {
     const userConfirm = await swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You won't be able to revert this",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, accept it!",
+      confirmButtonText: "Yes, accept it",
       scrollbarPadding: false,
     })
     if (!userConfirm.value) {
@@ -172,6 +172,35 @@ export const useWaifuStore = defineStore("waifu", () => {
     pagination.value = 1
     totalPages.value = 0
   }
+
+  const backToModerate = async (id: string, routerLink?: RouterKeys) => {
+    const userConfirm = await swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, submit for moderation",
+      scrollbarPadding: false,
+    })
+    if (!userConfirm.value) {
+      return
+    }
+
+    mainStore.globalLoading = true
+    try {
+      const res = await axiosStore.post("/moderate/back-to-moderate", { id })
+      const message = res.data
+      mainStore.setMessage(message)
+      if (routerLink) {
+        return router.push({ name: routerLink })
+      }
+      getWaifuListFromServer()
+    } finally {
+      mainStore.globalLoading = false
+    }
+  }
   /* ==================== methods END ==================== */
 
   return {
@@ -189,5 +218,6 @@ export const useWaifuStore = defineStore("waifu", () => {
     rejectWaifu,
     acceptWaifu,
     clearWaifuData,
+    backToModerate,
   }
 })

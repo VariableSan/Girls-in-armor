@@ -44,7 +44,7 @@ export const useCharactersStore = defineStore("characters", () => {
     {
       name: "Nagao Kagetora",
       quote:
-        "Fortune to the heavens, Armour upon my chest, Feats from my steps!",
+        "Fortune to the heavens, Armour upon my chest, Feats from my steps",
       image: "nagao",
       backdropPosition: {
         bgX: "66%",

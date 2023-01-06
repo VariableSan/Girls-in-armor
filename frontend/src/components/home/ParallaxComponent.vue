@@ -136,7 +136,7 @@ onBeforeUnmount(() => {
   &__hero {
     @apply relative overflow-hidden;
     @screen xl {
-      @apply min-h-[120vh];
+      @apply min-h-[100vh];
     }
     @screen -xl {
       @apply min-h-[90vh];
@@ -189,9 +189,9 @@ onBeforeUnmount(() => {
     }
   }
   &__road {
-    top: 0;
-    left: -1px;
+    @apply top-0 left-0;
     z-index: 30;
+    transform: scale(1.05);
   }
   &__moon {
     top: -90px;

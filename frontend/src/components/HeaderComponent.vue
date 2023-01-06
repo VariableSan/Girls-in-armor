@@ -165,6 +165,6 @@ const setDrawer = () => {
 }
 
 .home-page-header {
-  @apply bg-transparent;
+  @apply bg-transparent text-white;
 }
 </style>

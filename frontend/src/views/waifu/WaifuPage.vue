@@ -49,6 +49,10 @@ const removeCardById = (id: string, waifuUser: string) => {
 const acceptCardById = (id: string) => {
   waifuStore.acceptWaifu(id)
 }
+
+const backToModerate = (id: string) => {
+  waifuStore.backToModerate(id)
+}
 /* ==================== methods END ==================== */
 
 /* ==================== hooks START ==================== */
@@ -92,27 +96,41 @@ watch(route, () => {
     <v-divider class="mb-5"></v-divider>
 
     <WaifuCards
-      :loading="mainStore.globalLoading"
       :waifus="waifus"
       :route-name="route.meta.toDetailRoute"
       class="mb-5"
     >
       <template #actions="{ waifu }">
         <v-btn
-          v-if="waifu.user === user?._id || user?.permission"
-          color="error"
-          @click="removeCardById(waifu._id, waifu.user)"
-        >
-          {{ moderateMode ? "Reject" : "Remove" }}
-        </v-btn>
-
-        <v-btn
           v-if="moderateMode"
           color="success"
+          variant="outlined"
+          size="small"
           @click="acceptCardById(waifu._id)"
         >
           Accept
         </v-btn>
+
+        <template v-if="waifu.user === user?._id || user?.permission">
+          <v-btn
+            v-if="!moderateMode"
+            color="warning"
+            variant="outlined"
+            size="small"
+            @click="backToModerate(waifu._id)"
+          >
+            Return to moderation
+          </v-btn>
+
+          <v-btn
+            color="error"
+            variant="outlined"
+            size="small"
+            @click="removeCardById(waifu._id, waifu.user)"
+          >
+            {{ moderateMode ? "Reject" : "Remove" }}
+          </v-btn>
+        </template>
       </template>
     </WaifuCards>
 
@@ -128,3 +146,12 @@ watch(route, () => {
     </div>
   </v-container>
 </template>
+
+<style lang="scss" scoped>
+.v-card-actions {
+  .v-btn {
+    @apply text-xs;
+    text-transform: none;
+  }
+}
+</style>

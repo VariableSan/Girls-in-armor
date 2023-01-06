@@ -94,8 +94,10 @@ const routes: RouteRecordRaw[] = [
             path: ":id",
             meta: {
               backToListRoute: RouterKeys.MODERATE_PAGE,
+              moderateMode: true,
             },
             name: RouterKeys.MODERATE_DETAIL,
+            props: true,
             component: import(
               /* webpackChunkName: "moderate-page" */ "@/views/waifu/WaifuDetail.vue"
             ),

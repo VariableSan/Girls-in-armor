@@ -31,6 +31,7 @@ defineProps({
             class="white--text align-end"
             cover
             :src="waifu.imgUrl"
+            :lazy-src="waifu.imgUrl"
             height="350px"
           ></v-img>
         </router-link>

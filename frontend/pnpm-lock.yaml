@@ -32,6 +32,7 @@ specifiers:
   vite-plugin-windicss: ^1.8.10
   vite-svg-loader: ^4.0.0
   vue: ^3.2.41
+  vue-easy-lightbox: ^1.11.0
   vue-eslint-parser: ^9.1.0
   vue-i18n: '9'
   vue-router: ^4.1.6
@@ -51,6 +52,7 @@ dependencies:
   pinia: 2.0.27_prq2uz4lho2pwp6irk4cfkrxwu
   sweetalert2: 11.6.16
   vue: 3.2.45
+  vue-easy-lightbox: 1.11.0_vue@3.2.45
   vue-i18n: 9.2.2_vue@3.2.45
   vue-router: 4.1.6_vue@3.2.45
   vue-sweetalert2: 5.0.5_vue@3.2.45
@@ -2527,6 +2529,15 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.45
+
+  /vue-easy-lightbox/1.11.0_vue@3.2.45:
+    resolution: {integrity: sha512-t9ouC2rHz/VMt/XSbnVgkED/7Dqe/DHrX6mW4AUj5Kt1PSr3czVk+ecBtF/Q4ivmSdkNJRk2/6D5PGcwxJuozQ==}
+    engines: {node: '>=14.18.3'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.2.45
+    dev: false
 
   /vue-eslint-parser/9.1.0_eslint@8.29.0:
     resolution: {integrity: sha512-NGn/iQy8/Wb7RrRa4aRkokyCZfOUWk19OP5HP6JEozQFX5AoS/t+Z0ZN7FY4LlmWc4FNI922V7cvX28zctN8dQ==}

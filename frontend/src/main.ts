@@ -3,6 +3,7 @@ import { createPinia } from "pinia"
 import "sweetalert2/dist/sweetalert2.min.css"
 import "virtual:windi.css"
 import { createApp } from "vue"
+import VueEasyLightbox from "vue-easy-lightbox"
 import { createI18n } from "vue-i18n"
 import VueSweetalert2 from "vue-sweetalert2"
 import { createVuetify } from "vuetify"
@@ -34,7 +35,7 @@ const i18n = createI18n({
   messages: {
     en: {
       language: "Language",
-      hello: "hello, world!",
+      hello: "hello, world",
     },
     ja: {
       language: "言語",
@@ -51,4 +52,5 @@ app
   .use(vuetify)
   .use(i18n)
   .use(VueSweetalert2)
+  .use(VueEasyLightbox)
   .mount("#app")

@@ -28,5 +28,6 @@ export interface Waifu {
   imgUrl: string
   name: string
   description: string
-  user: string
+  user: string | User
+  date: string
 }

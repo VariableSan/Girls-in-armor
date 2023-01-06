@@ -21,6 +21,7 @@
     "pinia": "^2.0.27",
     "sweetalert2": "^11.6.16",
     "vue": "^3.2.41",
+    "vue-easy-lightbox": "^1.11.0",
     "vue-i18n": "9",
     "vue-router": "^4.1.6",
     "vue-sweetalert2": "^5.0.5",
