@@ -10,17 +10,17 @@ import {
 
 const router = Router()
 
-/* /api/moderate/list */
+/* /moderate/list */
 router.post(
   '/list',
   passport.authenticate('jwt', { session: false }),
   getModerate
 )
 
-/* /api/moderate/:id */
+/* /moderate/:id */
 router.get('/:id', passport.authenticate('jwt', { session: false }), getById)
 
-/* /api/moderate/add */
+/* /moderate/add */
 router.post(
   '/add',
   passport.authenticate('jwt', {
@@ -29,7 +29,7 @@ router.post(
   addToWaifuList
 )
 
-/* /api/moderate/remove */
+/* /moderate/remove */
 router.delete(
   '/remove',
   passport.authenticate('jwt', {

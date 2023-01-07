@@ -4,10 +4,10 @@ import { getWaifus, removeWaifuById } from '../controllers/list.controller'
 
 const router = Router()
 
-/* /api/list */
+/* /list */
 router.post('/', getWaifus)
 
-/* /api/list/remove */
+/* /list/remove */
 router.delete(
   '/remove',
   passport.authenticate('jwt', { session: false }),

@@ -3,7 +3,7 @@ import { getWaifuById } from '../controllers/waifu.controller'
 
 const router = Router()
 
-/* /api/waifu/:id */
+/* /waifu/:id */
 router.get('/:id', getWaifuById)
 
 export default router

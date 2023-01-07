@@ -18,7 +18,18 @@ import ModerateRouter from './routes/moderate.route'
 /*==================== INIT START ====================*/
 const app = express()
 dotenv.config()
-const { NODE_ENV, PORT, BASE_URL, DOMAIN_WHITELIST } = process.env
+const {
+  NODE_ENV,
+  PORT,
+  BASE_URL,
+  DOMAIN_WHITELIST,
+  FIREBASE_APIKEY,
+  FIREBASE_AUTHDOMAIN,
+  FIREBASE_PROJECTID,
+  FIREBASE_STORAGEBUCKET,
+  FIREBASE_MESSAGINGSENDERID,
+  FIREBASE_APPID
+} = process.env
 
 const isDev = NODE_ENV === 'development' ? true : false
 const whitelist: string[] = DOMAIN_WHITELIST ? DOMAIN_WHITELIST.split(',') : []
@@ -42,11 +53,12 @@ const corsOption: CorsOptions = {
 /*==================== MIDDLEWARE IMPORTS START ====================*/
 import { strategy } from './middleware/passport-strategy.middle'
 import { startMongo } from './middleware/mongoose.middle'
+import { firebaseApp } from './services/firebase'
 /*==================== MIDDLEWARE IMPORTS END ====================*/
 
 /* ==================== MIDDLEWARE USING START ==================== */
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json({ limit: '10mb' }))
+app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 app.use(cors(isDev ? {} : corsOption))
 app.use(passport.initialize())
 app.use(helmet())
@@ -56,6 +68,14 @@ app.use(morgan('combined'))
 /*==================== OTHERS START ====================*/
 passport.use(strategy)
 startMongo()
+firebaseApp.init({
+  apiKey: FIREBASE_APIKEY,
+  authDomain: FIREBASE_AUTHDOMAIN,
+  projectId: FIREBASE_PROJECTID,
+  storageBucket: FIREBASE_STORAGEBUCKET,
+  messagingSenderId: FIREBASE_MESSAGINGSENDERID,
+  appId: FIREBASE_APPID
+})
 /*==================== OTHERS END ====================*/
 
 /* ==================== ROUTES USE START ==================== */
