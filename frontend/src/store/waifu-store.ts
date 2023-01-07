@@ -1,5 +1,5 @@
 import { RouterKeys } from "@/router/router-keys"
-import { Waifu } from "@/types/common"
+import { ExtendedWaifu, Waifu } from "@/types/common"
 import { defineStore } from "pinia"
 import swal from "sweetalert2"
 import { useMainStore } from "."
@@ -44,10 +44,32 @@ export const useWaifuStore = defineStore("waifu", () => {
     }
   }
 
-  const saveWaifu = async (character: Partial<Waifu>) => {
+  const saveWaifu = async (character: Partial<ExtendedWaifu>) => {
+    const formData = new FormData()
+
+    if (character.imageFile?.length) {
+      formData.append("image", character.imageFile[0])
+    } else {
+      return mainStore.setMessage({
+        text: "The image was not selected",
+        color: "error",
+      })
+    }
+
+    for (const key in character) {
+      if (key !== "imageFile") {
+        const element = (character as any)[key]
+        formData.append(key, element)
+      }
+    }
+
     mainStore.globalLoading = true
     try {
-      const res = await axiosStore.post("/add", character)
+      const res = await axiosStore.post("/add", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       const message = res.data
       mainStore.setMessage(message)
       router.push({ name: RouterKeys.WAIFU_PAGE })

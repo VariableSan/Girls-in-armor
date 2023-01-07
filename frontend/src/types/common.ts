@@ -31,3 +31,7 @@ export interface Waifu {
   user: string | User
   date: string
 }
+
+export interface ExtendedWaifu extends Waifu {
+  imageFile: File[]
+}
