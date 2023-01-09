@@ -4,6 +4,7 @@
   <div class="home-page">
     <ParallaxComponent></ParallaxComponent>
     <ConfrontationComponent></ConfrontationComponent>
+    <CardsComponent></CardsComponent>
   </div>
 </template>
 

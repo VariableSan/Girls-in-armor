@@ -7,15 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Cards: typeof import('./src/components/home/cards.vue')['default']
-    Confrontation: typeof import('./src/components/home/confrontation.vue')['default']
+    CardsComponent: typeof import('./src/components/home/CardsComponent.vue')['default']
     ConfrontationComponent: typeof import('./src/components/home/ConfrontationComponent.vue')['default']
     Drawer: typeof import('./src/components/drawer.vue')['default']
     Footer: typeof import('./src/components/footer.vue')['default']
     HeaderComponent: typeof import('./src/components/HeaderComponent.vue')['default']
     HeaderComponentOld: typeof import('./src/components/HeaderComponentOld.vue')['default']
     LanguageDrop: typeof import('./src/components/LanguageDrop.vue')['default']
-    Parallax: typeof import('./src/components/home/parallax.vue')['default']
     ParallaxComponent: typeof import('./src/components/home/ParallaxComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
