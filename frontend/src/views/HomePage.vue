@@ -5,6 +5,8 @@
     <ParallaxComponent></ParallaxComponent>
     <ConfrontationComponent></ConfrontationComponent>
     <CardsComponent></CardsComponent>
+    <SliderComponent></SliderComponent>
+    <FooterComponent></FooterComponent>
   </div>
 </template>
 

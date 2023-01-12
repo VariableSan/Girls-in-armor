@@ -5,6 +5,18 @@ import nagao from "~/assets/images/cards/nagao.jpg"
 import okita from "~/assets/images/cards/okita.jpg"
 import scathach from "~/assets/images/cards/scathach.jpg"
 import tomoe from "~/assets/images/cards/tomoe.jpg"
+import jeanneDoll from "~/assets/images/slider/jeanne-doll.png"
+import jeanneSlider from "~/assets/images/slider/jeanne-slider.jpg"
+import mordredDoll from "~/assets/images/slider/mordred-doll.png"
+import mordredSlider from "~/assets/images/slider/mordred-slider.jpg"
+import nagaoDoll from "~/assets/images/slider/nagao-doll.png"
+import nagaoSlider from "~/assets/images/slider/nagao-slider.jpg"
+import okitaDoll from "~/assets/images/slider/okita-doll.png"
+import okitaSlider from "~/assets/images/slider/okita-slider.jpg"
+import scathachDoll from "~/assets/images/slider/scathach-doll.png"
+import scathachSlider from "~/assets/images/slider/scathach-slider.jpg"
+import tomoeDoll from "~/assets/images/slider/tomoe-doll.png"
+import tomoeSlider from "~/assets/images/slider/tomoe-slider.jpg"
 
 export const useCharactersStore = defineStore("characters", () => {
   const characters = ref([
@@ -14,9 +26,11 @@ export const useCharactersStore = defineStore("characters", () => {
         "I’ll do whatever I want, when I want and that’s that. But I’ll own up to my actions",
       image: mordred,
       backdropPosition: {
-        bgX: "50%",
+        bgX: "60%",
         bgY: "0",
       },
+      sliderImage: jeanneSlider,
+      dollImage: jeanneDoll,
     },
     {
       name: "Okita Souji",
@@ -24,9 +38,11 @@ export const useCharactersStore = defineStore("characters", () => {
         "Engulfed in a warm light that narrowly lies ahead, I did not want to do something like looking up at the skies",
       image: okita,
       backdropPosition: {
-        bgX: "60%",
+        bgX: "50%",
         bgY: "0",
       },
+      sliderImage: mordredSlider,
+      dollImage: mordredDoll,
     },
     {
       name: "Jeanne d'Arc",
@@ -36,6 +52,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "65%",
         bgY: "0",
       },
+      sliderImage: nagaoSlider,
+      dollImage: nagaoDoll,
     },
     {
       name: "Scathach",
@@ -46,6 +64,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "56%",
         bgY: "0",
       },
+      sliderImage: okitaSlider,
+      dollImage: okitaDoll,
     },
     {
       name: "Nagao Kagetora",
@@ -53,9 +73,11 @@ export const useCharactersStore = defineStore("characters", () => {
         "Fortune to the heavens, Armour upon my chest, Feats from my steps",
       image: nagao,
       backdropPosition: {
-        bgX: "66%",
+        bgX: "60%",
         bgY: "0",
       },
+      sliderImage: scathachSlider,
+      dollImage: scathachDoll,
     },
     {
       name: "Tomoe Gozen",
@@ -66,6 +88,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "70%",
         bgY: "60px",
       },
+      sliderImage: tomoeSlider,
+      dollImage: tomoeDoll,
     },
   ])
 
