@@ -29,7 +29,6 @@ const onResize = () => {
 }
 
 const onCharacterSelect = (index: number) => {
-  console.info(index)
   lightbox.index = index
   lightbox.visible = true
   disableParallax()

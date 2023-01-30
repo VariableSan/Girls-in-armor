@@ -49,7 +49,7 @@ const loading = computed(() => {
 
 /* ==================== methods START ==================== */
 const saveWaifu = () => {
-  if (loading) {
+  if (loading.value) {
     return
   }
 
