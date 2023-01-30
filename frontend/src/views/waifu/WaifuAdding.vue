@@ -49,6 +49,10 @@ const loading = computed(() => {
 
 /* ==================== methods START ==================== */
 const saveWaifu = () => {
+  if (loading) {
+    return
+  }
+
   if (!v$.value.$invalid) {
     const params: Partial<ExtendedWaifu> = {
       name: state.name,
@@ -145,10 +149,7 @@ const onFileChange = (files: File[]) => {
           <v-img :src="imageSrc">
             <template #placeholder>
               <v-row>
-                <v-progress-circular
-                  color="#fff"
-                  indeterminate
-                ></v-progress-circular>
+                <v-progress-circular indeterminate></v-progress-circular>
               </v-row>
             </template>
           </v-img>

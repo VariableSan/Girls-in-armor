@@ -8,6 +8,7 @@ import { User, Waifu } from "@/types/common"
 import { storeToRefs } from "pinia"
 
 const route = useRoute()
+const router = useRouter()
 const mainStore = useMainStore()
 const axiosStore = useAxiosStore()
 const { user } = storeToRefs(useUserStore())
@@ -74,19 +75,29 @@ const getData = async () => {
     const res = await axiosStore.get(
       `/${route.meta.moderateMode ? "moderate" : "waifu"}/${props.id}`,
     )
-    waifu.value = res.data
-    lightbox.imgs = []
-    lightbox.imgs.push(waifu.value.imgUrl)
+    if (res.data) {
+      waifu.value = res.data
+      lightbox.imgs = []
+      lightbox.imgs.push(waifu.value.imgUrl)
+    } else {
+      mainStore.setMessage({
+        text: "There is no data",
+        color: "error",
+      })
+      router.push({ name: RouterKeys.WAIFU_PAGE })
+    }
   } finally {
     mainStore.globalLoading = false
   }
 }
 
-const onDelete = () => {
+const onDelete = async () => {
   if (route.meta.moderateMode) {
     waifuStore.rejectWaifu(props.id, RouterKeys.MODERATE_PAGE)
   } else {
-    waifuStore.removeWaifu(props.id, RouterKeys.WAIFU_PAGE)
+    waifuStore.removeWaifu(props.id, RouterKeys.WAIFU_PAGE, {
+      forceUpdate: true,
+    })
   }
 }
 
@@ -117,6 +128,7 @@ onMounted(() => {
       class="min-h-96 py-6 px-7 relative overflow-hidden -sm:min-h-36 -sm:py-3 -sm:px-0"
       loader-height="4"
       outlined="outlined"
+      max-height="80vh"
     >
       <v-row>
         <v-col cols="12" lg="6" md="6">

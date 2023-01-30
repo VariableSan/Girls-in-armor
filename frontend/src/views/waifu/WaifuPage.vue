@@ -63,7 +63,7 @@ onMounted(() => {
   ) {
     waifuStore.clearWaifuData()
   }
-  if (waifuStore.waifuList.length === 0) {
+  if (waifuStore.waifuList.length === 0 || route.query.forceUpdate === "true") {
     getWaifus()
   }
 })

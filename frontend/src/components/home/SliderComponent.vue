@@ -153,7 +153,7 @@ watch(
     cursor: pointer;
     &:not(:last-child) {
       border-right: 3px solid #fff;
-      @screen lg {
+      @screen -lg {
         border-right: none;
         border-bottom: 3px solid #fff;
       }

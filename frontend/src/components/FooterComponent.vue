@@ -82,7 +82,6 @@
   &__link {
     display: block;
     max-width: max-content;
-    color: #fff;
     &:hover {
       .footer__github-link {
         scale: 1.1;

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { RouterKeys } from "@/router/router-keys"
 import { useMainStore } from "@/store"
 import { useThemeStore } from "@/store/theme-store"
 import { useUserStore } from "@/store/user-store"
@@ -58,6 +59,10 @@ const v$ = useVuelidate(rules, state)
 
 /* ==================== methods START ==================== */
 const onSubmit = () => {
+  if (mainStore.globalLoading) {
+    return
+  }
+
   if (!v$.value.$invalid) {
     userStore.createUser({
       email: state.email,
@@ -81,10 +86,19 @@ const onSubmit = () => {
   >
     <v-container>
       <v-card
-        class="mx-auto bg-light-400 bg-opacity-70 max-w-[30%] -lg:max-w-[60%] dark:bg-dark-400 dark:bg-opacity-70"
+        class="mx-auto bg-light-400 bg-opacity-70 max-w-[50%] -md:max-w-[80%] -lg:max-w-[70%] dark:bg-dark-400 dark:bg-opacity-70"
       >
-        <v-toolbar color="primary" class="opacity-70">
-          <v-toolbar-title>Register form</v-toolbar-title>
+        <v-toolbar color="primary">
+          <div class="flex px-3 w-[100%] justify-between items-center">
+            <h3 class="text-lg">Register form</h3>
+            <v-btn
+              class="px-2"
+              variant="outlined"
+              :to="{ name: RouterKeys.LOGIN_PAGE }"
+            >
+              Sign in
+            </v-btn>
+          </div>
         </v-toolbar>
 
         <v-card-text>

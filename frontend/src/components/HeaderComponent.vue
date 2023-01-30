@@ -130,6 +130,7 @@ onBeforeUnmount(() => {
           <v-btn
             v-if="userStore.user?.permission"
             :to="{ name: RouterKeys.MODERATE_PAGE }"
+            exact
           >
             <v-icon icon="mdi-microsoft-access" class="mr-2"></v-icon>
             Moderate
@@ -196,16 +197,7 @@ onBeforeUnmount(() => {
   }
 
   &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 0;
-    height: 2px;
-    margin: 0 auto;
-    background-color: #fff;
-    transition: all 0.3s ease-in-out;
+    @apply bg-black mx-auto h-[2px] my-0 transition-all ease-in-out right-0 bottom-0 left-0 w-0 duration-300 absolute content-[""] dark:bg-white;
   }
 }
 
@@ -229,6 +221,11 @@ onBeforeUnmount(() => {
   &--transparent {
     .v-toolbar {
       @apply bg-transparent text-white;
+      .logo {
+        &::after {
+          @apply bg-white;
+        }
+      }
     }
   }
 }

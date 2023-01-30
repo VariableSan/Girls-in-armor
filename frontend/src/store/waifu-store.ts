@@ -7,6 +7,10 @@ import { useAxiosStore } from "./axios-store"
 
 type ModeType = "waifu" | "moderate"
 
+interface EditingWaifuParams {
+  forceUpdate: boolean
+}
+
 export const useWaifuStore = defineStore("waifu", () => {
   const mainStore = useMainStore()
   const axiosStore = useAxiosStore()
@@ -77,7 +81,11 @@ export const useWaifuStore = defineStore("waifu", () => {
       mainStore.globalLoading = false
     }
   }
-  const removeWaifu = async (id: string, routeLink?: RouterKeys) => {
+  const removeWaifu = async (
+    id: string,
+    routeLink?: RouterKeys,
+    params?: Partial<EditingWaifuParams>,
+  ) => {
     const userConfirm = await swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this",
@@ -102,9 +110,17 @@ export const useWaifuStore = defineStore("waifu", () => {
       const message = res.data
       mainStore.setMessage(message)
       if (routeLink) {
-        return router.push({ name: routeLink })
+        const query = <any>{}
+        if (params?.forceUpdate) {
+          query.forceUpdate = true
+        }
+        router.push({
+          name: routeLink,
+          query,
+        })
+      } else {
+        getWaifuListFromServer()
       }
-      getWaifuListFromServer()
     } finally {
       mainStore.globalLoading = false
     }
