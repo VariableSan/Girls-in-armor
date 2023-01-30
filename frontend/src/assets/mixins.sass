@@ -1,9 +1,0 @@
-@mixin font-generate($font-name, $font-family, $font-weight, $font-style)
-	$prefix: "~assets/fonts/" + $font-name
-
-	@font-face
-		font-family: $font-family
-
-		src: url($prefix + ".ttf") format('truetype')
-		font-weight: $font-weight
-		font-style: $font-style

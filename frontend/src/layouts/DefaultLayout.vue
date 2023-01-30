@@ -32,11 +32,6 @@ const links = ref<Link[]>([
     icon: "mdi-format-list-bulleted",
     exact: true,
   },
-  /* {
-    title: "Register",
-    route: "/auth/register",
-    icon: "mdi-account-plus",
-  }, */
 ])
 
 const drawer = ref(false)
