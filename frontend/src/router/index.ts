@@ -52,7 +52,7 @@ const routes: RouteRecordRaw[] = [
               ),
           },
           {
-            path: "/add",
+            path: "add",
             name: RouterKeys.WAIFU_ADDING,
             component: () =>
               import(
@@ -136,15 +136,18 @@ const routes: RouteRecordRaw[] = [
       })
       next({ name: RouterKeys.HOME_PAGE })
     },
+    redirect: {
+      name: RouterKeys.LOGIN_PAGE,
+    },
     children: [
       {
-        path: "/login",
+        path: "login",
         name: RouterKeys.LOGIN_PAGE,
         component: () =>
           import(/* webpackChunkName: "login-page" */ "@/views/LoginPage.vue"),
       },
       {
-        path: "/register",
+        path: "register",
         name: RouterKeys.REGISTER_PAGE,
         component: () =>
           import(

@@ -9,18 +9,12 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CardsComponent: typeof import('./src/components/home/CardsComponent.vue')['default']
     ConfrontationComponent: typeof import('./src/components/home/ConfrontationComponent.vue')['default']
-    Drawer: typeof import('./src/components/drawer.vue')['default']
-    Footer: typeof import('./src/components/footer.vue')['default']
     FooterComponent: typeof import('./src/components/FooterComponent.vue')['default']
     HeaderComponent: typeof import('./src/components/HeaderComponent.vue')['default']
-    HeaderComponentOld: typeof import('./src/components/HeaderComponentOld.vue')['default']
-    LanguageDrop: typeof import('./src/components/LanguageDrop.vue')['default']
     ParallaxComponent: typeof import('./src/components/home/ParallaxComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Slider: typeof import('./src/components/home/slider.vue')['default']
     SliderComponent: typeof import('./src/components/home/SliderComponent.vue')['default']
-    Snackbar: typeof import('./src/components/snackbar.vue')['default']
     WaifuCards: typeof import('./src/components/waifu/WaifuCards.vue')['default']
     WaifuMore: typeof import('./src/components/waifu/WaifuMore.vue')['default']
   }

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Clouds from "@/assets/images/clouds2-min.png"
-import Jeanne from "@/assets/images/Jeanne d'Arc-min.png"
+import Jeanne from "@/assets/images/Jeanne darc-min.png"
 import Moon from "@/assets/images/moon-min.png"
 import Road from "@/assets/images/road-min.png"
 import MobileBg from "@/assets/images/mobile-bg.jpg"
