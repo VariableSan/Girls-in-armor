@@ -1,3 +1,4 @@
+import { Character } from "@/types/common"
 import { defineStore } from "pinia"
 import jeanne from "~/assets/images/cards/jeanne.jpg"
 import mordred from "~/assets/images/cards/mordred.jpg"
@@ -19,7 +20,7 @@ import tomoeDoll from "~/assets/images/slider/tomoe-doll.png"
 import tomoeSlider from "~/assets/images/slider/tomoe-slider.jpg"
 
 export const useCharactersStore = defineStore("characters", () => {
-  const characters = ref([
+  const characters = ref<Character[]>([
     {
       name: "Mordred",
       quote:
@@ -29,8 +30,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "60%",
         bgY: "0",
       },
-      sliderImage: jeanneSlider,
-      dollImage: jeanneDoll,
+      sliderImage: mordredSlider,
+      dollImage: mordredDoll,
     },
     {
       name: "Okita Souji",
@@ -41,8 +42,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "50%",
         bgY: "0",
       },
-      sliderImage: mordredSlider,
-      dollImage: mordredDoll,
+      sliderImage: okitaSlider,
+      dollImage: okitaDoll,
     },
     {
       name: "Jeanne d'Arc",
@@ -52,8 +53,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "65%",
         bgY: "0",
       },
-      sliderImage: nagaoSlider,
-      dollImage: nagaoDoll,
+      sliderImage: jeanneSlider,
+      dollImage: jeanneDoll,
     },
     {
       name: "Scathach",
@@ -64,8 +65,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "56%",
         bgY: "0",
       },
-      sliderImage: okitaSlider,
-      dollImage: okitaDoll,
+      sliderImage: scathachSlider,
+      dollImage: scathachDoll,
     },
     {
       name: "Nagao Kagetora",
@@ -76,8 +77,8 @@ export const useCharactersStore = defineStore("characters", () => {
         bgX: "60%",
         bgY: "0",
       },
-      sliderImage: scathachSlider,
-      dollImage: scathachDoll,
+      sliderImage: nagaoSlider,
+      dollImage: nagaoDoll,
     },
     {
       name: "Tomoe Gozen",
@@ -86,7 +87,7 @@ export const useCharactersStore = defineStore("characters", () => {
       image: tomoe,
       backdropPosition: {
         bgX: "70%",
-        bgY: "60px",
+        bgY: "20px",
       },
       sliderImage: tomoeSlider,
       dollImage: tomoeDoll,

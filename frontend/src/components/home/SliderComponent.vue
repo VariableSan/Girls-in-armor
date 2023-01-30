@@ -6,6 +6,14 @@ import Parallax from "parallax-js"
 const characterStore = useCharactersStore()
 const { width } = useWindowSize()
 
+/* ==================== reactives START ==================== */
+const lightbox = reactive({
+  visible: false,
+  imgs: characterStore.characters.map(character => character.sliderImage),
+  index: 0,
+})
+/* ==================== reactives END ==================== */
+
 /* ==================== refs START ==================== */
 const parallax = ref<Parallax[]>([])
 const scene = ref<HTMLElement[]>([])
@@ -14,14 +22,33 @@ const scene = ref<HTMLElement[]>([])
 /* ==================== methods START ==================== */
 const onResize = () => {
   if (width.value > 1200) {
-    parallax.value.forEach(element => {
-      element.enable()
-    })
+    enableParallax()
   } else {
-    parallax.value.forEach(element => {
-      element.disable()
-    })
+    disableParallax()
   }
+}
+
+const onCharacterSelect = (index: number) => {
+  console.info(index)
+  lightbox.index = index
+  lightbox.visible = true
+  disableParallax()
+}
+
+const enableParallax = () => {
+  parallax.value.forEach(element => {
+    element.enable()
+  })
+}
+
+const disableParallax = () => {
+  parallax.value.forEach(element => {
+    element.disable()
+  })
+}
+
+const onLightboxClose = () => {
+  enableParallax()
 }
 /* ==================== methods END ==================== */
 
@@ -36,6 +63,20 @@ onMounted(() => {
   })
 })
 /* ==================== hooks END ==================== */
+
+/* ==================== watchers START ==================== */
+watch(
+  () => lightbox.visible,
+  val => {
+    if (!val) {
+      onLightboxClose()
+    }
+  },
+  {
+    deep: true,
+  },
+)
+/* ==================== watchers END ==================== */
 </script>
 
 <template>
@@ -53,9 +94,10 @@ onMounted(() => {
       </div>
       <div class="home__slider__block">
         <div
-          v-for="character in characterStore.characters"
+          v-for="(character, index) in characterStore.characters"
           :key="character.name"
           class="home__slider__item"
+          @click="onCharacterSelect(index)"
         >
           <div ref="scene" class="home__slider__inner" data-hover-only="true">
             <div
@@ -78,6 +120,14 @@ onMounted(() => {
       </div>
     </v-container>
   </section>
+
+  <vue-easy-lightbox
+    :visible="lightbox.visible"
+    :imgs="lightbox.imgs"
+    :index="lightbox.index"
+    @hide="lightbox.visible = false"
+  >
+  </vue-easy-lightbox>
 </template>
 
 <style lang="scss" scoped>

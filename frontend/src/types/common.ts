@@ -35,3 +35,12 @@ export interface Waifu {
 export interface ExtendedWaifu extends Waifu {
   imageFile: File[]
 }
+
+export interface Character {
+  name: string
+  quote: string
+  image: string
+  backdropPosition: { [key: string]: string }
+  sliderImage: string
+  dollImage: string
+}
