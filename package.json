@@ -24,7 +24,7 @@
 		"@unhead/vue": "^2.0.5",
 		"@vueuse/nuxt": "^13.1.0",
 		"jwt-decode": "^4.0.0",
-		"nuxt": "^3.16.2",
+		"nuxt": "^3.19.2",
 		"nuxt-easy-lightbox": "^1.0.2",
 		"nuxt-zod-i18n": "^1.11.5",
 		"parallax-js": "^3.1.0",
